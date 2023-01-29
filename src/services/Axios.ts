@@ -4,8 +4,8 @@ const axiosIntance: AxiosInstance = axios.create({
     baseURL: "https://prepa-backend.fly.dev/api",
     withCredentials: true,
     headers: {
-        "Content-Type": "application/json"
-        //"Access-Control-Allow-Origin": "*"
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
         //'Content-Type': 'multipart/form-data',
     }
 })
