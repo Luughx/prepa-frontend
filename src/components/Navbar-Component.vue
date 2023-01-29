@@ -142,6 +142,7 @@
     },
     async created() {
       const res = await getData()
+      console.log(res.data)
       if (res.data) {
         let userData:UserComplete
         userData = res.data.user
