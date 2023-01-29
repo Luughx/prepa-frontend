@@ -10,7 +10,7 @@ const routes: RouteRecordRaw[] = [
         name: "index",
         component: () => import("@/views/main/inicio-view.vue"),
         meta: {
-            title: "asdas"
+            title: ""
         }
     },
     {
