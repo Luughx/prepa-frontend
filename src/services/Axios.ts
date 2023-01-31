@@ -5,7 +5,7 @@ const axiosIntance: AxiosInstance = axios.create({
     withCredentials: true,
     headers: {
         "Content-Type": "application/json",
-        'Access-Control-Allow-Credentials': 'true',
+        'Access-Control-Allow-Credentials': 'include',
         'Access-Control-Allow-Headers': '*',
         'Access-Control-Allow-Origin': '*'
         //'Content-Type': 'multipart/form-data',
