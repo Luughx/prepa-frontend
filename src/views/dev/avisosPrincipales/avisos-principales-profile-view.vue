@@ -1,5 +1,5 @@
 <template>
-    <div v-if="$store.getters.connected && $store.state.getters.isOwner">
+    <div v-if="$store.getters.connected && $store.getters.isOwner">
         <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
