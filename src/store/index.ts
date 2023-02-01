@@ -31,7 +31,6 @@ export default createStore({
         ["LOGIN"](state, userData:UserComplete) {
             state.user = userData
             state.connected = true
-            console.log("registra")
         },
         ["SET_CONNECT"](state) {
             state.connected = true 

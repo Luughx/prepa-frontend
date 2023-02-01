@@ -85,7 +85,6 @@
             ]),
             async login() {
                 const res = await postSignin(this.user)
-                console.log(res.data)
                 if (res.data.errorMessage) {
                     this.errorMessage = true
                 } else {
