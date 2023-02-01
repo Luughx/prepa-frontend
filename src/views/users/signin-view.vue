@@ -90,7 +90,7 @@
                 } else {
                     let userData:UserComplete
                     userData = res.data.userFind
-                    userData.owner = res.data.userOwn
+                    userData.owner = res.data.owner
                     this.LoginAction(userData)
                     this.$router.push("/perfil/"+res.data.userFind._id)
                 }
