@@ -5,8 +5,15 @@
             <button type="button" data-bs-target="#carouselExampleCaptions"  v-for="button in buttons" :key="button.num" :data-bs-slide-to="button.num" :aria-label="'Slide'+ button.num">
             </button>
         </div>
+        <div class="carousel-inner" v-if="loading">
+            <div class="carousel-item active">
+                <div class="placeholder-glow">
+                    <img class="placeholder img-slideshow">
+                </div>
+            </div>
 
-        <div class="carousel-inner" v-if="exist">
+        </div>
+        <div class="carousel-inner" v-else-if="!loading && exist">
             <div class="carousel-item active">
                 <div v-if="avisoPrincipal.link">
                     <a :href="avisoPrincipal.link.toString()" target="_blank" rel="noopener noreferrer">
@@ -50,7 +57,8 @@
             </div>
 
         </div>
-        <div class="carousel-inner" v-else>
+        
+        <div class="carousel-inner" v-else-if="!loading && !exist">
             <div class="carousel-item active">
                 <div>
                     <img src="https://res.cloudinary.com/lughx/image/upload/v1655419666/Estaticos/Index/sin_avisos_gwdz6y.png" 
@@ -188,22 +196,41 @@ export default defineComponent({
             avisoPrincipal: {} as Aviso_Principal,
             avisosSecundarios: [] as Aviso_Principal[],
             buttons: [] as Buttons[],
-            exist: false
+            exist: false,
+            loading: true
         }
     }, 
     async mounted() {
-        this.getAvisoP()
-        this.getAvisosS()
+        
+        this.getAvisos()
+        
     },
     methods: {
+        async getAvisos() {
+            this.loading = true
+            const resP = await getAvisoPrincipalPrincipal()
+
+            if (resP.data) {
+                this.avisoPrincipal = resP.data
+                this.exist = true
+            }
+
+            if (this.exist) {
+                const res = await getAvisosPrincipalesSecundarios()
+                this.avisosSecundarios = res.data
+                for(let i=0;i<= this.avisosSecundarios.length-1; i++) {
+                    this.buttons.push({num: i+1})
+                }
+            }
+            this.loading = false
+        },
         async getAvisoP() {
             const res = await getAvisoPrincipalPrincipal()
-            //console.log(res.data)
+
             if (res.data) {
                 this.avisoPrincipal = res.data
                 this.exist = true
             }
-            //console.log(this.avisoPrincipal.link.length)
         },
         async getAvisosS() {
             const res = await getAvisosPrincipalesSecundarios()

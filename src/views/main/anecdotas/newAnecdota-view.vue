@@ -39,7 +39,7 @@
                     v-model="v$.anecdota.author.$model" 
                     />
 
-                    <button class="btn btn-primary w-100" :disabled="v$.$invalid && !loading">Enviar anécdota</button>
+                    <button class="btn btn-primary w-100" :disabled="v$.$invalid && !sending">Enviar anécdota</button>
                 </form>
             </div>
         </div>
@@ -67,7 +67,7 @@
         data() {
             return {
                 anecdota: {} as Anecdota,
-                loading: false
+                sending: false
             }
         },
         methods: {
@@ -75,7 +75,7 @@
 
                 if (!this.anecdota.author) this.anecdota.author = "Anónimo"
                 
-                this.loading = true
+                this.sending = true
                 await postSend(this.anecdota)
                 this.$router.push("/anecdotas")
             }
@@ -89,7 +89,7 @@
                     },
                     description: {
                         required: helpers.withMessage("Este espacio no puede estar vacio", required),
-                        maxLength: helpers.withMessage("El titulo no puede ser mayor a 200 caracteres", maxLength(200))
+                        maxLength: helpers.withMessage("La descripción no puede ser mayor a 200 caracteres", maxLength(200))
                     },
                     info: {
                         required: helpers.withMessage("Este espacio no puede estar vacio", required)

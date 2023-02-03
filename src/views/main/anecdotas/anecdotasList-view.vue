@@ -2,19 +2,111 @@
     <div class="container p-4">
         <div class="col-md-8">
 
-            <div v-for="anecdota in anecdotas" :key="anecdota._id">
-                <div class="fs-5">
-                <hr>
-                <h4>{{anecdota.title}}</h4>
-                <div>
-                    {{anecdota.description}}
-                </div>
-                <div class="fs-6">
-                    - {{anecdota.author}}
-                </div>
-                <a @click="$router.push(`/anecdota/${anecdota._id}`)" class="btn btn-outline-primary btn-sm" >Ver más</a>
+            <div v-if="!loading">
+                <div v-for="anecdota in anecdotas" :key="anecdota._id">
+                    <div class="fs-5">
+                        <hr>
+                        <h4>{{anecdota.title}}</h4>
+                        <div>
+                            {{anecdota.description}}
+                        </div>
+                        <div class="fs-6">
+                            - {{anecdota.author}}
+                        </div>
+                        <a @click="$router.push(`/anecdota/${anecdota._id}`)" class="btn btn-outline-primary btn-sm" >Ver más</a>
+                        <a v-if="$store.getters.connected && $store.getters.isOwner" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" :data-bs-target="`#exampleModal${anecdota._id}`"><font-awesome-icon icon="fa-solid fa-trash-can" /> Eliminar</a>
+        
+                        <div v-if="$store.getters.connected && $store.getters.isOwner" class="modal fade" :id="`exampleModal${anecdota._id}`" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content" v-bind:class="{'night-bg': $store.getters.night}">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Eliminar anécdota</h5>
+                                        <button type="button" class="btn-close" v-bind:class="{'btn-close-white': $store.getters.night}" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        ¿Está seguro que quiere eliminar esta anécdota?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                        <button class="btn btn-danger" data-bs-dismiss="modal" @click="deleteAnecdota(anecdota._id)">Eliminar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>  
+                    </div>
                 </div>
             </div>
+            <div class="placeholder-glow" v-else>
+                <div class="fs-5">
+                    <hr>
+                    <div>
+                        <h4>
+                            <span class="placeholder col-4"></span>
+                        </h4>
+                        <div>
+                            <span class="placeholder col-12"></span>
+                            <span class="placeholder col-7"></span>
+                        </div>
+                        <div class="fs-6">
+                            <span class="placeholder col-2"></span>
+                        </div>
+                    </div>
+                    <hr>
+                    <div>
+                        <h4>
+                            <span class="placeholder col-4"></span>
+                        </h4>
+                        <div>
+                            <span class="placeholder col-12"></span>
+                            <span class="placeholder col-7"></span>
+                        </div>
+                        <div class="fs-6">
+                            <span class="placeholder col-2"></span>
+                        </div>
+                    </div>
+                    <hr>
+                    <div>
+                        <h4>
+                            <span class="placeholder col-4"></span>
+                        </h4>
+                        <div>
+                            <span class="placeholder col-12"></span>
+                            <span class="placeholder col-7"></span>
+                        </div>
+                        <div class="fs-6">
+                            <span class="placeholder col-2"></span>
+                        </div>
+                    </div>
+                    <hr>
+                    <div>
+                        <h4>
+                            <span class="placeholder col-4"></span>
+                        </h4>
+                        <div>
+                            <span class="placeholder col-12"></span>
+                            <span class="placeholder col-7"></span>
+                        </div>
+                        <div class="fs-6">
+                            <span class="placeholder col-2"></span>
+                        </div>
+                    </div>
+                    <hr>
+                    <div>
+                        <h4>
+                            <span class="placeholder col-4"></span>
+                        </h4>
+                        <div>
+                            <span class="placeholder col-12"></span>
+                            <span class="placeholder col-7"></span>
+                        </div>
+                        <div class="fs-6">
+                            <span class="placeholder col-2"></span>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+
 
             <nav class="">
                 <ul class="pagination justify-content-center">
@@ -70,7 +162,8 @@ export default defineComponent({
             listVal: {} as ListVal,
             listNum: [],
             nextPage: 0, 
-            prevPage: 0
+            prevPage: 0,
+            loading: true
         }
         
     }, 
@@ -90,6 +183,7 @@ export default defineComponent({
             }
         },
         async CargarAnecdotas() {
+            this.loading = true
             const res = await getAnecdotasList(this.$route.params)
             //console.log(res.data)
             if (this.$route.params.id == "1") {
@@ -101,6 +195,8 @@ export default defineComponent({
 
             this.nextPage = res.data.nextPage
             this.prevPage = res.data.prevPage
+
+            this.loading = false
         }
     }
 })

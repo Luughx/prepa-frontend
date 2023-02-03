@@ -14,40 +14,112 @@
                 </div>
             </div>
 
-            <div v-for="anecdota in anecdotas" :key="anecdota._id">
-                <div class="fs-5">
-                    <hr>
-                    <h4>{{anecdota.title}}</h4>
-                    <div>
-                        {{anecdota.description}}
-                    </div>
-                    <div class="fs-6">
-                        - {{anecdota.author}}
-                    </div>
-                    <a @click="$router.push(`/anecdota/${anecdota._id}`)" class="btn btn-outline-primary btn-sm" >Ver más</a>
-                    <a v-if="$store.getters.connected && $store.getters.isOwner" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" :data-bs-target="`#exampleModal${anecdota._id}`"><font-awesome-icon icon="fa-solid fa-trash-can" /> Eliminar</a>
-
-                    <div v-if="$store.getters.connected && $store.getters.isOwner" class="modal fade" :id="`exampleModal${anecdota._id}`" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content" v-bind:class="{'night-bg': $store.getters.night}">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Eliminar anécdota</h5>
-                                    <button type="button" class="btn-close" v-bind:class="{'btn-close-white': $store.getters.night}" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    ¿Está seguro que quiere eliminar esta anécdota?
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                    <button class="btn btn-danger" data-bs-dismiss="modal" @click="deleteAnecdota(anecdota._id)">Eliminar</button>
+            <div v-if="!loading">
+                <div v-for="anecdota in anecdotas" :key="anecdota._id">
+                    <div class="fs-5">
+                        <hr>
+                        <h4>{{anecdota.title}}</h4>
+                        <div>
+                            {{anecdota.description}}
+                        </div>
+                        <div class="fs-6">
+                            - {{anecdota.author}}
+                        </div>
+                        <a @click="$router.push(`/anecdota/${anecdota._id}`)" class="btn btn-outline-primary btn-sm" >Ver más</a>
+                        <a v-if="$store.getters.connected && $store.getters.isOwner" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" :data-bs-target="`#exampleModal${anecdota._id}`"><font-awesome-icon icon="fa-solid fa-trash-can" /> Eliminar</a>
+    
+                        <div v-if="$store.getters.connected && $store.getters.isOwner" class="modal fade" :id="`exampleModal${anecdota._id}`" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content" v-bind:class="{'night-bg': $store.getters.night}">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Eliminar anécdota</h5>
+                                        <button type="button" class="btn-close" v-bind:class="{'btn-close-white': $store.getters.night}" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        ¿Está seguro que quiere eliminar esta anécdota?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                        <button class="btn btn-danger" data-bs-dismiss="modal" @click="deleteAnecdota(anecdota._id)">Eliminar</button>
+                                    </div>
                                 </div>
                             </div>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+            <div class="placeholder-glow" v-else>
+                <div class="fs-5">
+                    <hr>
+                    <div>
+                        <h4>
+                            <span class="placeholder col-4"></span>
+                        </h4>
+                        <div>
+                            <span class="placeholder col-12"></span>
+                            <span class="placeholder col-7"></span>
                         </div>
-                    </div>  
+                        <div class="fs-6">
+                            <span class="placeholder col-2"></span>
+                        </div>
+                    </div>
+                    <hr>
+                    <div>
+                        <h4>
+                            <span class="placeholder col-4"></span>
+                        </h4>
+                        <div>
+                            <span class="placeholder col-12"></span>
+                            <span class="placeholder col-7"></span>
+                        </div>
+                        <div class="fs-6">
+                            <span class="placeholder col-2"></span>
+                        </div>
+                    </div>
+                    <hr>
+                    <div>
+                        <h4>
+                            <span class="placeholder col-4"></span>
+                        </h4>
+                        <div>
+                            <span class="placeholder col-12"></span>
+                            <span class="placeholder col-7"></span>
+                        </div>
+                        <div class="fs-6">
+                            <span class="placeholder col-2"></span>
+                        </div>
+                    </div>
+                    <hr>
+                    <div>
+                        <h4>
+                            <span class="placeholder col-4"></span>
+                        </h4>
+                        <div>
+                            <span class="placeholder col-12"></span>
+                            <span class="placeholder col-7"></span>
+                        </div>
+                        <div class="fs-6">
+                            <span class="placeholder col-2"></span>
+                        </div>
+                    </div>
+                    <hr>
+                    <div>
+                        <h4>
+                            <span class="placeholder col-4"></span>
+                        </h4>
+                        <div>
+                            <span class="placeholder col-12"></span>
+                            <span class="placeholder col-7"></span>
+                        </div>
+                        <div class="fs-6">
+                            <span class="placeholder col-2"></span>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
 
-            <nav class="">
+            <nav>
                 <ul class="pagination justify-content-center">
                     <li class="page-item">
                         <a class="page-link" v-bind:class="{'pagination-night-disabled': $store.getters.night}">Anterior</a>
@@ -89,7 +161,8 @@ export default defineComponent({
         return {
             anecdotas: [] as Anecdota[],
             listVal: [],
-            listNum: []
+            listNum: [],
+            loading: true
         }
     }, 
     mounted() {
@@ -97,15 +170,17 @@ export default defineComponent({
     },
     methods: {
         async CargarAnecdotas() {
+            this.loading = true
             const res = await getAnecdotas()
             this.listVal = res.data.listVal
             this.listNum = res.data.listNum
             this.anecdotas = res.data.docs
+            this.loading = false;
         },
         async deleteAnecdota(anecdota:any) {
-                await deleteAnecdota(anecdota)
-                this.CargarAnecdotas()
-            }
+            await deleteAnecdota(anecdota)
+            this.CargarAnecdotas()
+        }
     }
 })
 </script>
