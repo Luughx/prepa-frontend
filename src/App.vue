@@ -1,8 +1,8 @@
 <template>
 
-  <Navbar ref="navbar" />
+  <Navbar ref="navbar" v-if="!$store.getters.hideInterface"/>
   <router-view />
-  <Footer />
+  <Footer v-if="!$store.getters.hideInterface && !$store.getters.hideFooter" />
 
 </template>
 

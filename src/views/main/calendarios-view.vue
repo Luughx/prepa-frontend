@@ -7,20 +7,63 @@
             <div class="col-lg-4 section">
             <div>
                 <h3>Calendario escolar 2022</h3>
-                <p><a class="btn btn-outline-secondary" href="http://67.225.220.160/~prepaco1/boletapdf/index.php" target="_blank" rel="noopener noreferrer">Ver más</a></p>
+                <button class="btn btn-outline-primary" @click="changeEscolar()">Ver más</button>
             </div>
             </div>
             
             <div class="col-lg-4 section">
                 <h3>Exámenes de 3era y 4ta etapa</h3>
-                <p><a class="btn btn-outline-secondary" href="http://67.225.220.160/~prepaco1/cuotas/leer.html" target="_blank" rel="noopener noreferrer">Ver más</a></p>
+                <button class="btn btn-outline-primary" @click="changeNormal()">Ver más</button>
             </div>
 
             <div class="col-lg-4 section">
                 <h3>Exámenes semestrales</h3>
-                <p><a class="btn btn-outline-secondary" href="https://www.prepa2030.com.mx/_files/ugd/65b189_0dbd23a60a4047f886466a5237618897.pdf" target="_blank" rel="noopener noreferrer">Ver más</a></p>
+                <button class="btn btn-outline-primary" @click="changeSemestral()">Ver más</button>
             </div>
-            
         </div>
+        <br> 
+        <div class="div-center">
+            <iframe :src="`${$store.getters.urlPdf}/${currentCalendar}`" frameborder="0"></iframe>
+        </div>
+
     </div>
 </template>
+
+<script lang="ts">
+
+    import { defineComponent } from "vue-demi";
+
+    export default defineComponent({
+        data() {
+            return {
+                currentCalendar: "Calendario-Escolar-2022-Ago.pdf"
+            }
+        },
+        methods: {
+            changeEscolar() {
+                this.currentCalendar = "Calendario-Escolar-2022-Ago.pdf"
+            },
+            changeNormal() {
+                this.currentCalendar = "Calendarización-de-Examenes-Enero-Junio-2023.pdf"
+            },
+            changeSemestral() {
+                this.currentCalendar = "Sem-ago-dic-22.pdf"
+            }
+        }
+    })
+
+</script>
+
+<style >
+
+    .div-center {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    iframe {
+        width: 80%;
+        height: 100vh;
+    }
+</style>

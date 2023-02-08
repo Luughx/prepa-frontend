@@ -3,10 +3,8 @@
         <div class="row">
             <div class="col-md-6 mx-auto">
                 <div class="card" v-bind:class="{'card-night': $store.getters.night}">
-                    <div class="card-header">
-                        <h3 class="text-center">Registro</h3>
-                    </div>
                     <div class="card-body">
+                        <h1 class="h3 mb-3 fw-normal text-center">Registro</h1>
                         <div class="alert alert-danger alert-dismissible fade show" v-if="errorBool">
                             {{errorMessage}}
                             <button type="button" class="btn-close" @click="ocultarError()"></button>
@@ -16,62 +14,67 @@
                                 <div class="col-md-6 ">
                                     <BaseInput 
                                     v-bind:class="{'input-night': $store.getters.night}"
-                                    label="Nombre" 
+                                    labelText="Nombre"
                                     v-model="v$.user.name.$model" 
                                     :errors="v$.user.name.$errors"
                                     :isValidData="!v$.user.name.$invalid"
+                                    floating
                                     />
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <BaseInput 
                                     v-bind:class="{'input-night': $store.getters.night}"
-                                    label="Apellidos" 
+                                    labelText="Apellidos" 
                                     v-model="v$.user.lastName.$model" 
                                     :errors="v$.user.lastName.$errors"
                                     :isValidData="!v$.user.lastName.$invalid"
+                                    floating
                                     />
                                 </div>
                             </div>
 
                             <BaseInput 
-                            label="Correo electrónico" 
+                            labelText="Correo electrónico" 
                             type="email"
                             v-model="v$.user.email.$model" 
                             :errors="v$.user.email.$errors"
                             :isValidData="!v$.user.email.$invalid"
                             :class="{ 'is-invalid': !verify && !inicio, 'is-valid': verify && inicio, 'input-night': $store.getters.night}"
+                            floating
                             />
                             
                             <div class="row">
                                 <div class="col-md-6">
                                     <BaseInput 
                                     v-bind:class="{'input-night': $store.getters.night}"
-                                    label="Contraseña" 
+                                    labelText="Contraseña" 
                                     type="password"
                                     v-model="v$.user.password.$model" 
                                     :errors="v$.user.password.$errors"
                                     :isValidData="!v$.user.password.$invalid"
+                                    floating
                                     />
                                 </div>
 
                                 <div class="col-md-6">
                                     <BaseInput 
-                                    label="Confirmar contraseña" 
+                                    labelText="Confirmar contraseña" 
                                     type="password"
                                     v-bind:class="{'input-night': $store.getters.night}"
                                     v-model="v$.user.confirmPassword.$model" 
                                     :errors="v$.user.confirmPassword.$errors"
                                     :isValidData="!v$.user.confirmPassword.$invalid"
+                                    floating
                                     />
                                 </div>
                             </div>
                             
                             <button class="btn btn-primary w-100 mb-3" :disabled="v$.$invalid">Registrarse</button>
+                            <p class="mt-3 mb-2 text-muted">
+                                <label>¿ya tienes cuenta?</label>
+                                <router-link to="/usuarios/iniciar-sesion"> ingresa aqui</router-link>
+                            </p>
                         </form>
-                    </div>
-                    <div class="card-footer">
-                        <label>¿ya tienes cuenta?</label>
-                        <router-link to="/usuarios/iniciar-sesion"> ingresa aqui</router-link>
                     </div>
                 </div>
             </div>

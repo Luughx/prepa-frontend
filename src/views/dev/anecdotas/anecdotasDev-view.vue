@@ -1,11 +1,14 @@
 <template>
     <div class="container p-4" v-if="$store.getters.connected && $store.getters.isOwner">
         <div class="col-md-8">
-            <h1>dev</h1>
-            <table class="table" v-bind:class="{'night-bg': $store.getters.night}">
+            <h1>Anécdotas</h1>
+            <table class="table table-hover" v-bind:class="{'night-bg table-dark': $store.getters.night}">
                 <thead>
-                    <th>Titulo</th>
-                    <th>Descripción</th>
+                    <tr>
+                        <th>Titulo</th>
+                        <th>Descripción</th>
+                        <th></th>
+                    </tr>
                 </thead>
                 <tbody v-for="anecdota in anecdotas" :key="anecdota._id">
                     <tr>
@@ -17,22 +20,24 @@
                         </td>
                         <td>
                             <a href="#" class="btn btn-sm btn-outline-primary" @click="aceptarAnecdotas(anecdota._id)">Aceptar</a>
-                            <a class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" :data-bs-target="`#exampleModal${anecdota._id}`">Eliminar</a>
-                            <router-link class="btn btn-sm btn-outline-secondary" :to="'/dev/anecdotas/'+anecdota._id">Ver</router-link>
+                            <a class="btn btn-sm btn-outline-danger ms-2" data-bs-toggle="modal" :data-bs-target="`#exampleModal${anecdota._id}`">Eliminar</a>
+                            <router-link class="btn btn-sm btn-outline-secondary ms-2"  v-bind:class="{'btn-outline-light': $store.getters.night, 'btn-outline-secondary': !$store.getters.night}" :to="'/dev/anecdotas/'+anecdota._id">Ver</router-link>
 
-                            <div class="modal fade"  :id="`exampleModal${anecdota._id}`" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade py-5"  :id="`exampleModal${anecdota._id}`" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" >
-                                    <div class="modal-content" v-bind:class="{'input-night': $store.getters.night}">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Eliminar anécdota</h5>
+                                    <div class="modal-content rounded-4 shadow" v-bind:class="{'input-night': $store.getters.night}">
+                                        <div class="modal-header border-bottom-0">
+                                            <h1 class="modal-title fs-5">Eliminar anécdota</h1>
                                             <button type="button" class="btn-close" v-bind:class="{'btn-close-white': $store.getters.night}" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
-                                        <div class="modal-body">
-                                            ¿Está seguro que quiere eliminar esta anécdota?
+                                        <div class="modal-body py-0">
+                                            <p>
+                                                ¿Está seguro que quiere eliminar esta anécdota?
+                                            </p>
                                         </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                            <button class="btn btn-danger" data-bs-dismiss="modal" @click="deleteAnecdota(anecdota._id)">Eliminar</button>
+                                        <div class="modal-footer flex-column border-top-0">
+                                            <button class="btn btn-danger w-100 mx-0 mb-2" data-bs-dismiss="modal" @click="deleteAnecdota(anecdota._id)">Eliminar</button>
+                                            <button type="button" class="btn btn-secondary w-100 mx-0 mb-2" data-bs-dismiss="modal">Cerrar</button>
                                         </div>
                                     </div>
                                 </div>
@@ -71,7 +76,6 @@
             },
             async getAnecdotas() {
                 const res = await getAnecdotasDev()
-                //console.log(res.data)
                 this.anecdotas = res.data
             },
             async deleteAnecdota(anecdota:any) {

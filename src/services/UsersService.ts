@@ -13,8 +13,7 @@ export const getDataUser = async (id: any) => {
 }
 
 export const postSignin = async (user: any) => {
-    const res = await axios.post("/usuarios/iniciar-sesion", user, {withCredentials: true})
-    //axios.post('domain.com', { name: 'name',password: 'password'}, { withCredentials: true})
+    const res = await axios.post("/usuarios/iniciar-sesion", user)
     return res
 }
 

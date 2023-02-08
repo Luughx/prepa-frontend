@@ -5,7 +5,7 @@
             <div v-if="!loading">
                 <div v-for="anecdota in anecdotas" :key="anecdota._id">
                     <div class="fs-5">
-                        <hr>
+                        <hr v-bind:class="{'hr-night': $store.getters.night}">
                         <h4>{{anecdota.title}}</h4>
                         <div>
                             {{anecdota.description}}

@@ -1,42 +1,50 @@
 <template>
     <div class="container p-4">
         <div class="card col-md-6 mx-auto" v-bind:class="{'card-night': $store.getters.night}">
-            <div class="card-header">
-                <h3 class="text-center">crear anecdota</h3>
-            </div>
             <div class="card-body">
-                <form action="" v-on:submit.prevent="submit()">
-                    <label class="form-label">Datos principales</label>
+                <h1 class="h3 fw-normal text-center">
+                    Crear anécdota
+                </h1>
+                <form class="mt-4" action="" v-on:submit.prevent="submit()">
                     <BaseInput
                     v-bind:class="{'input-night': $store.getters.night}"
-                    label="Titulo"
+                    labelText="Titulo"
                     v-model="v$.anecdota.title.$model" 
                     :errors="v$.anecdota.title.$errors"
                     :isValidData="!v$.anecdota.title.$invalid"
+                    autocomplete="off"
+                    floating
                     />
 
                     <BaseInput
                     v-bind:class="{'input-night': $store.getters.night}"
-                    label="Descripción"
+                    labelText="Descripción"
                     type="textArea"
                     v-model="v$.anecdota.description.$model" 
                     :errors="v$.anecdota.description.$errors"
                     :isValidData="!v$.anecdota.description.$invalid"
+                    autocomplete="off"
+                    floating
                     />
 
                     <BaseInput
                     v-bind:class="{'input-night': $store.getters.night}"
-                    label="Escribe tu anécdota"
+                    labelText="Escribe tu anécdota"
                     type="textArea"
+                    class="description-area"
                     v-model="v$.anecdota.info.$model" 
                     :errors="v$.anecdota.info.$errors"
                     :isValidData="!v$.anecdota.info.$invalid"
+                    autocomplete="off"
+                    floating
                     />
 
                     <BaseInput
                     v-bind:class="{'input-night': $store.getters.night}"
-                    label="Autor"
+                    labelText="Autor"
                     v-model="v$.anecdota.author.$model" 
+                    autocomplete="off"
+                    floating
                     />
 
                     <button class="btn btn-primary w-100" :disabled="v$.$invalid && !sending">Enviar anécdota</button>

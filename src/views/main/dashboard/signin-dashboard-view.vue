@@ -5,21 +5,21 @@
                 <div class="card " v-bind:class="{'card-night': $store.getters.night}">
                     <div class="card-body">
                         <h1 class="h3 mb-3 fw-normal text-center">
-                            Iniciar sesión
+                            Iniciar sesion como alumno
                         </h1>
                         <div class="alert alert-danger alert-dismissible fade show" v-if="errorMessage">
                             Datos Inválidos
                         </div>
                         <form v-on:submit.prevent="login()">
-
                             <BaseInput
+                            class="input-number-hide"
                             v-bind:class="{'input-night': $store.getters.night}"
-                            labelText="Correo electrónico" 
-                            type="email"
-                            v-model="v$.user.email.$model" 
-                            :errors="v$.user.email.$errors"
-                            :isValidData="!v$.user.email.$invalid"
-                            idFloating="emailInput"
+                            labelText="Matricula" 
+                            type="number"
+                            v-model="v$.user.fees.$model" 
+                            :errors="v$.user.fees.$errors"
+                            :isValidData="!v$.user.fees.$invalid"
+                            idFloating="feesId"
                             floating
                             />
 
@@ -31,17 +31,13 @@
                             v-model="v$.user.password.$model" 
                             :errors="v$.user.password.$errors"
                             :isValidData="!v$.user.password.$invalid"
-                            idFloating="emailInput"
+                            idFloating="passwordId"
                             floating
                             />
 
                             <div class="mb-3">
-                                <button class="btn btn-primary w-100" :disabled="v$.$invalid">Iniciar sesión</button>
+                                <button class="btn btn-primary w-100" :disabled="v$.$invalid">Consultar</button>
                             </div>
-                            <p class="mt-3 mb-2 text-muted">
-                                <label>¿Aún no tienes cuenta?</label>
-                                <router-link to="/usuarios/registrarse"> Registrate aqui</router-link>
-                            </p>
                         </form>
                     </div>
 
@@ -59,11 +55,6 @@
 
     import useVuelidate from '@vuelidate/core';
     import { required, minLength, email, helpers } from "@vuelidate/validators";
-    import { postSignin } from "@/services/UsersService";
-    import navbar from "@/components/Navbar-Component.vue";
-    import { mapActions } from "vuex";
-    import { UserComplete } from "@/Interfaces/UserComplete";
-
 
     export default defineComponent({
         components: {
@@ -78,29 +69,19 @@
             return {
                 errorMessage: false,
                 user: {
-                    email: "",
+                    fees: "",
                     password: ""
                 }
             }
         },
         methods: {
-            ...mapActions([
-                "switchNightAction",
-                "switchConnectedAction",
-                "setConnectedAction",
-                "setDisconnectedAction",
-                "LoginAction"
-            ]),
             async login() {
-                const res = await postSignin(this.user)
-                if (res.data.errorMessage) {
-                    this.errorMessage = true
-                } else {
-                    let userData:UserComplete
-                    userData = res.data.userFind
-                    userData.owner = res.data.owner
-                    this.LoginAction(userData)
-                    this.$router.push("/perfil/"+res.data.userFind._id)
+                if (this.user.fees == "123456" && this.user.password == "12345") {
+                    this.$store.state.userStudent.connected = true
+                    this.$store.state.userStudent.fees = this.user.fees
+
+                    this.$router.push("/panel")
+                    console.log("sending data")
                 }
             }
         },
@@ -116,13 +97,11 @@
         validations() {
             return {
                 user: {
-                    email: {
-                        required: helpers.withMessage("Este espacio no puede estar vacio", required),
-                        email: helpers.withMessage("Debe ser un correo valido", email)
+                    fees: {
+                        required: helpers.withMessage("Este espacio no puede estar vacio", required)
                     },
                     password: {
-                        required: helpers.withMessage("Este espacio no puede estar vacio", required),
-                        minLength: helpers.withMessage("La contraseña tiene que tener más de 6 caracteres", minLength(6))
+                        required: helpers.withMessage("Este espacio no puede estar vacio", required)
                     }
                 }
             }
@@ -130,3 +109,11 @@
     })
 
 </script>
+
+<style>
+    .input-number-hide::-webkit-inner-spin-button, 
+    .input-number-hide::-webkit-outer-spin-button { 
+        -webkit-appearance: none; 
+        margin: 0; 
+    }
+</style>

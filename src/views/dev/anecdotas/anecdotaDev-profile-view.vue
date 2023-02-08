@@ -27,34 +27,38 @@
                             <label class="form-label">Datos principales</label>
                             <BaseInput
                             v-bind:class="{'input-night': $store.getters.night}"
-                            label="Titulo"
+                            labelText="Titulo"
                             v-model="v$.anecdota.title.$model" 
                             :errors="v$.anecdota.title.$errors"
                             :isValidData="!v$.anecdota.title.$invalid"
+                            floating
                             />
         
                             <BaseInput
                             v-bind:class="{'input-night': $store.getters.night}"
-                            label="Descripción"
+                            labelText="Descripción"
                             type="textArea"
                             v-model="v$.anecdota.description.$model" 
                             :errors="v$.anecdota.description.$errors"
                             :isValidData="!v$.anecdota.description.$invalid"
+                            floating
                             />
         
                             <BaseInput
                             v-bind:class="{'input-night': $store.getters.night}"
-                            label="Escribe tu anécdota"
+                            labelText="Escribe tu anécdota"
                             type="textArea"
                             v-model="v$.anecdota.info.$model" 
                             :errors="v$.anecdota.info.$errors"
                             :isValidData="!v$.anecdota.info.$invalid"
+                            floating
                             />
         
                             <BaseInput
                             v-bind:class="{'input-night': $store.getters.night}"
-                            label="Autor"
+                            labelText="Autor"
                             v-model="v$.anecdota.author.$model" 
+                            floating
                             />
         
                             <button class="btn btn-primary w-100" :disabled="v$.$invalid">Editar</button>

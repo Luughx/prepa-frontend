@@ -29,18 +29,21 @@
                     <div class="card-body">
                         <form action="" v-on:submit.prevent="edit()">
                             <label class="form-label">Datos principales</label>
-                            <div class="form-group mb-3">
+                            <div class="form-floating mb-3">
                                 <input type="text" class="form-control" v-bind:class="{'input-night': $store.getters.night}" name="main_title" placeholder="Titulo"
                                 v-model="aviso.title">
+                                <label for="floatingInput">Titulo</label>
                             </div>
     
-                            <div class="form-group mb-3">
+                            <div class="form-floating mb-3">
                                 <input type="text" class="form-control" v-bind:class="{'input-night': $store.getters.night}" name="main_description" placeholder="Descripción" v-model="aviso.description">
+                                <label for="floatingInput">Descripción</label>
                             </div>
     
-                            <div class="form-group mb-3">
+                            <div class="form-floating mb-3">
                                 <input type="text" class="form-control" v-bind:class="{'input-night': $store.getters.night}" name="main_link" placeholder="Link"
                                 v-model="aviso.link">
+                                <label for="floatingInput">Link</label>
                             </div>
     
                             <div class="input-group mb-3">

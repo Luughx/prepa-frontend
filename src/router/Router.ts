@@ -9,66 +9,62 @@ const routes: RouteRecordRaw[] = [
         path: "/",
         name: "index",
         component: () => import("@/views/main/inicio-view.vue"),
-        meta: {
-            title: ""
-        }
+        meta: { title: "" }
+    },
+    {
+        path: "/panel/iniciar-sesion",
+        name: "calificaciones",
+        component: () => import("@/views/main/dashboard/signin-dashboard-view.vue"),
+        meta: { title: "Iniciar sesión" }
+    },
+    {
+        path: "/panel",
+        name: "dashboard",
+        component: () => import("@/views/main/dashboard/dashboard-view.vue"),
+        meta: { title: "Panel" , hideFooter: true}
     },
     {
         path: "/fundacion",
         name: "fundacion",
         component: () => import("@/views/main/fundation-view.vue"),
-        meta: {
-            title: "Fundación"
-        }
+        meta: { title: "Fundación" }
     },
     {
         path: "/reglamentos",
         name: "reglamentos",
         component: () => import("@/views/main/reglamentos-view.vue"),
-        meta: {
-            title: "Reglamentos"
-        }
+        meta: { title: "Reglamentos" }
     },
     {
         path: "/calendarios",
         name: "calendarios",
         component: () => import("@/views/main/calendarios-view.vue"),
-        meta: {
-            title: "Calendarios"
-        }
+        meta: { title: "Calendarios" }
     },
     // ANECDOTAS
-    {
-        path: "/crear/anecdota",
-        name: "anecdotas-crear",
-        component: () => import("@/views/main/anecdotas/newAnecdota-view.vue"),
-        meta: {
-            title: "Nueva Anécdota"
-        }
-    },
     {
         path: "/anecdotas",
         name: "anecdotas-first",
         component: () => import("@/views/main/anecdotas/anecdotas-view.vue"),
-        meta: {
-            title: "Anécdotas"
-        }
+        meta: { title: "Anécdotas" }
+    },
+    {
+        path: "/crear/anecdota",
+        name: "anecdotas-crear",
+        component: () => import("@/views/main/anecdotas/newAnecdota-view.vue"),
+        meta: { title: "Nueva Anécdota" }
     },
     {
         path: "/anecdotas/:id",
         name: "anecdotas-list",
         component: () => import("@/views/main/anecdotas/anecdotasList-view.vue"),
-        meta: {
-            title: "Anécdotas"
-        }
+        meta: { title: "Anécdotas" }
     },
     {
         path: "/anecdota/:id",
         name: "anecdotas-profile",
         component: () => import("@/views/main/anecdotas/anecdota-profile.vue"),
-        meta: {
-            title: "Anécdota"
-        }
+        meta: { title: "Anécdota" }
     },
 
     // USERS
@@ -76,25 +72,19 @@ const routes: RouteRecordRaw[] = [
         path: "/usuarios/iniciar-sesion",
         name: "signin",
         component: () => import("@/views/users/signin-view.vue"),
-        meta: {
-            title: "Iniciar sesión"
-        }
+        meta: { title: "Iniciar sesión" }
     },
     {
         path: "/usuarios/registrarse",
         name: "signup",
         component: () => import("@/views/users/signup-view.vue"),
-        meta: {
-            title: "Registrarse"
-        }
+        meta: { title: "Registrarse" }
     },
     {
         path: "/perfil/:id",
         name: "profile",
         component: () => import("@/views/users/profiles/profile-view.vue"),
-        meta: {
-            title: ""
-        }
+        meta: { title: "" }
     },
 
     // DESARROLLADOR
@@ -124,6 +114,29 @@ const routes: RouteRecordRaw[] = [
         name: "dev-avisos-principales-profile",
         component: () => import("@/views/dev/avisosPrincipales/avisos-principales-profile-view.vue"),
         meta: { title: "Avisos", requiresOwner: true}
+    },
+    {
+        path: "/test",
+        name: "test-view",
+        component: () => import("@/views/main/files/test-view.vue"),
+        meta: {  }
+    },
+    {
+        path: "/nosotros",
+        name: "nosotros-view",
+        component: () => import("@/views/main/actualidad/nosotros-view.vue"),
+        meta: { title: "Nosotros" },
+    },
+    {
+        path: "/contactanos",
+        name: "contactanos-view",
+        component: () => import("@/views/main/actualidad/contactanos-view.vue"),
+        meta: { title: "Contáctanos" },
+    },
+    {
+        path: "/:pathMatch(.*)*",
+        component: () => import("@/views/main/page404-view.vue"),
+        meta: { title: "Error"}
     }
 ]
 
@@ -134,6 +147,8 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
     to.meta.title ? document.title = `${to.meta.title} | Prepa 2030` : document.title = `Prepa 2030`
+    store.state.hideInterface = to.meta.hideInterface as boolean
+    store.state.hideFooter = to.meta.hideFooter as boolean
     
     if (to.matched.some(route => route.meta.requiresAuth)) {
         if (store.state.connected) {

@@ -7,7 +7,14 @@ export default createStore({
     state: {
         connected: false,
         night: false,
-        user: {} as UserComplete
+        user: {} as UserComplete,
+        userStudent: {
+            connected: false,
+            fees: ""
+        },
+        urlPdf: "http://localhost:3000/pdf",
+        hideInterface: false,
+        hideFooter: false
     },
     getters: {
         night(state) {
@@ -18,6 +25,15 @@ export default createStore({
         },
         isOwner(state) {
             return state.user.owner
+        },
+        urlPdf(state) {
+            return state.urlPdf
+        },
+        hideInterface(state) {
+            return state.hideInterface
+        },
+        hideFooter(state) {
+            return state.hideFooter
         }
     },
     mutations: {

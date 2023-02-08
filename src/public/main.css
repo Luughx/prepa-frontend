@@ -1,5 +1,15 @@
+.hr-night {
+    color: #5d5d5d;
+    
+}
+
+hr {
+    color: #cdcdcd;
+    border: 1px solid;
+}
+
 .night-bg {
-    background: #232323;
+    background: #1d2023;
     color: #ededed;
 }
 
@@ -29,10 +39,17 @@
 }
 
 .input-night {
-    background: #222222;
+    background: #212529;
     color: #ededed;
     border: 2px solid #333333;
     content: "sadsa";
+}
+
+.input-night:-webkit-autofill,
+.input-night:-webkit-autofill:hover, 
+.input-night:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0px 1000px #222222 inset;
+    -webkit-text-fill-color: #fff;
 }
 
 .input-night:active {
@@ -40,13 +57,18 @@
     color: #ededed;
 } 
 
-.input-night:enabled {
+.input-night:focus {
     background: #222222;
+    color: #ededed;
+} 
+
+.input-night:enabled {
+    background: #212529;
     color: #ededed;
 }
 
 .card-night {
-    background: #202020;
+    background: #212529;
     color: #fafafa;
 }
 
@@ -114,4 +136,8 @@
     top: 0;
     left: 0;
     object-fit: cover;
+}
+
+.borderless {
+    border: 0px solid;
 }

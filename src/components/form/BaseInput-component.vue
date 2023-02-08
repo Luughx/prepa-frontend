@@ -1,29 +1,57 @@
 <template>
     <div v-if="type == `textArea`">
-        <textarea
-        class="form-control" 
-        :class="{ 'is-invalid': errors.length >= 1, 'is-valid': isValidData }"
-        :placeholder="label"
-        @input="inputHandler"
-        v-bind="$attrs"
-        :value="$attrs.modelValue"
-        >
-
+        <div v-if="floating" class="form-floating">
+            <textarea
+            class="form-control" 
+            :class="{ 'is-invalid': errors.length >= 1, 'is-valid': isValidData }"
+            :placeholder="labelText"
+            @input="inputHandler"
+            v-bind="$attrs"
+            :value="$attrs.modelValue"
+            >
         </textarea>
+        <label :for="idFloating">{{labelText}}</label>
+        </div>
+        <div v-else>
+            <textarea
+            class="form-control" 
+            :class="{ 'is-invalid': errors.length >= 1, 'is-valid': isValidData }"
+            :placeholder="labelText"
+            @input="inputHandler"
+            v-bind="$attrs"
+            :value="$attrs.modelValue"
+            >
+            </textarea>
+        </div>
     </div>
     <div v-if="type !== `textArea`">
-        <input 
-        :type="type" 
-        class="form-control" 
-        :class="{ 'is-invalid': errors.length >= 1, 'is-valid': isValidData }"
-        :placeholder="label"
-        @input="inputHandler"
-        v-bind="$attrs"
-        :value="$attrs.modelValue"
-        >
+        <div v-if="floating" class="form-floating">
+            <input 
+            :type="type"
+            class="form-control" 
+            :class="{ 'is-invalid': errors.length >= 1, 'is-valid': isValidData }"
+            :placeholder="labelText"
+            @input="inputHandler"
+            v-bind="$attrs"
+            :value="$attrs.modelValue"
+            :id="idFloating"
+            >
+            <label :for="idFloating">{{labelText}}</label>
+        </div>
+        <div v-else>
+            <input 
+            :type="type" 
+            class="form-control" 
+            :class="{ 'is-invalid': errors.length >= 1, 'is-valid': isValidData }"
+            :placeholder="labelText"
+            @input="inputHandler"
+            v-bind="$attrs"
+            :value="$attrs.modelValue"
+            >
+        </div>
     </div>
     <div class="invalid-feedback mb-3">
-        <span v-for="(error, index) in errors" :key="`error-${label}-${index}`">
+        <span v-for="(error, index) in errors" :key="`error-${labelText}-${index}`">
             {{error.$message}}
         </span>
     </div>
@@ -35,13 +63,21 @@ import { defineComponent } from "vue";
 export default defineComponent({
     name: "BaseInput",
     props: {
-        label: {
+        labelText: {
             type: String,
             default: null
         },
         type: {
             type: String,
             default: "text"
+        },
+        floating: {
+            type: Boolean,
+            default: false
+        },
+        idFloating: {
+            type: String,
+            default: "id"
         },
         errors: {
             type: Array,
