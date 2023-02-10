@@ -12,7 +12,7 @@ export default createStore({
             connected: false,
             fees: ""
         },
-        urlPdf: "http://localhost:3000/pdf",
+        urlPdf: "https://server.daraan.site/pdf",
         hideInterface: false,
         hideFooter: false
     },
