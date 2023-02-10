@@ -31,7 +31,7 @@
                             v-model="v$.user.password.$model" 
                             :errors="v$.user.password.$errors"
                             :isValidData="!v$.user.password.$invalid"
-                            idFloating="emailInput"
+                            idFloating="passwordInput"
                             floating
                             />
 

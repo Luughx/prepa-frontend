@@ -1,7 +1,7 @@
 <template>
     <div class="container p-4">
         <div class="col-md-8">
-            <div class="fs-5" v-bind:class="{'bg-dark': $store.getters.night, 'bg-light': !$store.getters.night }">
+            <div class="fs-5 g-5" v-bind:class="{'bg-dark': $store.getters.night, 'bg-light': !$store.getters.night }">
                 <div class="container-fluid py-5">
                     <h1>Anecdotas y recuerdos</h1>
                     <p>

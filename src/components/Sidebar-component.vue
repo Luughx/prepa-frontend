@@ -12,15 +12,15 @@
                 <ul class="nav nav-pills flex-column mb-auto">
 
                     <li class="nav-item">
-                    <a class="nav-link ms-3 mt-2" v-bind:class="{'text-white': $store.getters.night}" href="#">Resumen</a>
+                    <router-link class="nav-link ms-3 mt-2" v-bind:class="{'text-white': $store.getters.night}" to="/panel">Resumen</router-link>
                     </li>
 
                     <li class="nav-item">
-                    <a href="#" class="nav-link ms-3 mt-2" v-bind:class="{'text-white': $store.getters.night}">Calificaciones</a>
+                    <router-link class="nav-link ms-3 mt-2" v-bind:class="{'text-white': $store.getters.night}" to="/panel/calificaciones">Calificaciones</router-link>
                     </li>
 
                     <li class="nav-item">
-                    <a class="nav-link ms-3 mt-2" v-bind:class="{'text-white': $store.getters.night}" href="#">Estado de cuenta</a>
+                    <router-link class="nav-link ms-3 mt-2" v-bind:class="{'text-white': $store.getters.night}" to="#">Estado de cuenta</router-link>
                     </li>
                 </ul>
             </div>

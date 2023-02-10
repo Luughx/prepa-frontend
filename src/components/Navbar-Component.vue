@@ -15,6 +15,10 @@
         <li class="nav-item">
             <router-link class="nav-link" v-bind:class="{'text-white': $store.getters.night}" to="/">Inicio</router-link>
         </li>
+
+        <li class="nav-item">
+            <router-link class="nav-link" v-bind:class="{'text-white': $store.getters.night}" to="#">Avisos</router-link>
+        </li>
         
         <li class="nav-item">
             <router-link class="nav-link" v-bind:class="{'text-white': $store.getters.night}" to="/anecdotas">Anecdotas</router-link>
@@ -30,13 +34,13 @@
             </a>
             <ul class="dropdown-menu gap-1 p-1 rounded-3 mx-0 border-0 shadow w-220px" v-bind:class="{'dropdown-menu-dark': $store.getters.night, 'bg-light': !$store.getters.night }" aria-labelledby="navbarDropdownMenuLink">
               <li>
-                <router-link class="dropdown-item rounded-2" to="#">Calificaciones</router-link>
+                <router-link class="dropdown-item rounded-2" to="/panel">Resumen</router-link>
               </li>
               <li>
-                <a class="dropdown-item rounded-2" href="#">Estado de cuenta</a>
+                <router-link class="dropdown-item rounded-2" to="/panel/calificaciones">Calificaciones</router-link>
               </li>
               <li>
-                <a class="dropdown-item rounded-2" href="#">Calif. de extraordinarios</a>
+                <router-link class="dropdown-item rounded-2" to="#">Estado de cuenta</router-link>
               </li>
             </ul>
         </li>

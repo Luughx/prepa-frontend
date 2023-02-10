@@ -8,7 +8,7 @@
             <div class="col-md-10">
                 <div class="row">
                     
-                    <div class="col-md-8">
+                    <div class="col-md-12">
                         <div class="card borderless"
                             v-bind:class="{ 'card-night': $store.getters.night, 'bg-light': !$store.getters.night }">
                             <div class="p-4">
@@ -28,53 +28,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="card borderless"
-                            v-bind:class="{ 'card-night': $store.getters.night, 'bg-light': !$store.getters.night }">
-                            <div class="card-body p-4">
-                                <h5 class="card-title h5">Estado de cuenta</h5>
-                                <div class="table-responsive">
-                                    <table class="table table-borderless table-hover" v-bind:class="{'table-dark night-bg': $store.getters.night}">
-                                        <thead>
-                                            <tr>
-                                                <th>Folio</th>
-                                                <th>Fecha</th>
-                                                <th>Mes</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>1125441</td>
-                                                <td>02/01/2023</td>
-                                                <td>Julio</td>
-                                            </tr>
-                                            <tr>
-                                                <td>1125441</td>
-                                                <td>02/01/2023</td>
-                                                <td>Diciembre</td>
-                                            </tr>
-                                            <tr>
-                                                <td>1119592</td>
-                                                <td>30/11/2022</td>
-                                                <td>Noviembre</td>
-                                            </tr>
-                                            <tr>
-                                                <td>1113400</td>
-                                                <td>25/10/2022</td>
-                                                <td>Octubre</td>
-                                            </tr>
-                                            <tr>
-                                                <td>143660</td>
-                                                <td>26/10/2023</td>
-                                                <td>Agosto</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <router-link class="btn btn-primary" to="#">ver más</router-link>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
         </div>

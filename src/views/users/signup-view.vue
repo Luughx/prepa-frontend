@@ -18,6 +18,8 @@
                                     v-model="v$.user.name.$model" 
                                     :errors="v$.user.name.$errors"
                                     :isValidData="!v$.user.name.$invalid"
+                                    autocomplete="off"
+                                    autofocus
                                     floating
                                     />
                                 </div>
@@ -28,6 +30,7 @@
                                     v-model="v$.user.lastName.$model" 
                                     :errors="v$.user.lastName.$errors"
                                     :isValidData="!v$.user.lastName.$invalid"
+                                    autocomplete="off"
                                     floating
                                     />
                                 </div>
@@ -40,6 +43,7 @@
                             :errors="v$.user.email.$errors"
                             :isValidData="!v$.user.email.$invalid"
                             :class="{ 'is-invalid': !verify && !inicio, 'is-valid': verify && inicio, 'input-night': $store.getters.night}"
+                            autocomplete="off"
                             floating
                             />
                             

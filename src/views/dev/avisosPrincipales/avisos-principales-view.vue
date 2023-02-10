@@ -1,12 +1,12 @@
 <template>
     <div class="container p-4" v-if="$store.getters.connected && $store.getters.isOwner">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="card borderless" v-bind:class="{'card-night': $store.getters.night, 'bg-light': !$store.getters.night }">
                     <div class="card-body">
                         <form action="" v-on:submit.prevent="submit()" enctype="multipart/form-data">
                             <h1 class="h4 mb-3 fw-normal text-center">
-                                Nuevo aviso
+                                Nuevo aviso principal
                             </h1>
     
                             <div class="mb-3 form-floating">
@@ -44,7 +44,62 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-8" >
+            <div class="col-md-6">
+                <div class="card borderless" v-bind:class="{'card-night': $store.getters.night, 'bg-light': !$store.getters.night }">
+                    <div class="card-body">
+                        <form action="" v-on:submit.prevent="submit()" enctype="multipart/form-data">
+                            <h1 class="h4 mb-3 fw-normal text-center">
+                                Nuevo aviso
+                            </h1>
+    
+                            <div class="mb-3 form-floating">
+                                <input class="form-control" v-bind:class="{'input-night': $store.getters.night}" type="text" placeholder="Titulo" v-model="aviso.title" autocomplete="off" autofocus>
+                                <label for="floatingInput">Titulo</label>
+                            </div>
+    
+                            <div class="mb-3 form-floating">
+                                <input class="form-control" v-bind:class="{'input-night': $store.getters.night}" type="text" placeholder="Titulo" v-model="aviso.title" autocomplete="off" autofocus>
+                                <label for="floatingInput">URL</label>
+                            </div>
+
+                            <div class="mb-3 form-floating">
+                                <input class="form-control" v-bind:class="{'input-night': $store.getters.night}" type="text" placeholder="Descripción" v-model="aviso.description" autocomplete="off">
+                                <label>Descripción</label>
+                            </div>
+    
+                            <div class="mb-3 form-floating">
+                                <input class="form-control" v-bind:class="{'input-night': $store.getters.night}" type="text" placeholder="Link" v-model="aviso.link" autocomplete="off">
+                                <label>Link</label>
+                            </div>
+
+                            <label class="mb-2">Imagen</label>
+                            <div class="input-group mb-3">
+                                <input class="form-control" v-bind:class="{'input-night': $store.getters.night}" type="file" name="image" @change="handleFileUpload( $event )">
+                            </div>
+    
+                            <label class="mb-2">Archivo html</label>
+                            <div class="input-group mb-3">
+                                <input class="form-control" v-bind:class="{'input-night': $store.getters.night}" type="file" name="image" @change="handleFileUpload( $event )">
+                            </div>
+    
+                            <div class="form-group mb-3">
+                                
+                                <button class="btn btn-primary w-100 px-4 me-sm-3" type="submit" :disabled="!send">
+                                    <div v-if="loading">
+                                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                        <span> Cargando...</span>
+                                    </div>
+                                    <div v-else>
+                                        <span> Subir </span>
+                                    </div>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12" >
+                <br>
                 <div class="table-responsive">
                     <table class="table table-hover" v-bind:class="{'table-dark night-bg': $store.getters.night}">
                         <thead>
