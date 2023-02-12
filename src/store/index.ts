@@ -10,7 +10,7 @@ export default createStore({
         night: false,
         user: {} as UserComplete,
         userStudent: {} as Student,
-        urlPdf: "http://localhost:3000/pdf",
+        urlPdf: "http://www.daraan.site/pdf",
         hideInterface: false,
         hideFooter: false,
         chartDataScores: {
