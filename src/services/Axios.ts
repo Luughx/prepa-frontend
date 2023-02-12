@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from "axios"
 
 const axiosIntance: AxiosInstance = axios.create({
-    baseURL: "http://server.daraan.site/api",
+    baseURL: "https://server.daraan.site/api",
     withCredentials: true,
     headers: {
         "Content-Type": "application/json",
