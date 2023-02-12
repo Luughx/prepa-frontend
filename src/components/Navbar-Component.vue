@@ -24,11 +24,11 @@
             <router-link class="nav-link" v-bind:class="{'text-white': $store.getters.night}" to="/anecdotas">Anecdotas</router-link>
         </li>
 
-        <li class="nav-item" v-if="!$store.state.userStudent.connected">
+        <li class="nav-item" v-if="!$store.getters.studentConnected">
             <router-link class="nav-link" v-bind:class="{'text-white': $store.getters.night}" to="/panel/iniciar-sesion">Consultas</router-link>
         </li>
         
-        <li class="nav-item dropdown" v-if="$store.state.userStudent.connected">
+        <li class="nav-item dropdown" v-if="$store.getters.studentConnected">
             <a class="nav-link dropdown-toggle" v-bind:class="{'text-white': $store.getters.night}" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Panel
             </a>
@@ -40,7 +40,10 @@
                 <router-link class="dropdown-item rounded-2" to="/panel/calificaciones">Calificaciones</router-link>
               </li>
               <li>
-                <router-link class="dropdown-item rounded-2" to="#">Estado de cuenta</router-link>
+                <router-link class="dropdown-item rounded-2" to="/panel/estado-cuenta">Estado de cuenta</router-link>
+              </li>
+              <li>
+                <button class="dropdown-item rounded-2" @click="logoutStudent()">Salir</button>
               </li>
             </ul>
         </li>
@@ -139,18 +142,30 @@
   import { defineComponent } from "@vue/runtime-core";
   import { getData } from "@/services/MainService";
   import { logout } from "@/services/UsersService";
+  import { getStudent, deleteLoginStudent } from "@/services/StudentService";
   import { UserComplete } from "@/Interfaces/UserComplete";
   import { mapActions } from "vuex";
+  import { Student } from "@/Interfaces/StudentData";
 
   export default defineComponent({
     name: "Navbar-Component",
     data() {
       return {
-        user: {} as UserComplete
+        user: {} as UserComplete,
+        student: {} as Student
       }
     },
     async created() {
       const res = await getData()
+      const resStudent = await getStudent()
+
+      if (resStudent.data) {
+
+        this.student = resStudent.data.student
+        this.student.connected = true
+        this.LoginStudentAction(this.student)
+      }
+
       if (res.data) {
         let userData:UserComplete
         userData = res.data.user
@@ -170,8 +185,18 @@
         "setConnectedAction",
         "setDisconnectedAction",
         "setNightAction",
-        "LoginAction"
+        "LoginAction",
+        "LoginStudentAction",
+        "LogoutStudentAction"
       ]),
+      async logoutStudent() {
+        const res = await deleteLoginStudent()
+
+        if (res.data) {
+          this.LogoutStudentAction()
+          this.$router.push("/")
+        }
+      },
       async logout() {
         const res = await logout()
 

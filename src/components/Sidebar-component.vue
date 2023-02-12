@@ -4,11 +4,11 @@
             <div class="position-sticky pt-3 sidebar-sticky">
                 <div class="nav-link">
                     <h1 class="fs-4 ms-3 mt-2" v-bind:class="{'text-white': $store.getters.night}">
-                        Yahir Tapia
+                        {{`${$store.getters.studentFirstName} ${$store.getters.studentLastNameF}`}}
                     </h1>
-                    <span class="text-muted ms-3">200223</span>
+                    <span class="text-muted ms-3">{{$store.getters.studentFees}}</span>
                 </div>
-                <hr>
+                <hr class="ms-3 me-3">
                 <ul class="nav nav-pills flex-column mb-auto">
 
                     <li class="nav-item">
@@ -20,7 +20,11 @@
                     </li>
 
                     <li class="nav-item">
-                    <router-link class="nav-link ms-3 mt-2" v-bind:class="{'text-white': $store.getters.night}" to="#">Estado de cuenta</router-link>
+                    <router-link class="nav-link ms-3 mt-2" v-bind:class="{'text-white': $store.getters.night}" to="/panel/estado-cuenta">Estado de cuenta</router-link>
+                    </li>
+                    <hr class="ms-3 me-3">
+                    <li>
+                        <button class="nav-link ms-3" v-bind:class="{'text-white': $store.getters.night}" @click="logoutStudent()">Salir</button>
                     </li>
                 </ul>
             </div>
@@ -30,7 +34,10 @@
 </template>
 
 <script lang="ts">
-    import { defineComponent } from "@vue/runtime-core";
+
+    import { defineComponent } from "@vue/runtime-core"
+    import { deleteLoginStudent } from "@/services/StudentService"
+    import { mapActions } from "vuex"
 
     export default defineComponent({
     name: "Sidebar-Component",
@@ -40,7 +47,17 @@
         }
     },
     methods: {
+        ...mapActions([
+        "LogoutStudentAction"
+      ]),
+      async logoutStudent() {
+        const res = await deleteLoginStudent()
 
+        if (res.data) {
+          this.LogoutStudentAction()
+          this.$router.push("/")
+        }
+      },
     }
     })
 </script>

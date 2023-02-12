@@ -30,6 +30,12 @@ const routes: RouteRecordRaw[] = [
         meta: { title: "Calificaciones" , hideFooter: true}
     },
     {
+        path: "/panel/estado-cuenta",
+        name: "estadoCuenta-calificaciones",
+        component: () => import("@/views/main/dashboard/estadoCuenta-view.vue"),
+        meta: { title: "Estado de cuenta" , hideFooter: true}
+    },
+    {
         path: "/fundacion",
         name: "fundacion",
         component: () => import("@/views/main/fundation-view.vue"),

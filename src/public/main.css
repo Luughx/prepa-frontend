@@ -48,7 +48,7 @@ hr {
 .input-night:-webkit-autofill,
 .input-night:-webkit-autofill:hover, 
 .input-night:-webkit-autofill:focus {
-    -webkit-box-shadow: 0 0 0px 1000px #222222 inset;
+    -webkit-box-shadow: 0 0 0px 1000px #1d2023 inset;
     -webkit-text-fill-color: #fff;
 }
 
