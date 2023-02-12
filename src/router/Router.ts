@@ -1,5 +1,6 @@
 import { RouteRecordRaw, createRouter, createWebHistory } from "vue-router"
 import { getData } from "@/services/MainService";
+import { getStudent } from "@/services/StudentService";
 import store from "../store/index";
 
 const routes: RouteRecordRaw[] = [
@@ -21,19 +22,19 @@ const routes: RouteRecordRaw[] = [
         path: "/panel",
         name: "dashboard",
         component: () => import("@/views/main/dashboard/dashboard-view.vue"),
-        meta: { title: "Panel" , hideFooter: true}
+        meta: { title: "Panel" , hideFooter: true, connectedStudent: true}
     },
     {
         path: "/panel/calificaciones",
         name: "dashboard-calificaciones",
         component: () => import("@/views/main/dashboard/calificaciones-view.vue"),
-        meta: { title: "Calificaciones" , hideFooter: true}
+        meta: { title: "Calificaciones" , hideFooter: true, connectedStudent: true}
     },
     {
         path: "/panel/estado-cuenta",
         name: "estadoCuenta-calificaciones",
         component: () => import("@/views/main/dashboard/estadoCuenta-view.vue"),
-        meta: { title: "Estado de cuenta" , hideFooter: true}
+        meta: { title: "Estado de cuenta" , hideFooter: true, connectedStudent: true}
     },
     {
         path: "/fundacion",
@@ -162,6 +163,20 @@ router.beforeEach(async (to, from, next) => {
     store.state.hideInterface = to.meta.hideInterface as boolean
     store.state.hideFooter = to.meta.hideFooter as boolean
     
+    if (to.matched.some(route => route.meta.connectedStudent)) {
+        if (store.state.userStudent.connected) {
+            next()
+        } else {
+            const res = await getStudent()
+            if (res.data) next()
+            else next("/")
+            return
+        }
+    } else {
+        next()
+        return
+    }
+
     if (to.matched.some(route => route.meta.requiresAuth)) {
         if (store.state.connected) {
             next()

@@ -36,7 +36,16 @@
                             />
 
                             <div class="mb-3">
-                                <button class="btn btn-primary w-100" :disabled="v$.$invalid">Consultar</button>
+                                <button class="btn btn-primary w-100" :disabled="v$.$invalid && !loading">
+                                    <div v-if="loading">
+                                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                        <span> Cargando...</span>
+                                    </div>
+                                    <div v-else>
+                                        <span> Consultar </span>
+                                    </div>
+                                </button>
+                                
                             </div>
                         </form>
                     </div>
@@ -73,7 +82,8 @@
             return {
                 errorMessage: false,
                 student: {} as StudentLogin,
-                studentData: {} as Student
+                studentData: {} as Student,
+                loading: false
             }
         },
         methods: {
@@ -81,8 +91,9 @@
                 "LoginStudentAction"
             ]),
             async login() {
+                this.loading = true
                 const res = await postLoginScores(this.student)
-
+                this.loading = false
                 if (res.data.error) {
                     this.errorMessage = true
                 } else {
