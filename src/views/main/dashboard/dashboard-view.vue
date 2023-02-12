@@ -7,7 +7,6 @@
             </div>
             <div class="col-md-10">
                 <div class="row">
-                    
                     <div class="col-md-8">
                         <div class="card borderless"
                             v-bind:class="{ 'card-night': $store.getters.night, 'bg-light': !$store.getters.night }">
@@ -20,9 +19,9 @@
                             <div class="card-body p-4">
                                 
                                 <p class="fs-6">
-                                    <strong>Total Alumno: </strong> 86.1
+                                    <strong>Total Alumno: </strong> {{$store.getters.chartDataTotalStudent}}
                                     <br>
-                                    <strong>Total grupo: </strong> 86.1
+                                    <strong>Total grupo: </strong> {{$store.getters.chartDataTotalGroup}}
                                 </p>
                                 <router-link class="btn btn-primary" to="/panel/calificaciones">ver más</router-link>
                             </div>
@@ -37,41 +36,21 @@
                                     <table class="table table-borderless table-hover" v-bind:class="{'table-dark night-bg': $store.getters.night}">
                                         <thead>
                                             <tr>
-                                                <th>Folio</th>
+                                                <th>Cantidad</th>
                                                 <th>Fecha</th>
                                                 <th>Mes</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>1125441</td>
-                                                <td>02/01/2023</td>
-                                                <td>Julio</td>
-                                            </tr>
-                                            <tr>
-                                                <td>1125441</td>
-                                                <td>02/01/2023</td>
-                                                <td>Diciembre</td>
-                                            </tr>
-                                            <tr>
-                                                <td>1119592</td>
-                                                <td>30/11/2022</td>
-                                                <td>Noviembre</td>
-                                            </tr>
-                                            <tr>
-                                                <td>1113400</td>
-                                                <td>25/10/2022</td>
-                                                <td>Octubre</td>
-                                            </tr>
-                                            <tr>
-                                                <td>143660</td>
-                                                <td>26/10/2023</td>
-                                                <td>Agosto</td>
+                                            <tr v-for="(status, index) in dataStatus" :key="index">
+                                                <td>{{status[0]}}</td>
+                                                <td>{{status[4]}}</td>
+                                                <td>{{status[2]}}</td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
-                                <router-link class="btn btn-primary" to="#">ver más</router-link>
+                                <router-link class="btn btn-primary" to="/panel/estado-cuenta">ver más</router-link>
                             </div>
                         </div>
                     </div>
@@ -89,6 +68,7 @@
     import useVuelidate from '@vuelidate/core';
     import { required, minLength, email, helpers } from "@vuelidate/validators";
     import { mapActions } from "vuex";
+
     import {
         Chart as ChartJS,
         CategoryScale,
@@ -116,65 +96,49 @@
             Sidebar,
             Line
         },
-        setup() {
-            return {
-                v$: useVuelidate()
-            }
-        },
         data() {
             return {
-                errorMessage: false,
-                user: {
-                    fees: "",
-                    password: ""
-                },
-                chartData: {
-                    labels: ['Geografía', 'ESEM', 'Física', 'Cálculo', 'Prob. y Estadis', 'Administración', 'Sis. de Información', "Programación"],
+                subjects: {} as any,
+                labelsChart: [] as string[],
+                dataStatus: [] as any
+            }
+        },
+        mounted() {
+            this.getStatus()
+        },
+        methods: {
+            getStatus() {
+                for (let i=0; i < 5; i++) {
+                    const status = this.$store.getters.studentStatus[i]
+                    this.dataStatus.push(status)
+                }
+            }
+        },
+        computed: {
+            chartData() {
+                return {
+                    labels: this.$store.state.chartDataScores.titles,
                     color: "#fff",
                     datasets: [
                         {
                             label: 'Alumno',
                             backgroundColor: '#7fabd6',
                             borderColor: '#7fabd6',
-                            data: [96, 93, 65, 90, 81, 93, 85]
+                            data: this.$store.getters.chartDataScoreStudent
                         },
                         {
                             label: 'Grupo',
                             backgroundColor: '#f87979',
                             borderColor: '#f87979',
-                            data: [87.6, 89.7, 63.2, 62.6, 80.1, 76.3, 76.5]
+                            data: this.$store.getters.chartDataScoreGroup
                         }
                     ]
-                },
-                chartOptions: {
+                }
+            },
+            chartOptions() {
+                return {
                     responsive: true,
                     maintainAspectRatio: false
-                }
-            }
-        },
-        methods: {
-            async login() {
-                console.log("sending data")
-            }
-        },
-        watch: {
-            user: {
-                handler(value) {
-                    this.$emit("user", value)
-                },
-                deep: true,
-                immediate: true
-            }
-        },
-        validations() {
-            return {
-                user: {
-                    fees: {
-                        required: helpers.withMessage("Este espacio no puede estar vacio", required)
-                    },
-                    password: {
-                        required: helpers.withMessage("Este espacio no puede estar vacio", required)
-                    }
                 }
             }
         }

@@ -16,9 +16,9 @@
                             v-bind:class="{'input-night': $store.getters.night}"
                             labelText="Matricula" 
                             type="number"
-                            v-model="v$.user.fees.$model" 
-                            :errors="v$.user.fees.$errors"
-                            :isValidData="!v$.user.fees.$invalid"
+                            v-model="v$.student.fees.$model" 
+                            :errors="v$.student.fees.$errors"
+                            :isValidData="!v$.student.fees.$invalid"
                             idFloating="feesId"
                             floating
                             />
@@ -28,9 +28,9 @@
                             v-bind:class="{'input-night': $store.getters.night}"
                             labelText="Contraseña" 
                             type="password"
-                            v-model="v$.user.password.$model" 
-                            :errors="v$.user.password.$errors"
-                            :isValidData="!v$.user.password.$invalid"
+                            v-model="v$.student.password.$model" 
+                            :errors="v$.student.password.$errors"
+                            :isValidData="!v$.student.password.$invalid"
                             idFloating="passwordId"
                             floating
                             />
@@ -55,6 +55,10 @@
 
     import useVuelidate from '@vuelidate/core';
     import { required, minLength, email, helpers } from "@vuelidate/validators";
+    import { StudentLogin } from "@/Interfaces/StudentLogin";
+    import { postLoginScores } from "@/services/StudentService";
+    import { mapActions } from "vuex";
+    import { Student } from "@/Interfaces/StudentData";
 
     export default defineComponent({
         components: {
@@ -68,20 +72,27 @@
         data() {
             return {
                 errorMessage: false,
-                user: {
-                    fees: "",
-                    password: ""
-                }
+                student: {} as StudentLogin,
+                studentData: {} as Student
             }
         },
         methods: {
+            ...mapActions([
+                "LoginStudentAction"
+            ]),
             async login() {
-                if (this.user.fees == "123456" && this.user.password == "12345") {
-                    this.$store.state.userStudent.connected = true
-                    this.$store.state.userStudent.fees = this.user.fees
+                const res = await postLoginScores(this.student)
 
+                if (res.data.error) {
+                    this.errorMessage = true
+                } else {
+                    
+                    //this.$store.state.userStudent.connected = true
+                    //this.$store.state.userStudent.fees = res.data.fees
+                    this.studentData = res.data
+                    this.studentData.connected = true
+                    this.LoginStudentAction(this.studentData)
                     this.$router.push("/panel")
-                    console.log("sending data")
                 }
             }
         },
@@ -96,7 +107,7 @@
         },
         validations() {
             return {
-                user: {
+                student: {
                     fees: {
                         required: helpers.withMessage("Este espacio no puede estar vacio", required)
                     },
