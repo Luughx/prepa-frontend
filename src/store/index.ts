@@ -10,7 +10,7 @@ export default createStore({
         night: false,
         user: {} as UserComplete,
         userStudent: {} as Student,
-        urlPdf: "http://www.daraan.site/pdf",
+        urlPdf: "http://localhost:3000/pdf",
         hideInterface: false,
         hideFooter: false,
         chartDataScores: {
@@ -47,7 +47,6 @@ export default createStore({
             return state.userStudent.connected
         },
         studentSubjects(state) {
-            console.log(state.userStudent.subjects)
             return state.userStudent.subjects
         },
         studentFirstName(state) {
@@ -74,6 +73,9 @@ export default createStore({
         },
         studentStatus(state) {
             return state.userStudent.status
+        },
+        studentStatusActualization(state) {
+            return state.userStudent.actualizationStatus
         }
     },
     mutations: {
