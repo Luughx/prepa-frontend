@@ -172,12 +172,7 @@ router.beforeEach(async (to, from, next) => {
             else next("/")
             return
         }
-    } else {
-        next()
-        return
-    }
-
-    if (to.matched.some(route => route.meta.requiresAuth)) {
+    } else if (to.matched.some(route => route.meta.requiresAuth)) {
         if (store.state.connected) {
             next()
         } else {
