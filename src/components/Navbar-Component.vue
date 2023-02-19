@@ -161,7 +161,6 @@
         
         if (resStudent.data) {
           this.student = resStudent.data.student
-          this.student.connected = true
           this.LoginStudentAction(this.student)
         }
         
