@@ -132,8 +132,8 @@ export default defineComponent({
         }
     }, 
     async mounted() {
-        this.getAvisos()
-        this.getAvisosHtml()
+        await this.getAvisos()
+        await this.getAvisosHtml()
     },
     methods: {
         async getAvisosHtml() {

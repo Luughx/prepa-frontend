@@ -2,7 +2,7 @@
   <nav class="navbar sticky-top navbar-expand-lg" v-bind:class="{'navbar-dark bg-dark': $store.getters.night, 'navbar-light bg-light': !$store.getters.night }">
     <div class="container">
       <router-link class="navbar-brand" to="/">
-        <img :src="require(`@/assets/prepa2030.webp`)" class="d-inline-block align-text-top" width="30" height="30" alt="logoprepa2030">
+        <img src="https://res.cloudinary.com/dgkcrzavr/image/upload/v1676823206/statics/prepa2030_xbroar.webp" class="d-inline-block align-text-top" width="30" height="30" alt="logoprepa2030">
         Prepa 2030
       </router-link>
   
