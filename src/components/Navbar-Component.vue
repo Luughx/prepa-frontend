@@ -158,7 +158,7 @@
       },
       async mounted() {
         const resStudent = await getStudent()
-        
+
         if (resStudent.data) {
           this.student = resStudent.data.student
           this.LoginStudentAction(this.student)

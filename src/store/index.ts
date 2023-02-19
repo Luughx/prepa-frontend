@@ -125,7 +125,6 @@ export default createStore({
         },
         ["LOGIN_STUDENT"](state, studentData: Student) {
             state.userStudent = studentData
-            console.log(state.userStudent, studentData)
             state.userStudent.connected = true
             const subjects = state.userStudent.subjects as any
             state.chartDataScores.scoresStudent = []
