@@ -177,6 +177,7 @@ export default createStore({
             const clear:Student = {
                 fees: "",
                 actualizationStatus: "",
+                connected: false,
                 password: "",
                 firstName: "",
                 secondName: "",
