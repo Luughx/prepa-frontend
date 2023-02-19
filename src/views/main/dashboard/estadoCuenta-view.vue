@@ -55,9 +55,6 @@
             return {
                 
             }
-        },
-        mounted() {
-            console.log(this.$store.getters.studentStatus)
         }
     })
 

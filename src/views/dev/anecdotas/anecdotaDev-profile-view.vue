@@ -4,14 +4,14 @@
             <div class="col-md-8">
                 <div class="container">
 
-                    <h2>{{anecdota.title}}</h2>
+                    <h2><div v-html="anecdota.title"></div></h2>
                     <p class="fs-5">
-                        {{anecdota.info}}
+                        <div v-html="anecdota.info"></div>
                     </p>
                     <hr>
                     
                     <p class="fs-6">
-                        {{anecdota.author}}
+                        <div v-html="anecdota.author"></div>
                     </p>
                 </div>
                 

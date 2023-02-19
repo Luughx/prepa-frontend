@@ -36,7 +36,7 @@
                             />
 
                             <div class="mb-3">
-                                <button class="btn btn-primary w-100" :disabled="v$.$invalid && !loading">
+                                <button class="btn btn-primary w-100" :disabled="v$.$invalid || loading">
                                     <div v-if="loading">
                                         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                         <span> Cargando...</span>
@@ -97,9 +97,6 @@
                 if (res.data.error) {
                     this.errorMessage = true
                 } else {
-                    
-                    //this.$store.state.userStudent.connected = true
-                    //this.$store.state.userStudent.fees = res.data.fees
                     this.studentData = res.data
                     this.studentData.connected = true
                     this.LoginStudentAction(this.studentData)

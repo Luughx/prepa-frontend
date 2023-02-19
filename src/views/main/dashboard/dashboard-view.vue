@@ -6,6 +6,19 @@
                 <Sidebar />
             </div>
             <div class="col-md-10">
+                <button class="btn btn-success btn-sm" @click="reloadData()" :disabled="$store.getters.loadingDataDashboard">
+                    <div v-if="$store.getters.loadingDataDashboard">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        <span> Actualizando...</span>
+                    </div>
+                    <div v-else>
+                        <font-awesome-icon icon="fa-solid fa-rotate-right" />
+                        <span> Actualizar</span>
+                    </div>
+                </button>
+                
+                <br>
+                <br>
                 <div class="row">
                     <div class="col-md-8">
                         <div class="card borderless"
@@ -61,88 +74,113 @@
 </template>
 
 <script lang="ts">
+import { defineComponent } from "vue-demi";
+import Sidebar from "@/components/Sidebar-component.vue";
+import { mapActions } from "vuex";
+import { postLoginScores } from "@/services/StudentService";
 
-    import { defineComponent } from "vue-demi";
-    import Sidebar from "@/components/Sidebar-component.vue";
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend
+} from 'chart.js'
+import { Line } from 'vue-chartjs'
+import { StudentLogin } from "@/Interfaces/StudentLogin";
+import { Student } from "@/Interfaces/StudentData";
+import TestView from "../files/test-view.vue";
 
-    import useVuelidate from '@vuelidate/core';
-    import { required, minLength, email, helpers } from "@vuelidate/validators";
-    import { mapActions } from "vuex";
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend
+)
 
-    import {
-        Chart as ChartJS,
-        CategoryScale,
-        LinearScale,
-        PointElement,
-        LineElement,
-        Title,
-        Tooltip,
-        Legend
-    } from 'chart.js'
-    import { Line } from 'vue-chartjs'
-
-    ChartJS.register(
-        CategoryScale,
-        LinearScale,
-        PointElement,
-        LineElement,
-        Title,
-        Tooltip,
-        Legend
-    )
-
-    export default defineComponent({
-        components: {
-            Sidebar,
-            Line
-        },
-        data() {
-            return {
-                subjects: {} as any,
-                labelsChart: [] as string[],
-                dataStatus: [] as any
+export default defineComponent({
+    inject: ["reload"],
+    components: {
+        Sidebar,
+        Line
+    },
+    data() {
+        return {
+            subjects: {} as any,
+            labelsChart: [] as string[],
+            studentData: {} as Student,
+            dataStatus: [] as any,
+            loadingData: false
+        }
+    },
+    mounted() {
+        this.getStatus()
+    },
+    methods: {
+        ...mapActions([
+            "LoginStudentAction",
+            "changeLoadingDataAction",
+            "changeUrlRedirect"
+        ]),
+        getStatus() {
+            for (let i=0; i < 5; i++) {
+                const status = this.$store.getters.studentStatus[i]
+                this.dataStatus.push(status)
             }
         },
-        mounted() {
-            this.getStatus()
-        },
-        methods: {
-            getStatus() {
-                for (let i=0; i < 5; i++) {
-                    const status = this.$store.getters.studentStatus[i]
-                    this.dataStatus.push(status)
-                }
-            }
-        },
-        computed: {
-            chartData() {
-                return {
-                    labels: this.$store.state.chartDataScores.titles,
-                    color: "#fff",
-                    datasets: [
-                        {
-                            label: 'Alumno',
-                            backgroundColor: '#7fabd6',
-                            borderColor: '#7fabd6',
-                            data: this.$store.getters.chartDataScoreStudent
-                        },
-                        {
-                            label: 'Grupo',
-                            backgroundColor: '#f87979',
-                            borderColor: '#f87979',
-                            data: this.$store.getters.chartDataScoreGroup
-                        }
-                    ]
-                }
-            },
-            chartOptions() {
-                return {
-                    responsive: true,
-                    maintainAspectRatio: false
-                }
+        async reloadData() {
+            let student = {} as StudentLogin
+
+            student = this.$store.getters.loginDataStudent
+
+            this.changeLoadingDataAction(true)
+            const res = await postLoginScores(student)
+            this.changeLoadingDataAction(false)
+
+            if (!res.data.error) {
+                this.studentData = res.data
+                this.studentData.connected = true
+                this.changeUrlRedirect(this.$route.fullPath)
+                this.LoginStudentAction(this.studentData)
+                this.$router.push("/redirect")
             }
         }
-    })
+    },
+    computed: {
+        chartData() {
+            return {
+                labels: this.$store.state.chartDataScores.titles,
+                color: "#fff",
+                datasets: [
+                    {
+                        label: 'Alumno',
+                        backgroundColor: '#7fabd6',
+                        borderColor: '#7fabd6',
+                        data: this.$store.getters.chartDataScoreStudent
+                    },
+                    {
+                        label: 'Grupo',
+                        backgroundColor: '#f87979',
+                        borderColor: '#f87979',
+                        data: this.$store.getters.chartDataScoreGroup
+                    }
+                ]
+            }
+        },
+        chartOptions() {
+            return {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        }
+    }
+})
 
 </script>
 

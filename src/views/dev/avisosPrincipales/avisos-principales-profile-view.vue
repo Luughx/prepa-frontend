@@ -31,18 +31,18 @@
                             <label class="form-label">Datos principales</label>
                             <div class="form-floating mb-3">
                                 <input type="text" class="form-control" v-bind:class="{'input-night': $store.getters.night}" name="main_title" placeholder="Titulo"
-                                v-model="aviso.title">
+                                v-model="aviso.title" autocomplete="off">
                                 <label for="floatingInput">Titulo</label>
                             </div>
     
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control" v-bind:class="{'input-night': $store.getters.night}" name="main_description" placeholder="Descripción" v-model="aviso.description">
-                                <label for="floatingInput">Descripción</label>
+                                <input type="text" class="form-control" v-bind:class="{'input-night': $store.getters.night}" name="main_description" placeholder="Descripción" v-model="aviso.description" autocomplete="off">
+                                <label for="floatingInput" >Descripción</label>
                             </div>
     
                             <div class="form-floating mb-3">
                                 <input type="text" class="form-control" v-bind:class="{'input-night': $store.getters.night}" name="main_link" placeholder="Link"
-                                v-model="aviso.link">
+                                v-model="aviso.link" autocomplete="off">
                                 <label for="floatingInput">Link</label>
                             </div>
     
@@ -59,17 +59,18 @@
     
     
                             <div class="form-group mb-3">
-                                <button class="btn btn-primary w-100">Editar</button>
+                                <button class="btn btn-primary w-100" :disabled="loading">
+                                    <div v-if="loading">
+                                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                        <span> Cargando...</span>
+                                    </div>
+                                    <div v-else>
+                                        <span>Editar</span>
+                                    </div>
+                                </button>
                             </div>
                         </form>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="form-group mb-3" v-if="loading">
-            <div class="d-flex justify-content-center" >
-                <div class="spinner-border" role="status">
-                    <span class="visually-hidden">Loading...</span>
                 </div>
             </div>
         </div>
@@ -96,8 +97,6 @@ export default defineComponent({
             this.aviso = res.data
         },
         async edit() {
-            
-            console.log(this.aviso.type)
             
             let form = new FormData()
             form.append("title", this.aviso.title.toString())

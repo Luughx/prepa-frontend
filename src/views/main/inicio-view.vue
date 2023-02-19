@@ -62,8 +62,8 @@
             <div class="carousel-inner" v-else-if="!loading && !exist">
                 <div class="carousel-item active">
                     <div>
-                        <img src="https://res.cloudinary.com/lughx/image/upload/v1655419666/Estaticos/Index/sin_avisos_gwdz6y.png" 
-                        class="d-block img-slideshow" alt="AvisoPrepa2030">
+                        <img :src="require('@/assets/AnunciosVacio.webp')" 
+                        class="d-block img-slideshow" alt="AvisoPrepa2030" height="600px" width="1920px">
                     </div>
                 </div>
     
@@ -79,7 +79,7 @@
             </button>
         </header>
     
-        <section class="container p-4" style="max-width: 680px; padding: 0 15px;">
+        <section class="container mt-3 p-4" style="max-width: 680px; padding: 0 15px;">
             <div class="text-center">
                 <p class="lead">
                 La Preparatoria Federal por Cooperación "Activo 20-30, Albert Einstein" es reconocida, a nivel nacional, como una de las escuelas del nivel medio superior con mayor nivel académico. La disciplina que se les inculca a los estudiantes sienta las bases para que logren su desarrollo profesional con respeto a las instituciones, a si mismos y a los demás.
@@ -87,98 +87,24 @@
             </div>
         </section>
     
-        <hr v-bind:class="{'hr-night': $store.getters.night}">
+        <hr v-if="avisosHtml.length != 0" v-bind:class="{'hr-night': $store.getters.night}">
     
-        <section class="container p-4 fs-5">
-        <div class="row">
-            <div class="col-lg-4 section">
-            <div>
-                <h3>Boletas</h3>
-                
-                <div class="section-div">
-                    <img loading="lazy" class="section-img d-block" src="https://res.cloudinary.com/lughx/image/upload/v1653239310/Estaticos/Index/pexels-cottonbro-3662630.jpg_eyvyj2.png" alt="BoletasPrepa2030">
+        <section v-if="avisosHtml.length != 0" class="container p-4 fs-5" v-bind:class="{'bg-dark': $store.getters.night, 'bg-light': !$store.getters.night}">
+            <h3 class="mb-3">Noticias y avisos</h3>
+            <div class="row justify-content-center">
+                <div class="col-md-4 section" v-for="(aviso, index) in avisosHtml" :key="index">
+                    <div>
+                        <div class="section-div">
+                            <router-link :to="`/avisos/ver/${aviso.url}`">
+                                <img loading="lazy" class="section-img" :src="aviso.imageURL" :alt="aviso.title" width="408px" height="250px">
+                            </router-link>
+                        </div>
+                        <router-link class="title-notice" v-bind:class="{'text-white': $store.getters.night}" :to="`/avisos/ver/${aviso.url}`">{{aviso.title}}</router-link>
+                    </div>
                 </div>
-    
-                <p>Consulta tus calificaciones</p>
-                <p><a class="btn" v-bind:class="{'btn-outline-light': $store.getters.night, 'btn-outline-secondary': !$store.getters.night}" href="http://67.225.220.160/~prepaco1/boletapdf/index.php" target="_blank" rel="noopener noreferrer">Ver más</a></p>
             </div>
-            </div>
-            
-            <div class="col-lg-4 section">
-                <h3>Estado de cuenta</h3>
-                <div class="section-div">
-                    <img loading="lazy" class="section-img d-block" src="https://res.cloudinary.com/lughx/image/upload/v1653242182/Estaticos/Index/pexels-te-lensfix-1083728_mfpwaj.jpg" alt="CuentaPrepa2030">
-                </div>
-                <p>
-                Consulta tu estado de cuenta 
-                </p>
-                <p><a class="btn" v-bind:class="{'btn-outline-light': $store.getters.night, 'btn-outline-secondary': !$store.getters.night}" href="http://67.225.220.160/~prepaco1/cuotas/leer.html" target="_blank" rel="noopener noreferrer">Ver más</a></p>
-            </div>
-    
-            <div class="col-lg-4 section">
-                <h3>Calendario</h3>
-                <div class="section-div">
-                    <img loading="lazy" class="section-img d-block" src="https://res.cloudinary.com/lughx/image/upload/v1653239311/Estaticos/Index/pexels-olya-kobruseva-5386754.jpg_d2os7e.png" alt="CalendarioPrepa2030">
-                </div>
-                <p>
-                Consulta el calendario 
-                </p>
-                <p><a class="btn" v-bind:class="{'btn-outline-light': $store.getters.night, 'btn-outline-secondary': !$store.getters.night}" href="https://www.prepa2030.com.mx/_files/ugd/65b189_0dbd23a60a4047f886466a5237618897.pdf" target="_blank" rel="noopener noreferrer">Ver más</a></p>
-            </div>
-            
-        </div>
-    
-        <br>
         </section>
-    
-        <hr v-bind:class="{'hr-night': $store.getters.night}">
-        
-        <section class="container p-4" v-bind:class="{'bg-dark': $store.getters.night, 'bg-light': !$store.getters.night}">
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="fs-5">
-                        <div class="container-fluid py-5">
-                                <h3>Misión</h3>
-                                <p>
-                                La Prepa 20-30 ofrece una educación de excelencia con modelos educativos y tecnología avanzada, que permite a sus estudiantes desarrollarse en forma equilibrada, conscientes de su pasado histórico y con una constante disposición al servicio y al engrandecimiento de los valores sociales, éticos y culturales.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-    
-                    <div class="col-md-4">
-                        <div class="padre-flex">
-                        <div class="division-div">
-                            <img loading="lazy" class="division-img" src="https://res.cloudinary.com/lughx/image/upload/v1653242194/Estaticos/Index/pexels-pixabay-207691_cz8mab.jpg" alt="MisionPrepa2030">
-                        </div>
-                    </div>
 
-                </div>
-            </div>
-        </section>
-        <br>
-        <section class="container p-4" v-bind:class="{'bg-dark': $store.getters.night, 'bg-light': !$store.getters.night}">
-            <div class="row">
-                <div class="col-md-4">
-                <div class="padre-flex">
-                    <div class="division-div">
-                    <img loading="lazy" class="division-img" src="https://res.cloudinary.com/lughx/image/upload/v1653242197/Estaticos/Index/pexels-element-digital-1370296_arto5a.jpg" alt="VisionPrepa2030">
-                    </div>
-                </div>
-                </div>
-                <div class="col-md-8">
-                <div class="fs-5">
-                    <div class="container-fluid py-5">
-                        <h3>Visión</h3>
-                        <p>
-                        Ofrecer una educación con infraestructura, metodología y tecnología de vanguardia; contar con personal docente de nivel maestría, que de servicio a estudiantes de todo el estado, contribuyendo en la formación del profesionista que reclama el siglo XXI.
-                        </p>
-                    </div>
-                </div>
-                </div>
-    
-            </div>
-        </section>
     </main>
 </template>
 
@@ -186,7 +112,9 @@
 
 import { Aviso_Principal } from "@/Interfaces/Aviso-principal";
 import { getAvisoPrincipalPrincipal, getAvisosPrincipalesSecundarios } from "@/services/AvisosPrincipalesService";
+import { getAvisoshtmlMain } from "@/services/Avisoshtml";
 import { defineComponent } from "vue-demi";
+import { AvisoHtml } from "@/Interfaces/Aviso-html";
 
 interface Buttons {
     num: number
@@ -197,17 +125,23 @@ export default defineComponent({
         return {
             avisoPrincipal: {} as Aviso_Principal,
             avisosSecundarios: [] as Aviso_Principal[],
+            avisosHtml: [] as AvisoHtml[],
             buttons: [] as Buttons[],
             exist: false,
             loading: true
         }
     }, 
     async mounted() {
-        
         this.getAvisos()
-        
+        this.getAvisosHtml()
     },
     methods: {
+        async getAvisosHtml() {
+            const res = await getAvisoshtmlMain("3")
+            if (res.data) {
+                this.avisosHtml = res.data
+            }
+        },
         async getAvisos() {
             this.loading = true
             const resP = await getAvisoPrincipalPrincipal()

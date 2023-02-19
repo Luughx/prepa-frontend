@@ -24,31 +24,90 @@
                                     <br>
                                     <strong>Total grupo: </strong> {{$store.getters.chartDataTotalGroup}}
                                 </p>
+                                <p>
+                                    <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseMain" role="button">
+                                        Detalles
+                                    </a>
+                                </p>
+                                <div class="collapse p-0" id="collapseMain">
+                                    <div class="table-responsive">
+                                        <table class="table table-borderless table-hover" v-bind:class="{'table-dark night-bg': $store.getters.night}">
+                                            <thead>
+                                                <tr>
+                                                    <th>Materia</th>
+                                                    <th>Etapa 1</th>
+                                                    <th>Etapa 2</th>
+                                                    <th>Etapa 3</th>
+                                                    <th>Etapa 4</th>
+                                                    <th>Promedio</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr v-for="(subject, index) in subjects" :key="index">
+                                                    <td><span>{{subject[0]}} </span> </td>
+                                                    <td><span class="score-student">{{subject[1]}}</span> <span class="score-group">{{subject[2]}}</span></td>
+                                                    <td><span class="score-student">{{subject[3]}}</span> <span class="score-group">{{subject[4]}}</span></td>
+                                                    <td><span class="score-student">{{subject[5]}}</span> <span class="score-group">{{subject[6]}}</span></td>
+                                                    <td><span class="score-student">{{subject[7]}}</span> <span class="score-group">{{subject[8]}}</span></td>
+                                                    <td><span class="score-student">{{subject[9]}}</span> <span class="score-group">{{subject[10]}}</span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-12 mt-4">
+                        <h3 class="h4">Filtrar por materia</h3>
+                    </div>
+                    <div class="form-floating mt-1 ms-0">
+                        <select class="form-select" id="floatingSelect" v-bind:class="{'input-night': $store.getters.night}" @change="changeCurrentData()" v-model="currentSubject">
+                            <option :value="0">
+                                Seleccionar
+                            </option>
+                            <option :value="index + 1" v-for="(subject, index) in subjects" :key="index">
+                                {{ subject[0] }}
+                            </option>
+                        </select>
+                        <label class="ms-2" for="floatingSelect">Materia</label>
+                    </div>
+                    
+                    <div class="col-md-12 mt-4" v-if="chartSubjectActive">
                         <div class="card borderless"
                             v-bind:class="{ 'card-night': $store.getters.night, 'bg-light': !$store.getters.night }">
-                            <div class="card-body">
+                            <div class="p-4">
+                                <h5 class="card-title h5">{{currentSubjectData[0]}}</h5>
+                            </div>
+                            <div class="p-4">
+                                <Line v-if="currentSubject == 1" class="card-img text-white" :options="chartOptions" :data="chartDataSubject0" />
+                                <Line v-if="currentSubject == 2" class="card-img text-white" :options="chartOptions" :data="chartDataSubject1" />
+                                <Line v-if="currentSubject == 3" class="card-img text-white" :options="chartOptions" :data="chartDataSubject2" />
+                                <Line v-if="currentSubject == 4" class="card-img text-white" :options="chartOptions" :data="chartDataSubject3" />
+                                <Line v-if="currentSubject == 5" class="card-img text-white" :options="chartOptions" :data="chartDataSubject4" />
+                                <Line v-if="currentSubject == 6" class="card-img text-white" :options="chartOptions" :data="chartDataSubject5" />
+                                <Line v-if="currentSubject == 7" class="card-img text-white" :options="chartOptions" :data="chartDataSubject6" />
+                                <Line v-if="currentSubject == 8" class="card-img text-white" :options="chartOptions" :data="chartDataSubject7" />
+                            </div>
+                            <div class="card-body p-4">
                                 <div class="table-responsive">
                                     <table class="table table-borderless table-hover" v-bind:class="{'table-dark night-bg': $store.getters.night}">
                                         <thead>
                                             <tr>
-                                                <th>Materia</th>
                                                 <th>Etapa 1</th>
                                                 <th>Etapa 2</th>
                                                 <th>Etapa 3</th>
                                                 <th>Etapa 4</th>
+                                                <th>Promedio</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr v-for="(subject, index) in subjects" :key="index">
-                                                <td><span>{{subject[0]}} </span> </td>
-                                                <td><span class="score-student">{{subject[1]}}</span> <span class="score-group">{{subject[2]}}</span></td>
-                                                <td><span class="score-student">{{subject[3]}}</span> <span class="score-group">{{subject[4]}}</span></td>
-                                                <td><span class="score-student">{{subject[5]}}</span> <span class="score-group">{{subject[6]}}</span></td>
-                                                <td><span class="score-student">{{subject[7]}}</span> <span class="score-group">{{subject[8]}}</span></td>
+                                            <tr>
+                                                <td><span class="score-student">{{currentSubjectData[1]}}</span> <span class="score-group">{{currentSubjectData[2]}}</span></td>
+                                                <td><span class="score-student">{{currentSubjectData[3]}}</span> <span class="score-group">{{currentSubjectData[4]}}</span></td>
+                                                <td><span class="score-student">{{currentSubjectData[5]}}</span> <span class="score-group">{{currentSubjectData[6]}}</span></td>
+                                                <td><span class="score-student">{{currentSubjectData[7]}}</span> <span class="score-group">{{currentSubjectData[8]}}</span></td>
+                                                <td><span class="score-student">{{currentSubjectData[9]}}</span> <span class="score-group">{{currentSubjectData[10]}}</span></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -56,7 +115,10 @@
                             </div>
                         </div>
                     </div>
+                    
                 </div>
+                <br>
+                <br>
             </div>
                 
             </div>
@@ -96,6 +158,11 @@
         Legend
     )
 
+    const colorStudent = "#7fabd6"
+    const colorGroup = "#f87979"
+
+    const labelsSubjects = ["Etapa 1", "Etapa 2", "Etapa 3", "Etapa 4"]
+
     export default defineComponent({
         components: {
             Sidebar,
@@ -110,6 +177,145 @@
             return {
                 errorMessage: false,
                 subjects: [] as any,
+                currentSubjectData: [] as string[],
+                currentSubject: 0,
+                chartSubjectActive: false,
+                chartDataSubject0: {
+                    labels: labelsSubjects,
+                    datasets: [
+                        {
+                            label: 'Alumno',
+                            backgroundColor: colorStudent,
+                            borderColor: colorStudent,
+                            data: this.$store.state.chartDataScoresSubject.scoresStudent[0]
+                        },
+                        {
+                            label: 'Grupo',
+                            backgroundColor: colorGroup,
+                            borderColor: colorGroup,
+                            data: this.$store.state.chartDataScoresSubject.scoresGroup[0]
+                        }
+                    ]
+                },
+                chartDataSubject1: {
+                    labels: labelsSubjects,
+                    datasets: [
+                        {
+                            label: 'Alumno',
+                            backgroundColor: colorStudent,
+                            borderColor: colorStudent,
+                            data: this.$store.state.chartDataScoresSubject.scoresStudent[1]
+                        },
+                        {
+                            label: 'Grupo',
+                            backgroundColor: colorGroup,
+                            borderColor: colorGroup,
+                            data: this.$store.state.chartDataScoresSubject.scoresGroup[1]
+                        }
+                    ]
+                },
+                chartDataSubject2: {
+                    labels: labelsSubjects,
+                    datasets: [
+                        {
+                            label: 'Alumno',
+                            backgroundColor: colorStudent,
+                            borderColor: colorStudent,
+                            data: this.$store.state.chartDataScoresSubject.scoresStudent[2]
+                        },
+                        {
+                            label: 'Grupo',
+                            backgroundColor: colorGroup,
+                            borderColor: colorGroup,
+                            data: this.$store.state.chartDataScoresSubject.scoresGroup[2]
+                        }
+                    ]
+                },
+                chartDataSubject3: {
+                    labels: labelsSubjects,
+                    datasets: [
+                        {
+                            label: 'Alumno',
+                            backgroundColor: colorStudent,
+                            borderColor: colorStudent,
+                            data: this.$store.state.chartDataScoresSubject.scoresStudent[3]
+                        },
+                        {
+                            label: 'Grupo',
+                            backgroundColor: colorGroup,
+                            borderColor: colorGroup,
+                            data: this.$store.state.chartDataScoresSubject.scoresGroup[3]
+                        }
+                    ]
+                },
+                chartDataSubject4: {
+                    labels: labelsSubjects,
+                    datasets: [
+                        {
+                            label: 'Alumno',
+                            backgroundColor: colorStudent,
+                            borderColor: colorStudent,
+                            data: this.$store.state.chartDataScoresSubject.scoresStudent[4]
+                        },
+                        {
+                            label: 'Grupo',
+                            backgroundColor: colorGroup,
+                            borderColor: colorGroup,
+                            data: this.$store.state.chartDataScoresSubject.scoresGroup[4]
+                        }
+                    ]
+                },
+                chartDataSubject5: {
+                    labels: labelsSubjects,
+                    datasets: [
+                        {
+                            label: 'Alumno',
+                            backgroundColor: colorStudent,
+                            borderColor: colorStudent,
+                            data: this.$store.state.chartDataScoresSubject.scoresStudent[5]
+                        },
+                        {
+                            label: 'Grupo',
+                            backgroundColor: colorGroup,
+                            borderColor: colorGroup,
+                            data: this.$store.state.chartDataScoresSubject.scoresGroup[5]
+                        }
+                    ]
+                },
+                chartDataSubject6: {
+                    labels: labelsSubjects,
+                    datasets: [
+                        {
+                            label: 'Alumno',
+                            backgroundColor: colorStudent,
+                            borderColor: colorStudent,
+                            data: this.$store.state.chartDataScoresSubject.scoresStudent[6]
+                        },
+                        {
+                            label: 'Grupo',
+                            backgroundColor: colorGroup,
+                            borderColor: colorGroup,
+                            data: this.$store.state.chartDataScoresSubject.scoresGroup[6]
+                        }
+                    ]
+                },
+                chartDataSubject7: {
+                    labels: labelsSubjects,
+                    datasets: [
+                        {
+                            label: 'Alumno',
+                            backgroundColor: colorStudent,
+                            borderColor: colorStudent,
+                            data: this.$store.state.chartDataScoresSubject.scoresStudent[7]
+                        },
+                        {
+                            label: 'Grupo',
+                            backgroundColor: colorGroup,
+                            borderColor: colorGroup,
+                            data: this.$store.state.chartDataScoresSubject.scoresGroup[7]
+                        }
+                    ]
+                },
                 chartData: {
                     labels: this.$store.state.chartDataScores.titles,
                     color: "#fff",
@@ -118,13 +324,13 @@
                             label: 'Alumno',
                             backgroundColor: '#7fabd6',
                             borderColor: '#7fabd6',
-                            data: this.$store.getters.chartDataScoreStudent
+                            data: this.$store.state.chartDataScores.scoresStudent
                         },
                         {
                             label: 'Grupo',
                             backgroundColor: '#f87979',
                             borderColor: '#f87979',
-                            data: this.$store.getters.chartDataScoreGroup
+                            data: this.$store.state.chartDataScores.scoresGroup
                         }
                     ]
                 },
@@ -135,6 +341,7 @@
             }
         },
         mounted() {
+            //console.log(this.$store.state.chartDataScoresSubject.scoresStudent[0])
             this.getStatus()
         },
         methods: {
@@ -154,6 +361,13 @@
                  */
                 const resAxios = await postDownloadScores({"fees": "200223", "password": "rl38y"})
                 console.log(resAxios.data)
+            },
+            changeCurrentData() {
+                if (this.currentSubject == 0) this.chartSubjectActive = false
+                else {
+                    this.chartSubjectActive = true
+                    this.currentSubjectData = this.subjects[this.currentSubject - 1]
+                } 
             }
         },
         watch: {
