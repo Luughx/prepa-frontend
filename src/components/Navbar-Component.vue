@@ -156,25 +156,22 @@
           student: {} as Student
         }
       },
-      async created() {
-        const res = await getData()
+      async mounted() {
         const resStudent = await getStudent()
-  
+        
         if (resStudent.data) {
-  
           this.student = resStudent.data.student
           this.student.connected = true
           this.LoginStudentAction(this.student)
         }
-  
+        
+        const res = await getData()
         if (res.data) {
           let userData:UserComplete
           userData = res.data.user
           userData.owner = res.data.owner
           this.LoginAction(userData)
         }
-      },
-      async mounted() {
         if (localStorage.getItem("night")) {
           this.setNightAction()
           document.body.classList.add("night-bg")
