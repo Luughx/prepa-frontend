@@ -3,6 +3,9 @@
         <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse" v-bind:class="{'navbar-dark bg-dark': $store.getters.night, 'navbar-light bg-light': !$store.getters.night }">
             <div class="position-sticky pt-3 sidebar-sticky">
                 <div class="nav-link">
+                    <button class="btn btn-success btn-sm ms-3" @click="reloadData()" :disabled="$store.getters.loadingDataDashboard">
+                        <font-awesome-icon icon="fa-solid fa-rotate-right" />
+                    </button>
                     <h1 class="fs-4 ms-3 mt-2" v-bind:class="{'text-white': $store.getters.night}">
                         {{`${$store.getters.studentFirstName} ${$store.getters.studentLastNameF}`}}
                     </h1>
@@ -10,7 +13,7 @@
                 </div>
                 <hr class="ms-3 me-3">
                 <ul class="nav nav-pills flex-column mb-auto">
-
+                    
                     <li class="nav-item">
                     <router-link class="nav-link ms-3 mt-2" v-bind:class="{'text-white': $store.getters.night}" to="/panel">Resumen</router-link>
                     </li>
@@ -35,31 +38,54 @@
 
 <script lang="ts">
 
-    import { defineComponent } from "@vue/runtime-core"
-    import { deleteLoginStudent } from "@/services/StudentService"
-    import { mapActions } from "vuex"
+import { defineComponent } from "@vue/runtime-core"
+import { deleteLoginStudent } from "@/services/StudentService"
+import { mapActions } from "vuex"
+import { StudentLogin } from "@/Interfaces/StudentLogin"
+import { Student } from "@/Interfaces/StudentData"
+import { postLoginScores } from "@/services/StudentService";
 
-    export default defineComponent({
-    name: "Sidebar-Component",
-    data() {
-        return {
-        
-        }
-    },
-    methods: {
-        ...mapActions([
-        "LogoutStudentAction"
-      ]),
-      async logoutStudent() {
-        const res = await deleteLoginStudent()
-
-        if (res.data) {
-          this.LogoutStudentAction()
-          this.$router.push("/")
-        }
-      },
+export default defineComponent({
+name: "Sidebar-Component",
+data() {
+    return {
+        studentData: {} as Student
     }
-    })
+},
+methods: {
+    ...mapActions([
+    "LogoutStudentAction",
+    "LoginStudentAction",
+    "changeLoadingDataAction",
+    "changeUrlRedirect"
+    ]),
+    async logoutStudent() {
+    const res = await deleteLoginStudent()
+
+    if (res.data) {
+        this.LogoutStudentAction()
+        this.$router.push("/")
+    }
+    },
+    async reloadData() {
+        let student = {} as StudentLogin
+
+        student = this.$store.getters.loginDataStudent
+
+        this.changeLoadingDataAction(true)
+        const res = await postLoginScores(student)
+        this.changeLoadingDataAction(false)
+
+        if (!res.data.error) {
+            this.studentData = res.data
+            this.studentData.connected = true
+            this.changeUrlRedirect(this.$route.fullPath)
+            this.LoginStudentAction(this.studentData)
+            this.$router.push("/redirect")
+        }
+    }
+}
+})
 </script>
 
 <style>

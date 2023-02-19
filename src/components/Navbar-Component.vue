@@ -1,8 +1,8 @@
 <template>
-<header class="navbar sticky-top navbar-expand-lg" v-bind:class="{'navbar-dark bg-dark': $store.getters.night, 'navbar-light bg-light': !$store.getters.night }">
+<nav class="navbar sticky-top navbar-expand-lg" v-bind:class="{'navbar-dark bg-dark': $store.getters.night, 'navbar-light bg-light': !$store.getters.night }">
   <div class="container">
     <router-link class="navbar-brand" to="/">
-      <img src="https://res.cloudinary.com/lughx/image/upload/v1653363364/Estaticos/Logo_scp66x_pecf4o.png" style="height: 4vh">
+      <img :src="require(`@/assets/prepa2030.webp`)" class="d-inline-block align-text-top" width="30" height="30">
       Prepa 2030
     </router-link>
 
@@ -17,49 +17,28 @@
         </li>
 
         <li class="nav-item">
-            <router-link class="nav-link" v-bind:class="{'text-white': $store.getters.night}" to="#">Avisos</router-link>
+            <router-link class="nav-link" v-bind:class="{'text-white': $store.getters.night}" to="/avisos">Avisos</router-link>
         </li>
         
         <li class="nav-item">
-            <router-link class="nav-link" v-bind:class="{'text-white': $store.getters.night}" to="/anecdotas">Anecdotas</router-link>
+            <router-link class="nav-link" v-bind:class="{'text-white': $store.getters.night}" to="/anecdotas">Anécdotas</router-link>
         </li>
 
         <li class="nav-item" v-if="!$store.getters.studentConnected">
             <router-link class="nav-link" v-bind:class="{'text-white': $store.getters.night}" to="/panel/iniciar-sesion">Consultas</router-link>
         </li>
         
-        <li class="nav-item dropdown" v-if="$store.getters.studentConnected">
-            <a class="nav-link dropdown-toggle" v-bind:class="{'text-white': $store.getters.night}" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Panel
-            </a>
-            <ul class="dropdown-menu gap-1 p-1 rounded-3 mx-0 border-0 shadow w-220px" v-bind:class="{'dropdown-menu-dark': $store.getters.night, 'bg-light': !$store.getters.night }" aria-labelledby="navbarDropdownMenuLink">
-              <li>
-                <router-link class="dropdown-item rounded-2" to="/panel">Resumen</router-link>
-              </li>
-              <li>
-                <router-link class="dropdown-item rounded-2" to="/panel/calificaciones">Calificaciones</router-link>
-              </li>
-              <li>
-                <router-link class="dropdown-item rounded-2" to="/panel/estado-cuenta">Estado de cuenta</router-link>
-              </li>
-              <li>
-                <button class="dropdown-item rounded-2" @click="logoutStudent()">Salir</button>
-              </li>
-            </ul>
-        </li>
+        
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" v-bind:class="{'text-white': $store.getters.night}" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Información
             </a>
             <ul class="dropdown-menu gap-1 p-1 rounded-3 mx-0 border-0 shadow w-220px" v-bind:class="{'dropdown-menu-dark': $store.getters.night, 'bg-light': !$store.getters.night }" aria-labelledby="navbarDropdownMenuLink">
               <li>
-                <router-link class="dropdown-item rounded-2" to="/reglamentos">Reglamentos</router-link>
+                <router-link class="dropdown-item rounded-2" to="/reglamento">Reglamento</router-link>
               </li>
               <li>
                 <router-link class="dropdown-item rounded-2" to="/calendarios">Calendarios</router-link>
-              </li>
-              <li>
-                <router-link class="dropdown-item rounded-2" to="/fundacion">Fundación</router-link>
               </li>
             </ul>
         </li>
@@ -86,7 +65,25 @@
             </button>
           </form>
         </li>
-
+        <li class="nav-item dropdown" v-if="$store.getters.studentConnected">
+            <a class="nav-link dropdown-toggle" v-bind:class="{'text-white': $store.getters.night}" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Panel
+            </a>
+            <ul class="dropdown-menu gap-1 p-1 rounded-3 mx-0 border-0 shadow w-220px" v-bind:class="{'dropdown-menu-dark': $store.getters.night, 'bg-light': !$store.getters.night }" aria-labelledby="navbarDropdownMenuLink">
+              <li>
+                <router-link class="dropdown-item rounded-2" to="/panel">Resumen</router-link>
+              </li>
+              <li>
+                <router-link class="dropdown-item rounded-2" to="/panel/calificaciones">Calificaciones</router-link>
+              </li>
+              <li>
+                <router-link class="dropdown-item rounded-2" to="/panel/estado-cuenta">Estado de cuenta</router-link>
+              </li>
+              <li>
+                <button class="dropdown-item rounded-2" @click="logoutStudent()">Salir</button>
+              </li>
+            </ul>
+        </li>
         <li class="nav-item" v-if="!$store.getters.connected">
             <router-link class="nav-link" v-bind:class="{'text-white': $store.getters.night}" to="/usuarios/iniciar-sesion">Iniciar sesion</router-link>
         </li>
@@ -101,13 +98,13 @@
           </a>
           <ul class="dropdown-menu gap-1 p-1 rounded-3 mx-0 border-0 shadow w-220px" v-bind:class="{'dropdown-menu-dark': $store.getters.night, 'bg-light': !$store.getters.night }" aria-labelledby="navbarDropdownMenuLink">
             <li>
-              <router-link class="dropdown-item rounded-2" to="/dev/anecdotas">
-                Anecdotas
+              <router-link class="dropdown-item rounded-2" to="/dev/avisos">
+                Avisos
               </router-link>
             </li>
             <li>
-              <router-link class="dropdown-item rounded-2" to="/dev/avisos-principales">
-                Avisos Principales
+              <router-link class="dropdown-item rounded-2" to="/dev/anecdotas">
+                Anecdotas
               </router-link>
             </li>
           </ul>
@@ -135,7 +132,11 @@
 
     </div>
   </div>
-</header>
+</nav>
+<div v-if="$store.getters.stateAlertNavbar" class="alert alert-dismissible fade show" :class="`${$store.getters.colorAlertNavbar}`">
+  {{ $store.getters.textAlertNavbar }}
+  <button type="button" class="btn-close" @click="changeStateAlert(false)"></button>
+</div>
 </template>
 
 <script lang="ts">
@@ -187,7 +188,9 @@
         "setNightAction",
         "LoginAction",
         "LoginStudentAction",
-        "LogoutStudentAction"
+        "LogoutStudentAction",
+        "changeStateAlert",
+        "changeColorAlert"
       ]),
       async logoutStudent() {
         const res = await deleteLoginStudent()

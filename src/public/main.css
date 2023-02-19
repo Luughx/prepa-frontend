@@ -106,7 +106,7 @@ hr {
 .division-div {
     position: relative;
     width: 100%;
-    height: 300px;
+    height: 200px;
 }
 
 .division-img {
@@ -119,14 +119,26 @@ hr {
 .section-div {
     position: relative;
     width: 100%;
-    height: 300px;
+    height: 250px;
+}
+
+.section-div-sidebar-avisos {
+    position: relative;
+    width: 100%;
+    height: 150px;
+}
+
+.section-div-avisos {
+    position: relative;
+    width: 100%;
+    height: 200px;
 }
 
 .section-img {
     width: 100%;
     height: 100%;
     position: absolute;
-    object-fit: cover;
+    object-fit: none;
 }
 
 .img-slideshow {
@@ -135,9 +147,33 @@ hr {
     height: 500px;
     top: 0;
     left: 0;
-    object-fit: cover;
+    object-fit: none;
 }
 
 .borderless {
     border: 0px solid;
+}
+
+.title-notice {
+    text-decoration: none;
+    color: black;
+}
+
+.title-notice:hover {
+    color: black;
+}
+
+.title-notice-night {
+    text-decoration: none;
+    color: white;
+}
+
+.sidebar-notices {
+    position: relative;
+}
+
+@media only screen and (max-width: 767px) {
+    .sidebar-notices {
+        display: none;
+    }
 }

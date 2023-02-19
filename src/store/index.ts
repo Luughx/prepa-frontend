@@ -11,6 +11,7 @@ export default createStore({
         user: {} as UserComplete,
         userStudent: {} as Student,
         urlPdf: "http://localhost:3000/pdf",
+        urlRedirect: "/",
         hideInterface: false,
         hideFooter: false,
         chartDataScores: {
@@ -19,7 +20,17 @@ export default createStore({
             scoresGroup: [] as string[],
             totalStudent: 0,
             totalGroup: 0
-        }
+        },
+        chartDataScoresSubject: {
+            scoresStudent: [] as string[],
+            scoresGroup: [] as string[]
+        },
+        alertNavbar: {
+            active: false,
+            text: "Este es un mensaje de error",
+            color: "alert-danger"
+        },
+        loadingDataDashboard: false
     },
     getters: {
         night(state) {
@@ -28,11 +39,24 @@ export default createStore({
         connected(state) {
             return state.connected
         },
+        urlRedirect(state) {
+            return state.urlRedirect
+        },
         isOwner(state) {
             return state.user.owner
         },
         urlPdf(state) {
             return state.urlPdf
+        },
+        loginDataStudent(state) {
+            const studentLogin = {
+                fees: state.userStudent.fees,
+                password: state.userStudent.password
+            }
+            return studentLogin
+        },
+        loadingDataDashboard(state) {
+            return state.loadingDataDashboard
         },
         hideInterface(state) {
             return state.hideInterface
@@ -76,6 +100,15 @@ export default createStore({
         },
         studentStatusActualization(state) {
             return state.userStudent.actualizationStatus
+        },
+        stateAlertNavbar(state) {
+            return state.alertNavbar.active
+        },
+        colorAlertNavbar(state) {
+            return state.alertNavbar.color
+        },
+        textAlertNavbar(state) {
+            return state.alertNavbar.text
         }
     },
     mutations: {
@@ -96,6 +129,8 @@ export default createStore({
             const subjects = state.userStudent.subjects as any
             state.chartDataScores.scoresStudent = []
             state.chartDataScores.scoresGroup = []
+            state.chartDataScores.titles = []
+
             for (let i=0; i < 8; i++) {
                 const subject = subjects[i] 
                 state.chartDataScores.titles.push(subject[0])
@@ -109,11 +144,24 @@ export default createStore({
                     state.chartDataScores.scoresStudent.push(subject[j-1])
                     state.chartDataScores.scoresGroup.push(subject[j])
                 } else {
+                    const arrayDestroyableStudent = [] as any
+                    const arrayDestroyableGroup = [] as any
+                    for (let y=0; y < j; y++) {
+                        if (y != 0) {
+                            if (y % 2 != 0) {
+                                arrayDestroyableStudent.push(subject[y])
+                            } else {
+                                arrayDestroyableGroup.push(subject[y])
+                            }
+                        }
+                    }
+                    state.chartDataScoresSubject.scoresStudent.push(arrayDestroyableStudent)
+                    state.chartDataScoresSubject.scoresGroup.push(arrayDestroyableGroup)
+
                     state.chartDataScores.scoresStudent.push(subject[9])
                     state.chartDataScores.scoresGroup.push(subject[10])
                 }
             }
-
             let totalStudent = 0
             let totalGroup = 0
             for (let i=0; i < 8; i++) {
@@ -122,14 +170,13 @@ export default createStore({
             }
             state.chartDataScores.totalStudent = parseFloat((totalStudent/8).toFixed(1))
             state.chartDataScores.totalGroup = parseFloat((totalGroup/8).toFixed(1))
-
-            //console.log(state.userStudent)
         },
         ["LOGOUT_STUDENT"](state) {
 
             const clear:Student = {
                 fees: "",
                 actualizationStatus: "",
+                password: "",
                 firstName: "",
                 secondName: "",
                 lastNameF: "",
@@ -146,8 +193,23 @@ export default createStore({
 
             state.userStudent = clear
         },
+        ["CHANGE_LOADING_DATA_DASHBOARD"](state, status: boolean) {
+            state.loadingDataDashboard = status 
+        },
+        ["CHANGE_URLREDIRECT"](state, url: string) {
+            state.urlRedirect = url 
+        },
         ["SET_CONNECT"](state) {
             state.connected = true 
+        },
+        ["CHANGE_STATE_ALERT"](state, status: boolean) {
+            state.alertNavbar.active = status 
+        },
+        ["CHANGE_COLOR_ALERT"](state, color: string) {
+            state.alertNavbar.color = color 
+        },
+        ["CHANGE_TEXT_ALERT"](state, text: string) {
+            state.alertNavbar.text = text 
         },
         ["SET_DISCONNECT"](state) {
             state.connected = false 
@@ -183,8 +245,23 @@ export default createStore({
         LogoutStudentAction: (context) => {
             context.commit("LOGOUT_STUDENT")
         },
+        changeLoadingDataAction: (context, status: boolean) => {
+            context.commit("CHANGE_LOADING_DATA_DASHBOARD", status)
+        },
+        changeUrlRedirect: (context, url: string) => {
+            context.commit("CHANGE_URLREDIRECT", url)
+        },
         setConnectedAction: (context) => {
             context.commit("SET_CONNECT")
+        },
+        changeStateAlert: (context, status: boolean) => {
+            context.commit("CHANGE_STATE_ALERT", status)
+        },
+        changeColorAlert: (context, color: string) => {
+            context.commit("CHANGE_COLOR_ALERT", color)
+        },
+        changeTextAlert: (context, text: string) => {
+            context.commit("CHANGE_TEXT_ALERT", text)
         },
         setDisconnectedAction: (context) => {
             context.commit("SET_DISCONNECT")

@@ -1,5 +1,6 @@
 export interface Student {
     fees: string,
+    password: string,
     actualizationStatus: string,
     connected?: boolean,
     firstName: string,

@@ -7,20 +7,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "@vue/runtime-core";
+import { defineComponent, defineAsyncComponent } from "@vue/runtime-core";
 import Navbar from "@/components/Navbar-Component.vue";
 import Footer from "@/components/Footer-component.vue";
 
 export default defineComponent({
-  name: 'App',
+  name: 'App', 
   components: {
     Navbar,
     Footer
-  },
-  methods: {
-      updatePage() {
-        this.$forceUpdate()
-      }
   }
-});
+})
 </script>

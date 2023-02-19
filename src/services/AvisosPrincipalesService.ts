@@ -1,6 +1,7 @@
 import axios from "./Axios";
 import { AxiosResponse } from "axios";
 
+// Avisos principales
 
 export const getAvisosPrincipalesSecundarios = async () => {
     const res = await axios.get("/dev/aviso-principal/all/secundarios")

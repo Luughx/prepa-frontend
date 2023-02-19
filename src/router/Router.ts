@@ -12,6 +12,34 @@ const routes: RouteRecordRaw[] = [
         component: () => import("@/views/main/inicio-view.vue"),
         meta: { title: "" }
     },
+
+    {
+        path: "/redirect",
+        name: "blank",
+        component: () => import("@/views/main/blank-view.vue"),
+        meta: { title: "" }
+    },
+
+    // AVISOS / NOTICIAS
+    {
+        path: "/avisos/ver/:id",
+        name: "avisos-profile",
+        component: () => import("@/views/main/avisos/avisos-profile.vue"),
+        meta: { title: "Avisos" }
+    },
+    {
+        path: "/avisos",
+        name: "avisos-view",
+        component: () => import("@/views/main/avisos/avisos-view.vue"),
+        meta: { title: "Avisos" }
+    },
+    {
+        path: "/avisos/:id",
+        name: "avisos-list-view",
+        component: () => import("@/views/main/avisos/avisosList-view.vue"),
+        meta: { title: "Avisos" }
+    },
+    // DASHBOARD
     {
         path: "/panel/iniciar-sesion",
         name: "calificaciones",
@@ -36,6 +64,7 @@ const routes: RouteRecordRaw[] = [
         component: () => import("@/views/main/dashboard/estadoCuenta-view.vue"),
         meta: { title: "Estado de cuenta" , hideFooter: true, connectedStudent: true}
     },
+    // MAIN
     {
         path: "/fundacion",
         name: "fundacion",
@@ -43,10 +72,10 @@ const routes: RouteRecordRaw[] = [
         meta: { title: "Fundación" }
     },
     {
-        path: "/reglamentos",
-        name: "reglamentos",
-        component: () => import("@/views/main/reglamentos-view.vue"),
-        meta: { title: "Reglamentos" }
+        path: "/reglamento",
+        name: "reglamento",
+        component: () => import("@/views/main/reglamento-view.vue"),
+        meta: { title: "Reglamento" }
     },
     {
         path: "/calendarios",
@@ -114,10 +143,16 @@ const routes: RouteRecordRaw[] = [
         component: () => import("@/views/dev/anecdotas/anecdotaDev-profile-view.vue"),
         meta: { title: "Anécdota", requiresOwner: true}
     },
-
+    // -- avisos html  --
+    {
+        path: "/dev/avisos-html/editar/:id",
+        name: "dev-avisos-html-edit",
+        component: () => import("@/views/dev/avisosPrincipales/aviso-html-profile.vue"),
+        meta: { title: "Avisos", requiresOwner: true}
+    },
     // -- avisos principales --
     {
-        path: "/dev/avisos-principales",
+        path: "/dev/avisos",
         name: "dev-avisos-principales",
         component: () => import("@/views/dev/avisosPrincipales/avisos-principales-view.vue"),
         meta: { title: "Avisos", requiresOwner: true}
@@ -155,8 +190,12 @@ const routes: RouteRecordRaw[] = [
 
 const router = createRouter({
     history: createWebHistory(),
-    routes
+    routes,
+    scrollBehavior (to, from, savedPosition) {
+        return { top: 0, left: 0 } 
+    }
 })
+
 
 router.beforeEach(async (to, from, next) => {
     to.meta.title ? document.title = `${to.meta.title} | Prepa 2030` : document.title = `Prepa 2030`
