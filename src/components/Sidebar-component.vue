@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse" v-bind:class="{'navbar-dark bg-dark': $store.getters.night, 'navbar-light bg-light': !$store.getters.night }">
             <div class="position-sticky pt-3 sidebar-sticky">
-                <div class="nav-link">
+                <div class="nav-link" v-once>
                     <button class="btn btn-success btn-sm ms-3" @click="reloadData()" :disabled="$store.getters.loadingDataDashboard">
                         <font-awesome-icon icon="fa-solid fa-rotate-right" />
                     </button>

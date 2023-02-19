@@ -143,7 +143,7 @@
     import { defineComponent } from "@vue/runtime-core";
     import { getData } from "@/services/MainService";
     import { logout } from "@/services/UsersService";
-    import { getStudent, deleteLoginStudent } from "@/services/StudentService";
+    import { deleteLoginStudent } from "@/services/StudentService";
     import { UserComplete } from "@/Interfaces/UserComplete";
     import { mapActions } from "vuex";
     import { Student } from "@/Interfaces/StudentData";
@@ -157,20 +157,19 @@
         }
       },
       async mounted() {
-        const resStudent = await getStudent()
-
-        if (resStudent.data) {
-          this.student = resStudent.data.student
+        const res = await getData()
+  
+        if (res.data.student) {
+          this.student = res.data.student.student
           this.LoginStudentAction(this.student)
         }
-        
-        const res = await getData()
-        if (res.data) {
+        if (res.data.user) {
           let userData:UserComplete
-          userData = res.data.user
-          userData.owner = res.data.owner
+          userData = res.data.user.user
+          userData.owner = res.data.user.owner
           this.LoginAction(userData)
         }
+  
         if (localStorage.getItem("night")) {
           this.setNightAction()
           document.body.classList.add("night-bg")

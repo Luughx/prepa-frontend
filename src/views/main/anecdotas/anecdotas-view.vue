@@ -155,7 +155,7 @@
                 </nav>
     
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3" v-once>
                 <SidebarNotices ref="sidebarNotices" :inAnecdotas="true" />
             </div>
         </div>

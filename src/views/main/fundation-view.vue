@@ -56,7 +56,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3" v-once>
                 <SidebarNotices />
             </div>
         </div>
