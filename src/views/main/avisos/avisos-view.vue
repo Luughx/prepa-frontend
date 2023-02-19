@@ -2,10 +2,8 @@
     <div class="container p-4">
         <div class="col-md-8">
             <div v-if="!loading">
-                <div v-if="avisos.length == 0">
-                    <div class="p-4 bg-dark">
-                        <h2>Aun no hay avisos</h2>
-                    </div>
+                <div v-if="avisos.length == 0" class="p-4" v-bind:class="{'bg-dark': $store.getters.night, 'bg-light': !$store.getters.night }">
+                    <h2>Aun no hay avisos</h2>
                 </div>
                 <div v-for="aviso in avisos" :key="aviso._id">
                     <div class="fs-5">
