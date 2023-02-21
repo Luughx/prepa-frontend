@@ -16,6 +16,11 @@
         font-family: Helvetica, sans-serif
       }
 
+      .night-loader {
+        background: #1d2023;
+        color: #ededed;
+      }
+
       #loadingMain{
         text-align: center;
         position: absolute;
@@ -45,6 +50,7 @@
         }
       }
     </style>
+
   </head>
   <body>
     <noscript>
@@ -55,8 +61,13 @@
       <span class="textLoading">Prepa2030</span>
     </div>
 
-
     <div id="app"></div>
 
+    <script>
+      if (localStorage.getItem("night")) {
+        document.getElementById("loadingMain").classList.add("night-loader")
+        document.body.classList.add("night-loader")
+      }
+    </script>
   </body>
 </html>
