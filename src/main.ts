@@ -1,3 +1,5 @@
+import "./preload.js"
+
 import { createApp } from 'vue'
 import router from "./router/Router";
 import store from "./store";
