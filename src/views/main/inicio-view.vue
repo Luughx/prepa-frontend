@@ -9,7 +9,7 @@
             <div class="carousel-inner" v-if="loading">
                 <div class="carousel-item active">
                     <div class="placeholder-glow">
-                        <img class="placeholder img-slideshow">
+                        <img class="placeholder img-slideshow" alt="placeholder loading prepa2030">
                     </div>
                 </div>
     
