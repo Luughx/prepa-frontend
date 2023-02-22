@@ -1,6 +1,6 @@
 <template>
     <div class="container p-5">
-        <section class="row ps-5 pe-5">
+        <section class="row ps-5 pe-5" v-motion-slide-left>
             <div class="col-md-4">
                 <div class="padre-flex">
                     <div class="division-div">
@@ -15,7 +15,7 @@
                 </p>
             </div>
         </section>
-        <section class="row mt-5 ps-5 pe-5">
+        <section class="row mt-5 ps-5 pe-5" v-motion-slide-right>
             <div class="col-md-8 ">
                 <h2>Visión</h2>
                 <p class="fs-5">
@@ -32,7 +32,7 @@
         </section>
         <br>
         <br>
-        <section class="ps-5 pe-5">
+        <section class="ps-5 pe-5" v-motion-slide-left>
             <h2>Historia</h2>
             <p class="fs-5">
                 En 1933, Delicias surgió como una pequeña ciudad y en la década de 1950, la demanda de estudiantes de preparatoria aumentó. Un grupo de Delicienses promovió la creación de una Escuela Preparatoria Federal por Cooperación en 1961 en el edificio de la Escuela Secundaria Federal Leyes de Reforma. La prepa operaba en el turno vespertino y se separó de la secundaria en 1966. El Club Activo 20-30 ayudó a construir un nuevo edificio para la prepa. En 1985, la prepa cambió su nombre a "Preparatoria Federal por Cooperación Activo 20-30, Albert Einstein".
@@ -44,7 +44,7 @@
         <br>
         <br>
 
-        <div class="text-center">
+        <div class="text-center" v-motion-slide-bottom>
             <img :src="require(`@/assets/todos.webp`)" class="img-aboutus" alt="">
         </div>
     </div>

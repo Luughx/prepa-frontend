@@ -8,18 +8,17 @@
             <div class="col-md-10">
                 <div class="col-md-10">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-12" v-motion-slide-top>
                         <div class="card borderless"
                             v-bind:class="{ 'card-night': $store.getters.night, 'bg-light': !$store.getters.night }">
                             <div class="p-4">
                                 <h5 class="card-title h5">Promedio de etapas</h5>
                             </div>
-                            <div class="p-4">
+                            <div class="p-4" v-once>
                                 <Line class="card-img text-white" :options="chartOptions" :data="chartData" />
                             </div>
                             <div class="card-body p-4">
-                                
-                                <p class="fs-6">
+                                <p class="fs-6" v-once>
                                     <strong>Total Alumno: </strong> {{$store.getters.chartDataTotalStudent}}
                                     <br>
                                     <strong>Total grupo: </strong> {{$store.getters.chartDataTotalGroup}}
@@ -58,10 +57,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12 mt-4">
-                        <h3 class="h4">Filtrar por materia</h3>
+                    <div class="col-md-12 mt-4" v-motion-slide-bottom>
+                        <h3 class="h5">Filtrar por materia</h3>
                     </div>
-                    <div class="form-floating mt-1 ms-0">
+                    <div class="form-floating mt-1 ms-0" v-motion-slide-bottom>
                         <select class="form-select" id="floatingSelect" v-bind:class="{'input-night': $store.getters.night}" @change="changeCurrentData()" v-model="currentSubject">
                             <option :value="0">
                                 Seleccionar
@@ -73,21 +72,21 @@
                         <label class="ms-2" for="floatingSelect">Materia</label>
                     </div>
                     
-                    <div class="col-md-12 mt-4" v-if="chartSubjectActive">
+                    <div class="col-md-12 mt-4" v-if="chartSubjectActive" v-motion-slide-bottom>
                         <div class="card borderless"
                             v-bind:class="{ 'card-night': $store.getters.night, 'bg-light': !$store.getters.night }">
                             <div class="p-4">
                                 <h5 class="card-title h5">{{currentSubjectData[0]}}</h5>
                             </div>
                             <div class="p-4">
-                                <Line v-if="currentSubject == 1" class="card-img text-white" :options="chartOptions" :data="chartDataSubject0" />
-                                <Line v-if="currentSubject == 2" class="card-img text-white" :options="chartOptions" :data="chartDataSubject1" />
-                                <Line v-if="currentSubject == 3" class="card-img text-white" :options="chartOptions" :data="chartDataSubject2" />
-                                <Line v-if="currentSubject == 4" class="card-img text-white" :options="chartOptions" :data="chartDataSubject3" />
-                                <Line v-if="currentSubject == 5" class="card-img text-white" :options="chartOptions" :data="chartDataSubject4" />
-                                <Line v-if="currentSubject == 6" class="card-img text-white" :options="chartOptions" :data="chartDataSubject5" />
-                                <Line v-if="currentSubject == 7" class="card-img text-white" :options="chartOptions" :data="chartDataSubject6" />
-                                <Line v-if="currentSubject == 8" class="card-img text-white" :options="chartOptions" :data="chartDataSubject7" />
+                                <Line v-if="currentSubject == 1" class="card-img text-white" :options="chartOptions" :data="chartDataSubject0"/>
+                                <Line v-if="currentSubject == 2" class="card-img text-white" :options="chartOptions" :data="chartDataSubject1"/>
+                                <Line v-if="currentSubject == 3" class="card-img text-white" :options="chartOptions" :data="chartDataSubject2"/>
+                                <Line v-if="currentSubject == 4" class="card-img text-white" :options="chartOptions" :data="chartDataSubject3"/>
+                                <Line v-if="currentSubject == 5" class="card-img text-white" :options="chartOptions" :data="chartDataSubject4"/>
+                                <Line v-if="currentSubject == 6" class="card-img text-white" :options="chartOptions" :data="chartDataSubject5"/>
+                                <Line v-if="currentSubject == 7" class="card-img text-white" :options="chartOptions" :data="chartDataSubject6"/>
+                                <Line v-if="currentSubject == 8" class="card-img text-white" :options="chartOptions" :data="chartDataSubject7"/>
                             </div>
                             <div class="card-body p-4">
                                 <div class="table-responsive">
@@ -115,7 +114,42 @@
                             </div>
                         </div>
                     </div>
-                    
+
+                    <div class="col-md-12 mt-4 card-phantom-calif" v-if="chartPhantomActive" v-motion-slide-bottom>
+                        <div class="card card-phantom-calif"
+                            v-bind:class="{ 'card-night': $store.getters.night, 'bg-light': !$store.getters.night }">
+                            <div class="p-4">
+                                <h5 class="card-title h5">{{currentSubjectData[0]}}</h5>
+                            </div>
+                            <div class="p-4">
+                                <Line class="card-img" :options="chartOptions" :data="chartDataSubject0"/>
+                            </div>
+                            <div class="card-body p-4">
+                                <div class="table-responsive">
+                                    <table class="table table-borderless table-hover" v-bind:class="{'table-dark night-bg': $store.getters.night}">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <br>
                 <br>
@@ -127,15 +161,13 @@
 </template>
 
 <script lang="ts">
-
+    /* eslint-disable */
     import { defineComponent } from "vue-demi";
     import Sidebar from "@/components/Sidebar-component.vue";
-    import axios from "axios";
-
     import { postDownloadScores } from "@/services/StudentService";
     import useVuelidate from '@vuelidate/core';
-    import { required, minLength, email, helpers } from "@vuelidate/validators";
-    import { mapActions } from "vuex";
+    import { required, helpers } from "@vuelidate/validators";
+
     import {
         Chart as ChartJS,
         CategoryScale,
@@ -180,6 +212,7 @@
                 currentSubjectData: [] as string[],
                 currentSubject: 0,
                 chartSubjectActive: false,
+                chartPhantomActive: false,
                 chartDataSubject0: {
                     labels: labelsSubjects,
                     datasets: [
@@ -341,7 +374,6 @@
             }
         },
         mounted() {
-            //console.log(this.$store.state.chartDataScoresSubject.scoresStudent[0])
             this.getStatus()
         },
         methods: {
@@ -362,11 +394,18 @@
                 const resAxios = await postDownloadScores({"fees": "200223", "password": "rl38y"})
                 console.log(resAxios.data)
             },
-            changeCurrentData() {
-                if (this.currentSubject == 0) this.chartSubjectActive = false
+            async changeCurrentData() {
+                if (this.currentSubject == 0) {
+                    this.chartPhantomActive = false
+                    this.chartSubjectActive = false
+                } 
                 else {
-                    this.chartSubjectActive = true
+                    this.chartSubjectActive = false
+                    this.chartPhantomActive = true
                     this.currentSubjectData = this.subjects[this.currentSubject - 1]
+                    await new Promise(resolve => setTimeout(resolve, 100))
+                    this.chartPhantomActive = false
+                    this.chartSubjectActive = true
                 } 
             }
         },
@@ -397,12 +436,16 @@
 
 <style>
 
-    .score-student {
-        color: #7fabd6;
-    }
+.card-phantom-calif {
+    opacity: 0;
+}
 
-    .score-group {
-        color: #f87979;
-    }
+.score-student {
+    color: #7fabd6;
+}
+
+.score-group {
+    color: #f87979;
+}
 
 </style>

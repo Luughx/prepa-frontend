@@ -14,12 +14,15 @@
                         <button class="btn btn-primary" @click="$router.push('/crear/anecdota')">Crear anecdota</button>
                     </div>
                 </div>
-
-                <h2 v-if="anecdotas.length == 0" class="text-center mt-4 mb-4">Aún no hay anécdotas</h2>
-    
+                      
                 <div v-if="!loading">
+                    <h2 v-if="anecdotas.length == 0" class="text-center mt-4 mb-4">Aún no hay anécdotas</h2>
                     <div v-for="anecdota in anecdotas" :key="anecdota._id">
-                        <div class="fs-5">
+                        <div class="fs-5"
+                        v-motion
+                        :initial="{ opacity: 0, y:100 }"
+                        :enter="{ opacity: 1, y:0 }"
+                        >
                             <hr v-bind:class="{'hr-night': $store.getters.night}">
                             <h4>{{anecdota.title}}</h4>
                             <div>
@@ -45,7 +48,7 @@
                                             </p>
                                         </div>
                                         <div class="modal-footer flex-column border-top-0">
-                                            <button class="btn btn-danger w-100 mx-0 mb-2" data-bs-dismiss="modal" @click="deleteAnecdota(anecdota._id)">Eliminar</button>
+                                            <button class="btn btn-danger w-100 mx-0 mb-2" data-bs-dismiss="modal" @click="deleteAnecdota(anecdota._id.toString())">Eliminar</button>
                                             <button type="button" class="btn btn-secondary w-100 mx-0 mb-2" data-bs-dismiss="modal">Cerrar</button>
                                         </div>
                                     </div>
@@ -163,12 +166,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, defineAsyncComponent } from "@vue/runtime-core";
+import { defineComponent, ref } from "@vue/runtime-core";
 import { Anecdota } from "@/Interfaces/Anecdota";
 import { getAnecdotas, deleteAnecdota } from "@/services/AnecdotasService";
 import SidebarNotices from "@/components/SidebarNotices-component.vue";
-//const SidebarNotices = defineAsyncComponent(() => import("@/components/SidebarNotices-component.vue"))
 
+// eslint-disable-next-line
 const sidebarNotices = ref(null)
 
 export default defineComponent({
@@ -202,9 +205,10 @@ export default defineComponent({
             else if (this.anecdotas.length == 4) amountNotices = 3
             else if (this.anecdotas.length == 5) amountNotices = 4;
             
+            // eslint-disable-next-line
             (this.$refs.sidebarNotices as any).loadAvisosHtmlPersonalization(amountNotices.toString())
         },
-        async deleteAnecdota(anecdota:any) {
+        async deleteAnecdota(anecdota: string) {
             await deleteAnecdota(anecdota)
             this.CargarAnecdotas()
         }

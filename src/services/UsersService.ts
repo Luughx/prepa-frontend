@@ -1,5 +1,4 @@
 import axios from "./Axios";
-import { AxiosResponse } from "axios";
 import { User } from "@/Interfaces/User";
 
 export const logout = async () => {
@@ -7,12 +6,12 @@ export const logout = async () => {
     return res
 }
 
-export const getDataUser = async (id: any) => {
+export const getDataUser = async (id: object) => {
     const res = await axios.post("/usuarios/getDataUser", id)
     return res
 }
 
-export const postSignin = async (user: any) => {
+export const postSignin = async (user: object) => {
     const res = await axios.post("/usuarios/iniciar-sesion", user)
     return res
 }

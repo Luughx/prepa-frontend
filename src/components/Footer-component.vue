@@ -7,7 +7,7 @@
                     <span class="mb-3 mb-md-0 text-muted">&copy; 2023 Escuela Preparatoria Activo 20-30 Albert Einstein</span>
                 </div>
                 <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-                    <li>
+                    <li class="">
                         <a target="_blank" class="text-secondary" href="https://www.facebook.com/preparatoria2030/" aria-label="boton facebook">
                             <font-awesome-icon class="icon" icon="fa-brands fa-facebook" />
                         </a>

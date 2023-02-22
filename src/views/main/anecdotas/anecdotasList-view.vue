@@ -8,7 +8,11 @@
                 </div>
                 <div v-if="!loading">
                     <div v-for="anecdota in anecdotas" :key="anecdota._id">
-                        <div class="fs-5">
+                        <div class="fs-5"
+                        v-motion
+                        :initial="{ opacity: 0, y:100 }"
+                        :enter="{ opacity: 1, y:0 }"
+                        >
                             <hr v-bind:class="{'hr-night': $store.getters.night}">
                             <h4>{{anecdota.title}}</h4>
                             <div>
@@ -33,7 +37,7 @@
                                             </p>
                                         </div>
                                         <div class="modal-footer flex-column border-top-0">
-                                            <button class="btn btn-danger w-100 mx-0 mb-2" data-bs-dismiss="modal" @click="deleteAnecdota(anecdota._id)">Eliminar</button>
+                                            <button class="btn btn-danger w-100 mx-0 mb-2" data-bs-dismiss="modal" @click="deleteAnecdota(anecdota._id.toString())">Eliminar</button>
                                             <button type="button" class="btn btn-secondary w-100 mx-0 mb-2" data-bs-dismiss="modal">Cerrar</button>
                                         </div>
                                     </div>
@@ -116,23 +120,23 @@
                 <nav v-if="anecdotas.length != 0">
                     <ul class="pagination justify-content-center">
                         <li class="page-item">
-                            <span class="page-link"  v-bind:class="{'pagination-night': $store.getters.night}" @click="reload(prevPage, false)">Anterior</span>
+                            <span class="page-link"  v-bind:class="{'pagination-night': $store.getters.night}" @click="reload(prevPage.toString(), false)">Anterior</span>
                         </li>
     
                         <li v-if="listVal.one" class="page-item">
-                            <a class="page-link"  v-bind:class="{'pagination-night': $store.getters.night}" @click="reload(listNum.oneN, false)">{{listNum.oneN}}</a>
+                            <a class="page-link"  v-bind:class="{'pagination-night': $store.getters.night}" @click="reload(listNum.oneN.toString(), false)">{{listNum.oneN}}</a>
                         </li>
                         <li v-if="listVal.two" class="page-item">
-                            <a class="page-link"  v-bind:class="{'pagination-night': $store.getters.night}" @click="reload(listNum.twoN, false)">{{listNum.twoN}}</a>
+                            <a class="page-link"  v-bind:class="{'pagination-night': $store.getters.night}" @click="reload(listNum.twoN.toString(), false)">{{listNum.twoN}}</a>
                         </li>
                         <li v-if="listVal.three" class="page-item active">
-                            <a class="page-link"  v-bind:class="{'pagination-night': $store.getters.night}" @click="reload(listNum.threeN, false)">{{listNum.threeN}}</a>
+                            <a class="page-link"  v-bind:class="{'pagination-night': $store.getters.night}" @click="reload(listNum.threeN.toString(), false)">{{listNum.threeN}}</a>
                         </li>
                         <li v-if="listVal.four" class="page-item">
-                            <a class="page-link"  v-bind:class="{'pagination-night': $store.getters.night}" @click="reload(listNum.fourN, false)">{{listNum.fourN}}</a>
+                            <a class="page-link"  v-bind:class="{'pagination-night': $store.getters.night}" @click="reload(listNum.fourN.toString(), false)">{{listNum.fourN}}</a>
                         </li>
                         <li v-if="listVal.five" class="page-item">
-                            <a class="page-link"  v-bind:class="{'pagination-night': $store.getters.night}" @click="reload(listNum.fiveN, false)">{{listNum.fiveN}}</a>
+                            <a class="page-link"  v-bind:class="{'pagination-night': $store.getters.night}" @click="reload(listNum.fiveN.toString(), false)">{{listNum.fiveN}}</a>
                         </li>
     
                         <li class="page-item" :class="{'disabled':listVal.isEnd && !$store.getters.night}">
@@ -150,11 +154,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, defineAsyncComponent } from "@vue/runtime-core";
+import { defineComponent, ref } from "@vue/runtime-core";
 import { Anecdota } from "@/Interfaces/Anecdota";
 import { deleteAnecdota, getAnecdotasList } from "@/services/AnecdotasService";
 import SidebarNotices from "@/components/SidebarNotices-component.vue";
-//const SidebarNotices = defineAsyncComponent(() => import("@/components/SidebarNotices-component.vue"))
+
 interface ListVal {
     isFirst: boolean, 
     isEnd: boolean, 
@@ -165,6 +169,7 @@ interface ListVal {
     five: boolean
 }
 
+// eslint-disable-next-line
 const sidebarNotices = ref(null)
 
 export default defineComponent({
@@ -187,7 +192,7 @@ export default defineComponent({
         await this.CargarAnecdotas()
     },
     methods: {
-        async reload(page: any, next: any) {
+        async reload(page: string, next: boolean) {
             if (next) {
                 if (!this.listVal.isEnd) {
                     await this.$router.push('/anecdotas/'+page)
@@ -200,8 +205,10 @@ export default defineComponent({
         },
         async CargarAnecdotas() {
             this.loading = true
-            const res = await getAnecdotasList(this.$route.params);
+            const res = await getAnecdotasList(this.$route.params)
             
+            this.anecdotas = []
+
             if (this.$route.params.id == "1") {
                 this.$router.push("/anecdotas")
             } 
@@ -218,11 +225,12 @@ export default defineComponent({
             else if (this.anecdotas.length == 3 || this.anecdotas.length == 4) amountNotices = 1
             else if (this.anecdotas.length == 5) amountNotices = 2;
             
+            // eslint-disable-next-line
             (this.$refs.sidebarNotices as any).loadAvisosHtmlPersonalization(amountNotices.toString())
             
             this.loading = false
         },
-        async deleteAnecdota(anecdota:any) {
+        async deleteAnecdota(anecdota: string) {
             await deleteAnecdota(anecdota)
             this.CargarAnecdotas()
         }

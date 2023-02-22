@@ -1,6 +1,6 @@
 <template>
     <div class="container p-4">
-        <div class="row">
+        <div class="row" v-motion-slide-top>
             <div class="col-md-6 mx-auto">
                 <div class="card" v-bind:class="{'card-night': $store.getters.night}">
                     <div class="card-body">
@@ -93,7 +93,7 @@
 
     import { postSignup, verifyEmail } from "@/services/UsersService";
 
-    import { required, minLength, maxLength, email, sameAs, helpers } from "@vuelidate/validators";
+    import { required, minLength, email, sameAs, helpers } from "@vuelidate/validators";
     import useVuelidate from '@vuelidate/core';
 
     export default defineComponent({
@@ -148,9 +148,6 @@
                         this.verify = true
                         this.showEmail = false
                     }
-
-                    //console.log(this.verify, this.showEmail)
-
                     if (dataForm && !this.showEmail && this.emailValid) {
                         this.buttonDisabled = false
                     } else {
@@ -159,36 +156,20 @@
                     
                 } else {
                     this.showEmail = false
-                    //console.log(dataForm, this.showEmail)
+
                     if (dataForm && !this.showEmail && this.emailValid) {
-                        //console.log("entra")
                         this.buttonDisabled = false
                     } else {
                         this.buttonDisabled = true
                     }
                 }
-
-                //console.log(this.verify)
             },
             buttonDis(dataForm: boolean) {
-                //console.log(dataForm, this.showEmail)
                 if (dataForm && !this.showEmail) {
-                    //console.log("entra")
                     this.buttonDisabled = false
                 } else {
                     this.buttonDisabled = true
                 }
-            },
-            verVariables() {
-                console.log("Inicio: ", this.inicio)
-                console.log("Verify: ", this.verify)
-                console.log("Email Valid: ", this.emailValid)
-                console.log("Ver Aviso: ", this.showEmail)
-                console.log("------------------------")
-            },         
-            test(data: boolean) {
-                this.emailValid = data
-                this.inicio = false
             }
         },
         watch: {

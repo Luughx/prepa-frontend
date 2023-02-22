@@ -16,7 +16,7 @@
             </div>
             <div class="carousel-inner" v-else-if="!loading && exist">
                 <div class="carousel-item active">
-                    <div v-if="avisoPrincipal.link">
+                    <div v-if="avisoPrincipal.link" v-once>
                         <a :href="avisoPrincipal.link.toString()" target="_blank" rel="noopener noreferrer">
                             <img :src="avisoPrincipal.imageURL" 
                             class="d-block img-slideshow" alt="AvisoPrepa2030">
@@ -26,7 +26,7 @@
                             </div>
                         </a>
                     </div>
-                    <div v-else>
+                    <div v-else v-once>
                         <img :src="avisoPrincipal.imageURL" 
                         class="d-block img-slideshow" alt="AvisoPrepa2030">
                         <div class="carousel-caption d-none d-md-block">
@@ -37,7 +37,7 @@
                 </div>
             
                 <div class="carousel-item" v-for="aviso in avisosSecundarios" :key="aviso._id">
-                    <div v-if="aviso.link.toString().length > 0">
+                    <div v-if="aviso.link.toString().length > 0" v-once>
                         <a :href="aviso.link.toString()" target="_blank" rel="noopener noreferrer">
                             <img loading="lazy" :src="aviso.imageURL" 
                             class="d-block img-slideshow" alt="AvisoPrepa2030">
@@ -49,7 +49,7 @@
                     </div>
                     <div v-else>
                         <img loading="lazy" :src="aviso.imageURL" 
-                        class="d-block img-slideshow" alt="AvisoPrepa2030">
+                        class="d-block img-slideshow" alt="AvisoPrepa2030" v-once>
                         <div class="carousel-caption d-none d-md-block">
                             <h4>{{aviso.title}}</h4> 
                             <p class="fs-5">{{aviso.description}}</p>
@@ -79,7 +79,10 @@
             </button>
         </header>
     
-        <section class="container mt-3 p-4" style="max-width: 680px; padding: 0 15px;">
+        <section class="container mt-3 p-4" style="max-width: 680px; padding: 0 15px;"
+        v-motion
+        :initial="{ opacity: 0, y:100 }"
+        :enter="{ opacity: 1, y:0 }">
             <div class="text-center">
                 <p class="lead">
                 La Preparatoria Federal por Cooperación "Activo 20-30, Albert Einstein" es reconocida, a nivel nacional, como una de las escuelas del nivel medio superior con mayor nivel académico. La disciplina que se les inculca a los estudiantes sienta las bases para que logren su desarrollo profesional con respeto a las instituciones, a si mismos y a los demás.
@@ -89,11 +92,14 @@
     
         <hr v-if="avisosHtml.length != 0" v-bind:class="{'hr-night': $store.getters.night}">
     
-        <section v-if="avisosHtml.length != 0" class="container p-4 fs-5" v-bind:class="{'bg-dark': $store.getters.night, 'bg-light': !$store.getters.night}">
+        <section v-if="avisosHtml.length != 0" class="container p-4 fs-5" v-bind:class="{'bg-dark': $store.getters.night, 'bg-light': !$store.getters.night}"
+        v-motion
+        :initial="{ opacity: 0, y:100 }"
+        :enter="{ opacity: 1, y:0 }">
             <h3 class="mb-3">Noticias y avisos</h3>
             <div class="row justify-content-center">
                 <div class="col-md-4 section" v-for="(aviso, index) in avisosHtml" :key="index">
-                    <div>
+                    <div v-once>
                         <div class="section-div">
                             <router-link :to="`/avisos/ver/${aviso.url}`">
                                 <img loading="lazy" class="section-img" :src="aviso.imageURL" :alt="aviso.title" width="408px" height="250px">
@@ -134,6 +140,7 @@ export default defineComponent({
     async mounted() {
         await this.getAvisos()
         await this.getAvisosHtml()
+        document.dispatchEvent(new Event("render-complete"))
     },
     methods: {
         async getAvisosHtml() {

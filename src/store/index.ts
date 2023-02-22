@@ -1,7 +1,5 @@
 import { Student } from "@/Interfaces/StudentData";
-import { User } from "@/Interfaces/User";
 import { UserComplete } from "@/Interfaces/UserComplete";
-import { useRoute } from "vue-router";
 import { createStore } from "vuex";
 
 export default createStore({
@@ -126,6 +124,7 @@ export default createStore({
         ["LOGIN_STUDENT"](state, studentData: Student) {
             state.userStudent = studentData
             state.userStudent.connected = true
+            // eslint-disable-next-line
             const subjects = state.userStudent.subjects as any
             state.chartDataScores.scoresStudent = []
             state.chartDataScores.scoresGroup = []
@@ -144,7 +143,9 @@ export default createStore({
                     state.chartDataScores.scoresStudent.push(subject[j-1])
                     state.chartDataScores.scoresGroup.push(subject[j])
                 } else {
+                    // eslint-disable-next-line
                     const arrayDestroyableStudent = [] as any
+                    // eslint-disable-next-line
                     const arrayDestroyableGroup = [] as any
                     for (let y=0; y < j; y++) {
                         if (y != 0) {

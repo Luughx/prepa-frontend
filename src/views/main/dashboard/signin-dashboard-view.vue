@@ -2,7 +2,7 @@
     <main class="container p-4">
         <div class="row">
             <div class="col-md-6 mx-auto">
-                <div class="card " v-bind:class="{'card-night': $store.getters.night}">
+                <div class="card " v-bind:class="{'card-night': $store.getters.night}" v-motion-slide-top>
                     <div class="card-body">
                         <h1 class="h3 mb-3 fw-normal text-center">
                             Iniciar sesion como alumno
@@ -49,8 +49,6 @@
                             </div>
                         </form>
                     </div>
-
-
                 </div>
             </div>
         </div>
@@ -63,7 +61,7 @@
     import BaseInput from "@/components/form/BaseInput-component.vue";
 
     import useVuelidate from '@vuelidate/core';
-    import { required, minLength, email, helpers } from "@vuelidate/validators";
+    import { required, helpers } from "@vuelidate/validators";
     import { StudentLogin } from "@/Interfaces/StudentLogin";
     import { postLoginScores } from "@/services/StudentService";
     import { mapActions } from "vuex";

@@ -3,7 +3,6 @@
         <div class="row">
             <div class="col-md-8">
                 <div class="container">
-
                     <h2><div v-html="anecdota.title"></div></h2>
                     <p class="fs-5">
                         <div v-html="anecdota.info"></div>
@@ -14,8 +13,6 @@
                         <div v-html="anecdota.author"></div>
                     </p>
                 </div>
-                
-    
             </div>
             <div class="col-md-4">
                 <div class="card" v-bind:class="{'night-bg': $store.getters.night}">
@@ -73,11 +70,11 @@
 <script lang="ts">
 import { defineComponent } from "@vue/runtime-core";
 import { Anecdota } from "@/Interfaces/Anecdota";
-import { getAnecdota, getAnecdotas, putAnecdotaDev } from "@/services/AnecdotasService";
+import { getAnecdota, putAnecdotaDev } from "@/services/AnecdotasService";
 
 import BaseInput from "@/components/form/BaseInput-component.vue";  
 import useVuelidate from "@vuelidate/core";
-import { required, maxLength, minLength, helpers } from "@vuelidate/validators";
+import { required, maxLength, helpers } from "@vuelidate/validators";
 
 export default defineComponent({
     components: {
@@ -95,12 +92,11 @@ export default defineComponent({
     },
     methods: {
         async submit() {
-            const res = await putAnecdotaDev(this.$route.params.id, this.anecdota)
-            //console.log(res.data)
+            await putAnecdotaDev(this.$route.params.id.toString(), this.anecdota)
         }
     },
     async mounted() {
-        const res = await getAnecdota(this.$route.params.id)
+        const res = await getAnecdota(this.$route.params.id.toString())
         this.anecdota = res.data
     },
     validations() {

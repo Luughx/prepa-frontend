@@ -1,6 +1,4 @@
 import axios from "./Axios";
-import { AxiosResponse } from "axios";
-import { User } from "@/Interfaces/User";
 import { StudentLogin } from "@/Interfaces/StudentLogin";
 
 export const getStudent = async () => {
@@ -13,11 +11,10 @@ export const postLoginScores = async (student: StudentLogin) => {
     return res
 }
 
-export const postDownloadScores = async (student: any) => {
+export const postDownloadScores = async (student: object) => {
     const res = await axios.post("/dashboard/scores/download", student)
     return res
 }
-
 
 export const deleteLoginStudent = async () => {
     const res = await axios.delete("/dashboard/deletedata")

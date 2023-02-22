@@ -1,6 +1,6 @@
 <template>
     <main class="container p-4">
-        <div class="row">
+        <div class="row" v-motion-slide-top>
             <div class="col-md-6 mx-auto">
                 <div class="card " v-bind:class="{'card-night': $store.getters.night}">
                     <div class="card-body">
@@ -60,7 +60,6 @@
     import useVuelidate from '@vuelidate/core';
     import { required, minLength, email, helpers } from "@vuelidate/validators";
     import { postSignin } from "@/services/UsersService";
-    import navbar from "@/components/Navbar-Component.vue";
     import { mapActions } from "vuex";
     import { UserComplete } from "@/Interfaces/UserComplete";
 

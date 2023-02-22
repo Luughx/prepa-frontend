@@ -1,7 +1,12 @@
 <template>
     <div v-if="!loadingData" class="sidebar-notices">
-        <div v-if="avisosHtml.length != 0">
-            <h2 class="h4">Avisos y Noticias</h2>
+        <div v-if="avisosHtml.length != 0" v-motion
+            :initial="{ opacity: 0, x:100 }"
+            :enter="{ opacity: 1, x:0 }">
+
+            <h2 class="h4">
+                Avisos y Noticias
+            </h2>
             <div v-for="aviso in avisosHtml" :key="aviso._id">
                 <div class="fs-5">
                     <hr v-bind:class="{'hr-night': $store.getters.night}">

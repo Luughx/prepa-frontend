@@ -1,15 +1,14 @@
 <template>
     <main class="container p-5">
         <div class="row">
-            <div class="col-md-8 pe-5">
+            <div class="col-md-8 pe-5" v-motion-slide-left>
                 <section class="mb-3 pe-5">
-                    <h3 class="">Contáctanos</h3>
+                    <h3>Contáctanos</h3>
                     <p class="fs-5">
                         Estamos aquí para ayudarte. Si tienes alguna pregunta, comentario o sugerencia, no dudes en ponerte en contacto con nosotros. Nuestro equipo de atención al cliente está disponible para responder cualquier consulta que tengas.
                     </p>
                 </section>
                 <br>
-    
                 <section>
                     <div class="mb-3">
                         <font-awesome-icon icon="fa-solid fa-phone" /> 

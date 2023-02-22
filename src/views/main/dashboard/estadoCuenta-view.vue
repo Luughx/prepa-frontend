@@ -6,8 +6,8 @@
                 <Sidebar />
             </div>
             <div class="col-md-10">
-                <h2 class="h5 mb-4">Actualizado el {{ $store.getters.studentStatusActualization }}</h2>
-                <div class="col-md-12">
+                <h2 class="h5 mb-4" v-motion-slide-top>Actualizado el {{ $store.getters.studentStatusActualization }}</h2>
+                <div class="col-md-12" v-motion-slide-bottom>
                     <div class="card borderless"
                         v-bind:class="{ 'card-night': $store.getters.night, 'bg-light': !$store.getters.night }">
                         <div class="card-body p-4">

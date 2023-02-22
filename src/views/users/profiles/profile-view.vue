@@ -20,11 +20,11 @@
 
         <hr>
         
-        <p v-if="anecdotas.length == 0 || !anecdotasVerificadas && !userOwner" class="text-center fs-4">
+        <p v-if="anecdotas.length == 0 || !anecdotasVerificadas && !userOwner" class="text-center fs-4" v-motion-slide-bottom>
             No hay anecdotas para mostrar
         </p>
 
-        <div v-else>
+        <div v-else v-motion-slide-bottom>
             <table class="table" v-bind:class="{'night-bg': $store.getters.night}">
                 <thead>
                     <th>Titulo</th>
@@ -64,7 +64,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                            <button class="btn btn-danger" data-bs-dismiss="modal" @click="deleteAnecdota(anecdota._id)">Eliminar</button>
+                                            <button class="btn btn-danger" data-bs-dismiss="modal" @click="deleteAnecdota(anecdota._id.toString())">Eliminar</button>
                                         </div>
                                     </div>
                                 </div>
@@ -90,7 +90,7 @@
             </table>
         </div>
         
-        <div v-if="userOwner" class="padre-flex">
+        <div v-if="userOwner" class="padre-flex" v-motion-slide-bottom>
             <router-link to="/crear/anecdota"><button class="btn btn-primary">Crear anécdota</button></router-link>
         </div>
     </div>
@@ -132,7 +132,7 @@ import { defineComponent } from "vue-demi";
         },
         methods: {
             async anecdotasUser() {
-                const anecdotasUser = await getAnecdotasUser(this.$route.params.id)
+                const anecdotasUser = await getAnecdotasUser(this.$route.params.id.toString())
                 if (anecdotasUser.data) {
                     this.anecdotas = anecdotasUser.data
                     for (let i=0; i < this.anecdotas.length; i++) {
@@ -140,7 +140,7 @@ import { defineComponent } from "vue-demi";
                     }
                 }
             },
-            async deleteAnecdota(anecdota:any) {
+            async deleteAnecdota(anecdota: string) {
                 await deleteAnecdota(anecdota)
                 this.anecdotasUser()
             }

@@ -1,6 +1,6 @@
 import axios from "./Axios"
 
-export const putAvisohtml = async (id: string, form: any) => {
+export const putAvisohtml = async (id: string, form: FormData) => {
     const res = await axios.put(`/dev/aviso-html/editar/${id}`, form, {headers: {'Content-Type': 'multipart/form-data'}})
     return res
 }
@@ -35,7 +35,7 @@ export const deleteAvisohtml = async (id: string) => {
     return res
 }
 
-export const postAvisoHtml = async (aviso: any) => {
+export const postAvisoHtml = async (aviso: object) => {
     const res = await axios.post("/dev/aviso-html/agregar", aviso, {headers: {'Content-Type': 'multipart/form-data'}})
     return res
 }

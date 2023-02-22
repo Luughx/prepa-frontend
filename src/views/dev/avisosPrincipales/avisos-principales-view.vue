@@ -1,15 +1,20 @@
 <template>
     <div class="container p-4" v-if="$store.getters.connected && $store.getters.isOwner">
-        <div class="input-group mb-3">
+        <div class="input-group mb-3" v-motion-slide-top>
         <button type="button" class="btn btn-success" @click="toggleCreateButton()"><font-awesome-icon icon="fa-solid fa-plus" /> Crear</button>
-            <select v-if="createButtonActive" class="ms-3" @change="changeSelected()" v-bind:class="{'input-night': $store.getters.night}" v-model="avisoType">
+            <select v-if="createButtonActive" class="ms-3" @change="changeSelected()" v-bind:class="{'input-night': $store.getters.night}" v-model="avisoType"
+            v-motion
+            :initial="{ opacity: 0, x: -100 }"
+            :enter="{ opacity: 1, x: 0}"
+            :leave="{ opacity: 0, x: -100 }">
+
                 <option value="0">Seleccionar</option>
                 <option value="1">Aviso principal/banner</option>
                 <option value="2">Aviso/noticia con html</option>
             </select>
         </div>
         <div class="row">
-            <div class="col-md-6" v-if="avisoMainActive">
+            <div class="col-md-6" v-if="avisoMainActive" v-motion-slide-bottom>
                 <div class="card borderless" v-bind:class="{'card-night': $store.getters.night, 'bg-light': !$store.getters.night }">
                     <div class="card-body">
                         <form action="" v-on:submit.prevent="submitMain()" enctype="multipart/form-data">
@@ -52,7 +57,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6" v-if="avisoHtmlActive">
+            <div class="col-md-6" v-if="avisoHtmlActive" v-motion-slide-bottom>
                 <div class="card borderless" v-bind:class="{'card-night': $store.getters.night, 'bg-light': !$store.getters.night }">
                     <div class="card-body">
                         <form action="" v-on:submit.prevent="submitHtml()" enctype="multipart/form-data">
@@ -116,9 +121,10 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6" v-if="avisoHtmlActive && typeContent.previsualizationActive" v-html="avisohtml.content"></div>
+            <div class="col-md-6" v-if="avisoHtmlActive && typeContent.previsualizationActive" v-html="avisohtml.content" v-motion-slide-right></div>
 
-            <div class="accordion accordion-flush" id="accordionFlushExample" v-bind:class="{'bg-dark text-white': $store.getters.night, 'bg-light': !$store.getters.night }">
+            <div class="accordion accordion-flush" id="accordionFlushExample" v-bind:class="{'bg-dark text-white': $store.getters.night, 'bg-light': !$store.getters.night }"
+            v-motion-slide-bottom>
                 <div class="accordion-item" v-bind:class="{'bg-dark text-white': $store.getters.night, 'bg-light': !$store.getters.night }">
                     <h2 class="accordion-header" id="flush-headingOne">
                     <button class="accordion-button collapsed" v-bind:class="{'bg-dark text-white': $store.getters.night, 'bg-light': !$store.getters.night }" 
@@ -394,14 +400,17 @@ export default defineComponent({
             this.sendMain = true
             this.cargarAvisos()
         },
+        // eslint-disable-next-line
         handleFileUpload(event:any){
             this.aviso.file = event.target.files[0]
             this.sendMain = true
         },
+        // eslint-disable-next-line
         handleFileUploadFileHtml(event:any){
             this.avisohtml.file = event.target.files[0]
             this.fileHtmlActive = true
         },
+        // eslint-disable-next-line
         handleFileUploadImageHtml(event:any){
             this.avisohtml.image = event.target.files[0]
             this.imageHtmlActive = true

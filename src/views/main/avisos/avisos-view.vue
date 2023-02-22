@@ -2,13 +2,17 @@
     <div class="container p-4">
         <div class="col-md-8">
             <div v-if="!loading">
-                <div v-if="avisos.length == 0" class="p-4" v-bind:class="{'bg-dark': $store.getters.night, 'bg-light': !$store.getters.night }">
+                <div v-if="avisos.length == 0" class="p-4" v-bind:class="{'bg-dark': $store.getters.night, 'bg-light': !$store.getters.night }" v-motion-slide-top>
                     <h2>Aun no hay avisos</h2>
                 </div>
                 <div v-for="aviso in avisos" :key="aviso._id">
-                    <div class="fs-5">
+                    <div class="fs-5" 
+                    v-motion
+                        :initial="{ opacity: 0, y:100 }"
+                        :enter="{ opacity: 1, y:0 }">
                         <hr v-bind:class="{'hr-night': $store.getters.night}">
-                        <div class="row">
+                        <div class="row" 
+                        >
                             <div class="col-md-4">
                                 <div class="section-div-avisos">
                                     <img class="w-100 section-img" :src="aviso.imageURL" :alt="aviso.title">

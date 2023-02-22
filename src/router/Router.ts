@@ -191,7 +191,7 @@ const routes: RouteRecordRaw[] = [
 const router = createRouter({
     history: createWebHistory(),
     routes,
-    scrollBehavior (to, from, savedPosition) {
+    scrollBehavior () {
         return { top: 0, left: 0 } 
     }
 })
@@ -216,7 +216,7 @@ router.beforeEach(async (to, from, next) => {
             next()
         } else {
             const res = await getData()
-            if (res.data) {
+            if (res.data.user) {
                 next()
             } else {
                 next("/usuarios/iniciar-sesion")
@@ -227,7 +227,7 @@ router.beforeEach(async (to, from, next) => {
             next()
         } else {
             const res = await getData()
-            if (res.data.owner && res.data.user) {
+            if (res.data.user.owner && res.data.user.user) {
                 next()
             } else {
                 next("/usuarios/iniciar-sesion")

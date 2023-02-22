@@ -45,7 +45,7 @@
             </form>
         </div>
     </div>
-    <div class="container p-4" v-html="aviso.content"></div>
+    <div class="container p-4" v-html="aviso.content" v-motion-slide-bottom></div>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue-demi";
@@ -98,6 +98,7 @@ export default defineComponent({
             }
             this.loading = false
         },
+        // eslint-disable-next-line
         handleFileUploadImageHtml(event:any){
             this.avisoImage = event.target.files[0]
         }

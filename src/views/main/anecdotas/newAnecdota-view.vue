@@ -60,7 +60,7 @@
     import BaseInput from "@/components/form/BaseInput-component.vue";    
     import useVuelidate from "@vuelidate/core";
     import { Anecdota } from "@/Interfaces/Anecdota";
-    import { required, maxLength, minLength, helpers } from "@vuelidate/validators";
+    import { required, maxLength, helpers } from "@vuelidate/validators";
     import { postSend } from "@/services/AnecdotasService";
 
     export default defineComponent({

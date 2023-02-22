@@ -2,7 +2,7 @@
     <div class="container p-4">
     <div class="row">
         <div class="row">
-            <div class="col-md-9">
+            <div class="col-md-9" v-motion-slide-bottom>
                 <div class="ps-5 pe-5">
                     <h1 class="text-center">Historia</h1>
                     <div class="fs-5">
@@ -32,7 +32,7 @@
                         </p>
                     </div>
                     <hr>
-                    <div class="row">
+                    <div class="row" v-motion-slide-visible-once-bottom>
                         <div class="col-md-6">
                             <div class="fs-6">
                                 <h6>Redacción:</h6>

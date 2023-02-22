@@ -4,7 +4,10 @@
 
             <div v-if="!loading">
                 <div v-for="aviso in avisos" :key="aviso._id">
-                    <div class="fs-5">
+                    <div class="fs-5" 
+                    v-motion
+                    :initial="{ opacity: 0, y:100 }"
+                    :enter="{ opacity: 1, y:0 }">
                         <hr v-bind:class="{'hr-night': $store.getters.night}">
 
                         <div class="row">
@@ -156,23 +159,23 @@
             <nav>
                 <ul class="pagination justify-content-center">
                     <li class="page-item">
-                        <span class="page-link"  v-bind:class="{'pagination-night': $store.getters.night}" @click="reload(prevPage, false)">Anterior</span>
+                        <span class="page-link"  v-bind:class="{'pagination-night': $store.getters.night}" @click="reload(prevPage.toString(), false)">Anterior</span>
                     </li>
 
                     <li v-if="listVal.one" class="page-item">
-                        <a class="page-link"  v-bind:class="{'pagination-night': $store.getters.night}" @click="reload(listNum.oneN, false)">{{listNum.oneN}}</a>
+                        <a class="page-link"  v-bind:class="{'pagination-night': $store.getters.night}" @click="reload(listNum.oneN.toString(), false)">{{listNum.oneN}}</a>
                     </li>
                     <li v-if="listVal.two" class="page-item">
-                        <a class="page-link"  v-bind:class="{'pagination-night': $store.getters.night}" @click="reload(listNum.twoN, false)">{{listNum.twoN}}</a>
+                        <a class="page-link"  v-bind:class="{'pagination-night': $store.getters.night}" @click="reload(listNum.twoN.toString(), false)">{{listNum.twoN}}</a>
                     </li>
                     <li v-if="listVal.three" class="page-item active">
-                        <a class="page-link"  v-bind:class="{'pagination-night': $store.getters.night}" @click="reload(listNum.threeN, false)">{{listNum.threeN}}</a>
+                        <a class="page-link"  v-bind:class="{'pagination-night': $store.getters.night}" @click="reload(listNum.threeN.toString(), false)">{{listNum.threeN}}</a>
                     </li>
                     <li v-if="listVal.four" class="page-item">
-                        <a class="page-link"  v-bind:class="{'pagination-night': $store.getters.night}" @click="reload(listNum.fourN, false)">{{listNum.fourN}}</a>
+                        <a class="page-link"  v-bind:class="{'pagination-night': $store.getters.night}" @click="reload(listNum.fourN.toString(), false)">{{listNum.fourN}}</a>
                     </li>
                     <li v-if="listVal.five" class="page-item">
-                        <a class="page-link"  v-bind:class="{'pagination-night': $store.getters.night}" @click="reload(listNum.fiveN, false)">{{listNum.fiveN}}</a>
+                        <a class="page-link"  v-bind:class="{'pagination-night': $store.getters.night}" @click="reload(listNum.fiveN.toString(), false)">{{listNum.fiveN}}</a>
                     </li>
 
                     <li class="page-item" :class="{'disabled':listVal.isEnd && !$store.getters.night}">
@@ -217,7 +220,7 @@ export default defineComponent({
         this.loadAvisos()
     },
     methods: {
-        async reload(page: any, next: any) {
+        async reload(page: string, next: boolean) {
             if (next) {
                 if (!this.listVal.isEnd) {
                     await this.$router.push('/avisos/'+page)

@@ -23,7 +23,7 @@
             </button>
         </div>
     
-        <div class="container p-4">
+        <div class="container p-4" v-motion-slide-bottom>
             <div class="col-md-4 offset-md-4">
                 <div class="card" v-bind:class="{'card-night': $store.getters.night}">
                     <div class="card-body">
@@ -80,7 +80,7 @@
 <script lang="ts">
 import { Aviso_Principal } from '@/Interfaces/Aviso-principal'
 import { getAvisoPrincipal, putAvisoPrincipal } from '@/services/AvisosPrincipalesService'
-import Vue, { defineComponent } from 'vue'
+import { defineComponent } from 'vue'
 export default defineComponent({
     data() {
         return {
@@ -93,7 +93,7 @@ export default defineComponent({
     },
     methods: {
         async getAviso () {
-            let res = await getAvisoPrincipal(this.$route.params.id)
+            let res = await getAvisoPrincipal(this.$route.params.id.toString())
             this.aviso = res.data
         },
         async edit() {
@@ -106,11 +106,12 @@ export default defineComponent({
             form.append("image", this.aviso.file)
 
             this.loading = true
-            await putAvisoPrincipal(this.$route.params.id, form)
+            await putAvisoPrincipal(this.$route.params.id.toString(), form)
             this.getAviso()
             this.loading = false
 
         },
+        // eslint-disable-next-line
         handleFileUpload(event:any){
             this.aviso.file = event.target.files[0]
         }

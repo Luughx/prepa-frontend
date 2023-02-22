@@ -19,7 +19,7 @@
 <script lang="ts">
 import { defineComponent } from "@vue/runtime-core";
 import { Anecdota } from "@/Interfaces/Anecdota";
-import { getAnecdota, getAnecdotas } from "@/services/AnecdotasService";
+import { getAnecdota } from "@/services/AnecdotasService";
 
 export default defineComponent({
     data() {
@@ -28,7 +28,7 @@ export default defineComponent({
         }
     }, 
     async mounted() {
-        const res = await getAnecdota(this.$route.params.id)
+        const res = await getAnecdota(this.$route.params.id.toString())
         this.anecdota = res.data
     }
 })

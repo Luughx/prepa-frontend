@@ -6,7 +6,8 @@
                 <Sidebar />
             </div>
             <div class="col-md-10">
-                <button class="btn btn-success btn-sm" @click="reloadData()" :disabled="$store.getters.loadingDataDashboard">
+                <button class="btn btn-success btn-sm" @click="reloadData()" :disabled="$store.getters.loadingDataDashboard"
+                v-motion-slide-top>
                     <div v-if="$store.getters.loadingDataDashboard">
                         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                         <span> Actualizando...</span>
@@ -20,17 +21,16 @@
                 <br>
                 <br>
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-8" v-motion-slide-top>
                         <div class="card borderless"
                             v-bind:class="{ 'card-night': $store.getters.night, 'bg-light': !$store.getters.night }">
                             <div class="p-4">
                                 <h5 class="card-title h5">Calificaciones</h5>
                             </div>
-                            <div class="p-4">
+                            <div class="p-4" v-once>
                                 <Line class="card-img text-white" :options="chartOptions" :data="chartData" />
                             </div>
-                            <div class="card-body p-4">
-                                
+                            <div class="card-body p-4" v-once>
                                 <p class="fs-6">
                                     <strong>Total Alumno: </strong> {{$store.getters.chartDataTotalStudent}}
                                     <br>
@@ -40,7 +40,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4" v-motion-slide-right>
                         <div class="card borderless"
                             v-bind:class="{ 'card-night': $store.getters.night, 'bg-light': !$store.getters.night }">
                             <div class="card-body p-4">
@@ -74,6 +74,7 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable */
 import { defineComponent } from "vue-demi";
 import Sidebar from "@/components/Sidebar-component.vue";
 import { mapActions } from "vuex";
@@ -92,7 +93,6 @@ import {
 import { Line } from 'vue-chartjs'
 import { StudentLogin } from "@/Interfaces/StudentLogin";
 import { Student } from "@/Interfaces/StudentData";
-import TestView from "../files/test-view.vue";
 
 ChartJS.register(
     CategoryScale,
@@ -105,7 +105,6 @@ ChartJS.register(
 )
 
 export default defineComponent({
-    inject: ["reload"],
     components: {
         Sidebar,
         Line
