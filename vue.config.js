@@ -13,8 +13,7 @@ if (process.env.NODE_ENV === 'production') {
       "/usuarios/registrarse", "/nosotros", "/contactanos"],
       renderer: '@prerenderer/renderer-puppeteer',
       rendererOptions: {
-        renderAfterDocumentEvent: 'render-complete',
-        headless: false
+        renderAfterDocumentEvent: 'render-complete'
       }
 		})
 	)
