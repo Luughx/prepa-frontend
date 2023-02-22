@@ -9,7 +9,13 @@ if (process.env.NODE_ENV === 'production') {
   
 	plugins.unshift(
 		new PrerendererWebpackPlugin({
-			routes: ["/", "/avisos"]
+			routes: ["/", "/avisos", "/panel/iniciar-sesion", "/fundacion", "/reglamento", "/calendarios", "/anecdotas", "/crear/anecdota", "/usuarios/iniciar-sesion",
+      "/usuarios/registrarse", "/nosotros", "/contactanos"],
+      renderer: '@prerenderer/renderer-puppeteer',
+      rendererOptions: {
+        renderAfterDocumentEvent: 'render-complete',
+        headless: false
+      }
 		})
 	)
 }

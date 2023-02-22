@@ -72,6 +72,9 @@ const SidebarNotices = defineAsyncComponent(() => import("@/components/SidebarNo
 export default defineComponent({
     components: {
         SidebarNotices
+    },
+    mounted() {
+        document.dispatchEvent(new Event("render-complete"))
     }
 })
 </script>

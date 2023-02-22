@@ -188,6 +188,7 @@ export default defineComponent({
     }, 
     mounted() {
         this.CargarAnecdotas()
+        document.dispatchEvent(new Event("render-complete"))
     },
     methods: {  
         async CargarAnecdotas() {

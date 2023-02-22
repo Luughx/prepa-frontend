@@ -118,6 +118,9 @@
                 user: {} as User
             }
         },
+        mounted() {
+            document.dispatchEvent(new Event("render-complete"))
+        },
         methods: {
             async clickHandler() {
                 if (this.v$.$invalid) {

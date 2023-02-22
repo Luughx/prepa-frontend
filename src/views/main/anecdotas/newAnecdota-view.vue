@@ -78,6 +78,9 @@
                 sending: false
             }
         },
+        mounted() {
+            document.dispatchEvent(new Event("render-complete"))
+        },
         methods: {
             async submit() {
 

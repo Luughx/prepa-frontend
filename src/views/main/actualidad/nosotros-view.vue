@@ -60,8 +60,8 @@
                 currentCalendar: "Calendario-Escolar-2022-Ago.pdf"
             }
         },
-        methods: {
-            
+        mounted() {
+            document.dispatchEvent(new Event("render-complete"))
         }
     })
 

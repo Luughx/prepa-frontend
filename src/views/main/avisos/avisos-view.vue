@@ -207,6 +207,7 @@ export default defineComponent({
     }, 
     mounted() {
         this.loadAvisos()
+        document.dispatchEvent(new Event("render-complete"))
     },
     methods: {
         async loadAvisos() {

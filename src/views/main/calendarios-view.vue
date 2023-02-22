@@ -39,6 +39,9 @@
                 currentCalendar: "Calendario-Escolar-2022-Ago.pdf"
             }
         },
+        mounted() {
+            document.dispatchEvent(new Event("render-complete"))
+        },
         methods: {
             changeEscolar() {
                 this.currentCalendar = "Calendario-Escolar-2022-Ago.pdf"
