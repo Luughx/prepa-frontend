@@ -138,9 +138,9 @@ export default defineComponent({
         }
     }, 
     async mounted() {
+        document.dispatchEvent(new Event("render-complete"))
         await this.getAvisos()
         await this.getAvisosHtml()
-        document.dispatchEvent(new Event("render-complete"))
     },
     methods: {
         async getAvisosHtml() {
