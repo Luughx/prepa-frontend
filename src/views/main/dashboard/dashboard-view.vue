@@ -28,7 +28,7 @@
                                 <h5 class="card-title h5">Calificaciones</h5>
                             </div>
                             <div class="p-4" v-once>
-                                <Line class="card-img text-white" :options="chartOptions" :data="chartData" />
+                                <Line class="chart-scores" :options="chartOptions" :data="chartData" />
                             </div>
                             <div class="card-body p-4" v-once>
                                 <p class="fs-6">

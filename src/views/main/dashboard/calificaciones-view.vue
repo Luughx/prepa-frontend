@@ -15,7 +15,7 @@
                                 <h5 class="card-title h5">Promedio de etapas</h5>
                             </div>
                             <div class="p-4" v-once>
-                                <Line class="card-img text-white" :options="chartOptions" :data="chartData" />
+                                <Line class="chart-scores" :options="chartOptions" :data="chartData" />
                             </div>
                             <div class="card-body p-4">
                                 <p class="fs-6" v-once>
@@ -79,14 +79,14 @@
                                 <h5 class="card-title h5">{{currentSubjectData[0]}}</h5>
                             </div>
                             <div class="p-4">
-                                <Line v-if="currentSubject == 1" class="card-img text-white" :options="chartOptions" :data="chartDataSubject0"/>
-                                <Line v-if="currentSubject == 2" class="card-img text-white" :options="chartOptions" :data="chartDataSubject1"/>
-                                <Line v-if="currentSubject == 3" class="card-img text-white" :options="chartOptions" :data="chartDataSubject2"/>
-                                <Line v-if="currentSubject == 4" class="card-img text-white" :options="chartOptions" :data="chartDataSubject3"/>
-                                <Line v-if="currentSubject == 5" class="card-img text-white" :options="chartOptions" :data="chartDataSubject4"/>
-                                <Line v-if="currentSubject == 6" class="card-img text-white" :options="chartOptions" :data="chartDataSubject5"/>
-                                <Line v-if="currentSubject == 7" class="card-img text-white" :options="chartOptions" :data="chartDataSubject6"/>
-                                <Line v-if="currentSubject == 8" class="card-img text-white" :options="chartOptions" :data="chartDataSubject7"/>
+                                <Line v-if="currentSubject == 1" class="chart-scores" :options="chartOptions" :data="chartDataSubject0"/>
+                                <Line v-if="currentSubject == 2" class="chart-scores" :options="chartOptions" :data="chartDataSubject1"/>
+                                <Line v-if="currentSubject == 3" class="chart-scores" :options="chartOptions" :data="chartDataSubject2"/>
+                                <Line v-if="currentSubject == 4" class="chart-scores" :options="chartOptions" :data="chartDataSubject3"/>
+                                <Line v-if="currentSubject == 5" class="chart-scores" :options="chartOptions" :data="chartDataSubject4"/>
+                                <Line v-if="currentSubject == 6" class="chart-scores" :options="chartOptions" :data="chartDataSubject5"/>
+                                <Line v-if="currentSubject == 7" class="chart-scores" :options="chartOptions" :data="chartDataSubject6"/>
+                                <Line v-if="currentSubject == 8" class="chart-scores" :options="chartOptions" :data="chartDataSubject7"/>
                             </div>
                             <div class="card-body p-4">
                                 <div class="table-responsive">
@@ -122,7 +122,7 @@
                                 <h5 class="card-title h5">{{currentSubjectData[0]}}</h5>
                             </div>
                             <div class="p-4">
-                                <Line class="card-img" :options="chartOptions" :data="chartDataSubject0"/>
+                                <Line class="chart-scores" :options="chartOptions" :data="chartDataSubject0"/>
                             </div>
                             <div class="card-body p-4">
                                 <div class="table-responsive">

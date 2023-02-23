@@ -13,6 +13,10 @@ hr {
     color: #ededed;
 }
 
+.chart-scores {
+    height: 50vh;
+}
+
 .pagination-night-disabled {
     color: #ededed;
     background: #333333;
