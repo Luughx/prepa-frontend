@@ -6,17 +6,18 @@
                 <Sidebar />
             </div>
             <div class="col-md-10">
-                <button class="btn btn-success btn-sm" @click="reloadData()" :disabled="$store.getters.loadingDataDashboard"
-                v-motion-slide-top>
-                    <div v-if="$store.getters.loadingDataDashboard">
-                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                        <span> Actualizando...</span>
-                    </div>
-                    <div v-else>
-                        <font-awesome-icon icon="fa-solid fa-rotate-right" />
-                        <span> Actualizar</span>
-                    </div>
-                </button>
+                <div class="btn m-0 p-0" v-motion-slide-top>
+                    <button class="btn btn-success btn-sm size-hover" @click="reloadData()" :disabled="$store.getters.loadingDataDashboard">
+                        <div v-if="$store.getters.loadingDataDashboard">
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            <span> Actualizando...</span>
+                        </div>
+                        <div v-else>
+                            <font-awesome-icon icon="fa-solid fa-rotate-right" />
+                            <span> Actualizar</span>
+                        </div>
+                    </button>
+                </div>
                 
                 <br>
                 <br>
@@ -36,7 +37,7 @@
                                     <br>
                                     <strong>Total grupo: </strong> {{$store.getters.chartDataTotalGroup}}
                                 </p>
-                                <router-link class="btn btn-primary" to="/panel/calificaciones">ver más</router-link>
+                                <router-link class="btn btn-primary size-hover" to="/panel/calificaciones">ver más</router-link>
                             </div>
                         </div>
                     </div>
@@ -63,7 +64,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <router-link class="btn btn-primary" to="/panel/estado-cuenta">ver más</router-link>
+                                <router-link class="btn btn-primary size-hover" to="/panel/estado-cuenta">ver más</router-link>
                             </div>
                         </div>
                     </div>

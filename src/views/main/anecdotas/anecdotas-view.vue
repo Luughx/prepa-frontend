@@ -2,7 +2,7 @@
     <div class="container p-4">
         <div class="row">
             <div class="col-md-9">
-                <div class="fs-5 g-5" v-bind:class="{'bg-dark': $store.getters.night, 'bg-light': !$store.getters.night }">
+                <div class="fs-5 g-5" v-bind:class="{'bg-dark': $store.getters.night, 'bg-light': !$store.getters.night }" v-motion-slide-top>
                     <div class="container-fluid py-5">
                         <h1>Anecdotas y recuerdos</h1>
                         <p>
@@ -11,29 +11,29 @@
                         <p>
                             Si tienes alguna historia que contar compartela con nosotros y toda la comunidad de tu prepa 20-30
                         </p>
-                        <button class="btn btn-primary" @click="$router.push('/crear/anecdota')">Crear anecdota</button>
+                        <button class="btn btn-primary size-hover" @click="$router.push('/crear/anecdota')">Crear anecdota</button>
                     </div>
                 </div>
                       
                 <div v-if="!loading">
                     <h2 v-if="anecdotas.length == 0" class="text-center mt-4 mb-4">Aún no hay anécdotas</h2>
                     <div v-for="anecdota in anecdotas" :key="anecdota._id">
-                        <div class="fs-5"
-                        v-motion
-                        :initial="{ opacity: 0, y:100 }"
-                        :enter="{ opacity: 1, y:0 }"
-                        >
+                        <div class="fs-5">
                             <hr v-bind:class="{'hr-night': $store.getters.night}">
-                            <h4>{{anecdota.title}}</h4>
-                            <div>
+
+                            <h3 class="h4" v-motion-slide-bottom>{{anecdota.title}}</h3>
+
+                            <div v-motion-slide-bottom>
                                 {{anecdota.description}}
                             </div>
-                            <div class="fs-6">
+                            <div class="fs-6" v-motion-slide-bottom>
                                 - {{anecdota.author}}
                             </div>
                             <div class="mt-2">
-                                <a @click="$router.push(`/anecdota/${anecdota._id}`)" class="btn btn-outline-primary btn-sm" >Ver más</a>
-                                <a v-if="$store.getters.connected && $store.getters.isOwner" class="btn btn-sm btn-outline-danger ms-2" data-bs-toggle="modal" :data-bs-target="`#exampleModal${anecdota._id}`"><font-awesome-icon icon="fa-solid fa-trash-can" /> Eliminar</a>
+                                <div v-motion-slide-bottom>
+                                    <router-link :to="`/anecdota/${anecdota._id}`" class="btn btn-outline-primary btn-sm size-hover">Ver más</router-link>
+                                    <a v-if="$store.getters.connected && $store.getters.isOwner" class="btn btn-sm btn-outline-danger ms-2 size-hover" data-bs-toggle="modal" :data-bs-target="`#exampleModal${anecdota._id}`"><font-awesome-icon icon="fa-solid fa-trash-can" /> Eliminar</a>
+                                </div>
             
                                 <div v-if="$store.getters.connected && $store.getters.isOwner" class="modal fade" :id="`exampleModal${anecdota._id}`" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" >
@@ -132,27 +132,27 @@
                 <nav v-if="anecdotas.length != 0">
                     <ul class="pagination justify-content-center">
                         <li class="page-item">
-                            <a class="page-link" v-bind:class="{'pagination-night-disabled': $store.getters.night}">Anterior</a>
+                            <a class="page-link" aria-label="Página anterior" v-bind:class="{'pagination-night-disabled': $store.getters.night}">Anterior</a>
                         </li>
     
                         <li class="page-item active">
                             <a class="page-link" v-bind:class="{'pagination-night': $store.getters.night}" href="#">1</a>
                         </li>
                         <li v-if="listVal.two" class="page-item">
-                            <a class="page-link" v-bind:class="{'pagination-night': $store.getters.night}" @click="$router.push('/anecdotas/2')">2</a>
+                            <router-link class="page-link" v-bind:class="{'pagination-night': $store.getters.night}" to="/anecdotas/2">2</router-link>
                         </li>
                         <li v-if="listVal.three" class="page-item">
-                            <a class="page-link" v-bind:class="{'pagination-night': $store.getters.night}" @click="$router.push('/anecdotas/3')">3</a>
+                            <router-link class="page-link" v-bind:class="{'pagination-night': $store.getters.night}" to="/anecdotas/3">3</router-link>
                         </li>
                         <li v-if="listVal.four" class="page-item">
-                            <a class="page-link" v-bind:class="{'pagination-night': $store.getters.night}" @click="$router.push('/anecdotas/4')">4</a>
+                            <router-link class="page-link" v-bind:class="{'pagination-night': $store.getters.night}" to="/anecdotas/4">4</router-link>
                         </li>
                         <li v-if="listVal.five" class="page-item">
-                            <a class="page-link" v-bind:class="{'pagination-night': $store.getters.night}" @click="$router.push('/anecdotas/5')">5</a>
+                            <router-link class="page-link" v-bind:class="{'pagination-night': $store.getters.night}" to="/anecdotas/5">5</router-link>
                         </li>
     
                         <li class="page-item">
-                            <a class="page-link"  v-bind:class="{'pagination-night': $store.getters.night}" @click="$router.push('/anecdotas/2')" :disabled="listVal.two">Siguiente</a>
+                            <a class="page-link" aria-label="Siguiente página" v-bind:class="{'pagination-night': $store.getters.night}" @click="$router.push('/anecdotas/2')" :disabled="listVal.two">Siguiente</a>
                         </li>
                     </ul>
                 </nav>

@@ -98,17 +98,18 @@ export default defineComponent({
     async mounted() {
         const res = await getAnecdota(this.$route.params.id.toString())
         this.anecdota = res.data
+        this.$router.push("/dev/anecdotas")
     },
     validations() {
             return {
                 anecdota: {
                     title: {
                         required: helpers.withMessage("Este espacio no puede estar vacio", required),
-                        maxLength: helpers.withMessage("El titulo no puede ser mayor a 50 caracteres", maxLength(50))
+                        maxLength: helpers.withMessage("El titulo no puede ser mayor a 200 caracteres", maxLength(200))
                     },
                     description: {
                         required: helpers.withMessage("Este espacio no puede estar vacio", required),
-                        maxLength: helpers.withMessage("El titulo no puede ser mayor a 200 caracteres", maxLength(200))
+                        maxLength: helpers.withMessage("La descripción no puede ser mayor a 500 caracteres", maxLength(500))
                     },
                     info: {
                         required: helpers.withMessage("Este espacio no puede estar vacio", required)

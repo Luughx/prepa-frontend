@@ -96,11 +96,11 @@
                 anecdota: {
                     title: {
                         required: helpers.withMessage("Este espacio no puede estar vacio", required),
-                        maxLength: helpers.withMessage("El titulo no puede ser mayor a 50 caracteres", maxLength(50))
+                        maxLength: helpers.withMessage("El titulo no puede ser mayor a 200 caracteres", maxLength(200))
                     },
                     description: {
                         required: helpers.withMessage("Este espacio no puede estar vacio", required),
-                        maxLength: helpers.withMessage("La descripción no puede ser mayor a 200 caracteres", maxLength(200))
+                        maxLength: helpers.withMessage("La descripción no puede ser mayor a 500 caracteres", maxLength(500))
                     },
                     info: {
                         required: helpers.withMessage("Este espacio no puede estar vacio", required)

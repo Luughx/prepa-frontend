@@ -1,7 +1,7 @@
 <template>
     <div class="container p-4" v-if="$store.getters.connected && $store.getters.isOwner">
         <div class="input-group mb-3" v-motion-slide-top>
-        <button type="button" class="btn btn-success" @click="toggleCreateButton()"><font-awesome-icon icon="fa-solid fa-plus" /> Crear</button>
+        <button type="button" class="btn btn-success size-hover" @click="toggleCreateButton()"><font-awesome-icon icon="fa-solid fa-plus" /> Crear</button>
             <select v-if="createButtonActive" class="ms-3" @change="changeSelected()" v-bind:class="{'input-night': $store.getters.night}" v-model="avisoType"
             v-motion
             :initial="{ opacity: 0, x: -100 }"
@@ -123,12 +123,11 @@
             </div>
             <div class="col-md-6" v-if="avisoHtmlActive && typeContent.previsualizationActive" v-html="avisohtml.content" v-motion-slide-right></div>
 
-            <div class="accordion accordion-flush" id="accordionFlushExample" v-bind:class="{'bg-dark text-white': $store.getters.night, 'bg-light': !$store.getters.night }"
-            v-motion-slide-bottom>
+            <div class="accordion accordion-flush" id="accordionFlushExample" v-bind:class="{'bg-dark text-white': $store.getters.night, 'bg-light': !$store.getters.night }">
                 <div class="accordion-item" v-bind:class="{'bg-dark text-white': $store.getters.night, 'bg-light': !$store.getters.night }">
                     <h2 class="accordion-header" id="flush-headingOne">
                     <button class="accordion-button collapsed" v-bind:class="{'bg-dark text-white': $store.getters.night, 'bg-light': !$store.getters.night }" 
-                    type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                    type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne" v-motion-slide-bottom>
                         Avisos principales/banners
                     </button>
                     </h2>
@@ -159,8 +158,8 @@
                                                 <td>{{avisoR.link}}</td>
                                                 <td>{{avisoR.type}}</td>
                                                 <td>
-                                                    <a @click="$router.push('/dev/avisos-principales/editar/'+avisoR._id)" class="btn btn-sm btn-outline-primary"><font-awesome-icon icon="fa-solid fa-pen" /> Editar</a>
-                                                    <a class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" :data-bs-target="'#exampleModal'+avisoR._id"><font-awesome-icon icon="fa-solid fa-trash-can" /> Eliminar</a>
+                                                    <a class="btn btn-sm btn-outline-primary size-hover ms-2 mb-3" @click="$router.push('/dev/avisos-principales/editar/'+avisoR._id)"><font-awesome-icon icon="fa-solid fa-pen" /> Editar</a>
+                                                    <a class="btn btn-sm btn-outline-danger size-hover ms-2 mb-3" data-bs-toggle="modal" :data-bs-target="'#exampleModal'+avisoR._id"><font-awesome-icon icon="fa-solid fa-trash-can" /> Eliminar</a>
                     
                                                     <div class="modal fade" :id="'exampleModal'+avisoR._id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                         <div class="modal-dialog">
@@ -191,7 +190,7 @@
                 <div class="accordion-item" v-bind:class="{'bg-dark text-white': $store.getters.night, 'bg-light': !$store.getters.night }">
                     <h2 class="accordion-header" id="flush-headingTwo" >
                     <button class="accordion-button collapsed" v-bind:class="{'bg-dark text-white': $store.getters.night, 'bg-light': !$store.getters.night }"
-                     type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                     type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo" v-motion-slide-bottom>
                         Avisos/noticias
                     </button>
                     </h2>
@@ -217,11 +216,11 @@
                                                     </div>
                                                 </td>
                                                 <td>{{avisoR.title}}</td>
-                                                <td>{{avisoR.description}}</td>
-                                                <td>{{avisoR.url}}</td>
+                                                <td class="text-break">{{avisoR.description}}</td>
+                                                <td class="text-break">{{avisoR.url}}</td>
                                                 <td>
-                                                    <router-link :to="`/dev/avisos-html/editar/${avisoR.url}`" class="btn btn-sm btn-outline-primary"><font-awesome-icon icon="fa-solid fa-pen" /> Editar</router-link>
-                                                    <a class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" :data-bs-target="'#exampleModal'+avisoR._id"><font-awesome-icon icon="fa-solid fa-trash-can" /> Eliminar</a>
+                                                    <router-link class="btn btn-sm btn-outline-primary size-hover ms-2 mb-3" :to="`/dev/avisos-html/editar/${avisoR.url}`"><font-awesome-icon icon="fa-solid fa-pen" /> Editar</router-link>
+                                                    <a class="btn btn-sm btn-outline-danger size-hover ms-2 mb-3" data-bs-toggle="modal" :data-bs-target="'#exampleModal'+avisoR._id"><font-awesome-icon icon="fa-solid fa-trash-can" /> Eliminar</a>
                     
                                                     <div class="modal fade" :id="'exampleModal'+avisoR._id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                         <div class="modal-dialog">

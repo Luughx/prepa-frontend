@@ -3,7 +3,7 @@
         <div class="col-md-8">
             <div v-if="anecdotas.length != 0">
                 <h1 v-motion-slide-top>Anécdotas</h1>
-                <table class="table table-hover" v-bind:class="{'night-bg table-dark': $store.getters.night}" v-motion-slide-bottom>
+                <table class="table table-hover" v-bind:class="{'night-bg table-dark': $store.getters.night}">
                     <thead>
                         <tr>
                             <th>Titulo</th>
@@ -13,16 +13,18 @@
                     </thead>
                     <tbody v-for="anecdota in anecdotas" :key="anecdota._id">
                         <tr>
-                            <td>
+                            <td v-motion-slide-bottom>
                                 {{anecdota.title}}
                             </td>
-                            <td>
+                            <td v-motion-slide-bottom>
                                 {{anecdota.description}}
                             </td>
                             <td>
-                                <a href="#" class="btn btn-sm btn-outline-primary" @click="aceptarAnecdotas(anecdota._id.toString())">Aceptar</a>
-                                <a class="btn btn-sm btn-outline-danger ms-2" data-bs-toggle="modal" :data-bs-target="`#exampleModal${anecdota._id}`">Eliminar</a>
-                                <router-link class="btn btn-sm btn-outline-secondary ms-2"  v-bind:class="{'btn-outline-light': $store.getters.night, 'btn-outline-secondary': !$store.getters.night}" :to="'/dev/anecdotas/'+anecdota._id">Ver</router-link>
+                                <div v-motion-slide-bottom>
+                                    <a href="#" class="btn btn-sm btn-outline-primary ms-2 mb-2 size-hover" @click="aceptarAnecdotas(anecdota._id.toString())">Aceptar</a>
+                                    <a class="btn btn-sm btn-outline-danger ms-2 mb-2 size-hover" data-bs-toggle="modal" :data-bs-target="`#exampleModal${anecdota._id}`">Eliminar</a>
+                                    <router-link class="btn btn-sm btn-outline-secondary ms-2 mb-2 size-hover"  v-bind:class="{'btn-outline-light': $store.getters.night, 'btn-outline-secondary': !$store.getters.night}" :to="'/dev/anecdotas/'+anecdota._id">Ver</router-link>
+                                </div>
     
                                 <div class="modal fade py-5"  :id="`exampleModal${anecdota._id}`" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" >

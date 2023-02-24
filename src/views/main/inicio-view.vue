@@ -21,38 +21,38 @@
                             <img :src="avisoPrincipal.imageURL" 
                             class="d-block img-slideshow" alt="AvisoPrepa2030">
                             <div class="carousel-caption d-none d-md-block">
-                                <h4>{{avisoPrincipal.title}}</h4> 
-                                <p class="fs-5">{{avisoPrincipal.description}}</p>
+                                <h4><div v-html="avisoPrincipal.title"></div></h4> 
+                                <p class="fs-5"><div v-html="avisoPrincipal.description"></div></p>
                             </div>
                         </a>
                     </div>
-                    <div v-else v-once>
+                    <div v-else>
                         <img :src="avisoPrincipal.imageURL" 
                         class="d-block img-slideshow" alt="AvisoPrepa2030">
                         <div class="carousel-caption d-none d-md-block">
-                            <h4>{{avisoPrincipal.title}}</h4> 
-                            <p class="fs-5">{{avisoPrincipal.description}}</p>
+                            <h4><div v-html="avisoPrincipal.title"></div></h4> 
+                            <p class="fs-5"><div v-html="avisoPrincipal.description"></div></p>
                         </div>
                     </div>
                 </div>
             
                 <div class="carousel-item" v-for="aviso in avisosSecundarios" :key="aviso._id">
-                    <div v-if="aviso.link.toString().length > 0" v-once>
+                    <div v-if="aviso.link.toString().length > 0">
                         <a :href="aviso.link.toString()" target="_blank" rel="noopener noreferrer">
                             <img loading="lazy" :src="aviso.imageURL" 
                             class="d-block img-slideshow" alt="AvisoPrepa2030">
                             <div class="carousel-caption d-none d-md-block">
-                                <h4>{{aviso.title}}</h4> 
-                                <p class="fs-5">{{aviso.description}}</p>
+                                <h4><div v-html="aviso.title"></div></h4> 
+                                <p class="fs-5"><div v-html="aviso.description"></div></p>
                             </div>
                         </a>
                     </div>
                     <div v-else>
                         <img loading="lazy" :src="aviso.imageURL" 
-                        class="d-block img-slideshow" alt="AvisoPrepa2030" v-once>
+                        class="d-block img-slideshow" alt="AvisoPrepa2030">
                         <div class="carousel-caption d-none d-md-block">
-                            <h4>{{aviso.title}}</h4> 
-                            <p class="fs-5">{{aviso.description}}</p>
+                            <h4><div v-html="aviso.title"></div></h4> 
+                            <p class="fs-5"><div v-html="aviso.description"></div></p>
                         </div>
                     </div>
                 </div>
@@ -99,7 +99,7 @@
             <h3 class="mb-3">Noticias y avisos</h3>
             <div class="row justify-content-center">
                 <div class="col-md-4 section" v-for="(aviso, index) in avisosHtml" :key="index">
-                    <div v-once>
+                    <div class="mb-3">
                         <div class="section-div">
                             <router-link :to="`/avisos/ver/${aviso.url}`">
                                 <img loading="lazy" class="section-img" :src="aviso.imageURL" :alt="aviso.title" width="408px" height="250px">

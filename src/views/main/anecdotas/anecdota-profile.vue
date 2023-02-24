@@ -1,7 +1,6 @@
 <template>
     <div class="container p-4">
-        <div class="col-md-8">
-            
+        <div class="col-md-8" v-motion-slide-bottom>
             <h2><div v-html="anecdota.title"></div></h2>
             <p class="fs-5" >
                 <div v-html="anecdota.info"></div>

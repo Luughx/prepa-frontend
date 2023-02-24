@@ -24,7 +24,7 @@
                                     <strong>Total grupo: </strong> {{$store.getters.chartDataTotalGroup}}
                                 </p>
                                 <p>
-                                    <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseMain" role="button">
+                                    <a class="btn btn-primary size-hover" data-bs-toggle="collapse" href="#collapseMain" role="button">
                                         Detalles
                                     </a>
                                 </p>

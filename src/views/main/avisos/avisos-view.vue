@@ -6,31 +6,31 @@
                     <h2>Aun no hay avisos</h2>
                 </div>
                 <div v-for="aviso in avisos" :key="aviso._id">
-                    <div class="fs-5" 
-                    v-motion
-                        :initial="{ opacity: 0, y:100 }"
-                        :enter="{ opacity: 1, y:0 }">
+                    <div class="fs-5">
                         <hr v-bind:class="{'hr-night': $store.getters.night}">
-                        <div class="row" 
-                        >
-                            <div class="col-md-4">
+                        <div class="row">
+                            <div class="col-md-4 mb-3" v-motion-slide-bottom>
                                 <div class="section-div-avisos">
                                     <img class="w-100 section-img" :src="aviso.imageURL" :alt="aviso.title">
                                 </div>
                             </div>
                             <div class="col-md-8">
-                                <h2 class="h4">{{aviso.title}}</h2>
-                                <div>
+                                <h2 class="h4" v-motion-slide-bottom>{{aviso.title}}</h2>
+                                <div v-motion-slide-bottom>
                                     {{aviso.description}}
                                 </div>
-                                <div class="text-muted fs-6">
+                                <div class="text-muted fs-6" v-motion-slide-bottom>
                                     {{aviso.createdString}}
                                 </div>
                                 <div class="mt-2">
-                                    <router-link :to="`/avisos/ver/${aviso.url}`" class="btn btn-outline-primary btn-sm" >Ver más</router-link>
-                                    <a v-if="$store.getters.connected && $store.getters.isOwner" class="btn btn-sm btn-outline-danger ms-2" data-bs-toggle="modal" :data-bs-target="`#exampleModal${aviso._id}`"><font-awesome-icon icon="fa-solid fa-trash-can" /> Eliminar</a>
+                                    <div v-motion-slide-bottom>
+                                        <router-link :to="`/avisos/ver/${aviso.url}`" class="btn btn-outline-primary btn-sm size-hover">Ver más</router-link>  
+                                        <a v-if="$store.getters.connected && $store.getters.isOwner" class="btn btn-sm btn-outline-danger ms-2 size-hover" data-bs-toggle="modal" 
+                                        :data-bs-target="`#exampleModal${aviso._id}`"><font-awesome-icon icon="fa-solid fa-trash-can" /> Eliminar</a>
+                                    </div>
 
-                                    <div v-if="$store.getters.connected && $store.getters.isOwner" class="modal fade" :id="`exampleModal${aviso._id}`" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div v-if="$store.getters.connected && $store.getters.isOwner" class="modal fade" :id="`exampleModal${aviso._id}`" tabindex="-1" 
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content rounded-4 shadow" v-bind:class="{'input-night': $store.getters.night}">
                                             <div class="modal-header border-bottom-0">
@@ -161,27 +161,27 @@
             <nav v-if="avisos.length != 0">
                 <ul class="pagination justify-content-center">
                     <li class="page-item">
-                        <a class="page-link" v-bind:class="{'pagination-night-disabled': $store.getters.night}">Anterior</a>
+                        <a class="page-link" aria-label="Página anterior" v-bind:class="{'pagination-night-disabled': $store.getters.night}">Anterior</a>
                     </li>
 
                     <li class="page-item active">
                         <a class="page-link" v-bind:class="{'pagination-night': $store.getters.night}" href="#">1</a>
                     </li>
                     <li v-if="listVal.two" class="page-item">
-                        <a class="page-link" v-bind:class="{'pagination-night': $store.getters.night}" @click="$router.push('/avisos/2')">2</a>
+                        <router-link class="page-link" v-bind:class="{'pagination-night': $store.getters.night}" to="/avisos/2">2</router-link>
                     </li>
                     <li v-if="listVal.three" class="page-item">
-                        <a class="page-link" v-bind:class="{'pagination-night': $store.getters.night}" @click="$router.push('/avisos/3')">3</a>
+                        <router-link class="page-link" v-bind:class="{'pagination-night': $store.getters.night}" to="/avisos/3">3</router-link>
                     </li>
                     <li v-if="listVal.four" class="page-item">
-                        <a class="page-link" v-bind:class="{'pagination-night': $store.getters.night}" @click="$router.push('/avisos/4')">4</a>
+                        <router-link class="page-link" v-bind:class="{'pagination-night': $store.getters.night}" to="/avisos/4">4</router-link>
                     </li>
                     <li v-if="listVal.five" class="page-item">
-                        <a class="page-link" v-bind:class="{'pagination-night': $store.getters.night}" @click="$router.push('/avisos/5')">5</a>
+                        <router-link class="page-link" v-bind:class="{'pagination-night': $store.getters.night}" to="/avisos/5">5</router-link>
                     </li>
 
                     <li class="page-item">
-                        <a class="page-link"  v-bind:class="{'pagination-night': $store.getters.night}" @click="$router.push('/avisos/2')" :disabled="listVal.two">Siguiente</a>
+                        <a class="page-link" aria-label="Siguiente página" v-bind:class="{'pagination-night': $store.getters.night}" @click="$router.push('/avisos/2')" :disabled="listVal.two">Siguiente</a>
                     </li>
                 </ul>
             </nav>

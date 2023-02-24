@@ -4,31 +4,32 @@
 
             <div v-if="!loading">
                 <div v-for="aviso in avisos" :key="aviso._id">
-                    <div class="fs-5" 
-                    v-motion
-                    :initial="{ opacity: 0, y:100 }"
-                    :enter="{ opacity: 1, y:0 }">
+                    <div class="fs-5">
                         <hr v-bind:class="{'hr-night': $store.getters.night}">
-
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-4 mb-3" v-motion-slide-bottom>
                                 <div class="section-div-avisos">
                                     <img class="w-100 section-img" :src="aviso.imageURL" :alt="aviso.title">
                                 </div>
                             </div>
                             <div class="col-md-8">
-                                <h4>{{aviso.title}}</h4>
-                                <div>
+                                <h2 class="h4" v-motion-slide-bottom>{{aviso.title}}</h2>
+                                <div v-motion-slide-bottom>
                                     {{aviso.description}}
                                 </div>
-                                <div class="text-muted fs-6">
+                                <div class="text-muted fs-6" v-motion-slide-bottom>
                                     {{aviso.createdString}}
                                 </div>
                                 <div class="mt-2">
-                                    <router-link :to="`/avisos/ver/${aviso.url}`" class="btn btn-outline-primary btn-sm" >Ver más</router-link>
-                                    <a v-if="$store.getters.connected && $store.getters.isOwner" class="btn btn-sm btn-outline-danger ms-2" data-bs-toggle="modal" :data-bs-target="`#exampleModal${aviso._id}`"><font-awesome-icon icon="fa-solid fa-trash-can" /> Eliminar</a>
+                                    <div v-motion-slide-bottom>
+                                        <router-link :to="`/avisos/ver/${aviso.url}`" class="btn btn-outline-primary btn-sm size-hover">Ver más</router-link>
+                                        
+                                        <a v-if="$store.getters.connected && $store.getters.isOwner" class="btn btn-sm btn-outline-danger ms-2 size-hover" data-bs-toggle="modal" 
+                                        :data-bs-target="`#exampleModal${aviso._id}`"><font-awesome-icon icon="fa-solid fa-trash-can" /> Eliminar</a>
+                                    </div>
 
-                                    <div v-if="$store.getters.connected && $store.getters.isOwner" class="modal fade" :id="`exampleModal${aviso._id}`" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div v-if="$store.getters.connected && $store.getters.isOwner" class="modal fade" :id="`exampleModal${aviso._id}`" tabindex="-1" 
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content rounded-4 shadow" v-bind:class="{'input-night': $store.getters.night}">
                                             <div class="modal-header border-bottom-0">
@@ -157,9 +158,9 @@
             </div>
 
             <nav>
-                <ul class="pagination justify-content-center">
+                <ul class="pagination justify-content-center mt-4">
                     <li class="page-item">
-                        <span class="page-link"  v-bind:class="{'pagination-night': $store.getters.night}" @click="reload(prevPage.toString(), false)">Anterior</span>
+                        <span class="page-link" aria-label="Página anterior" v-bind:class="{'pagination-night': $store.getters.night}" @click="reload(prevPage.toString(), false)">Anterior</span>
                     </li>
 
                     <li v-if="listVal.one" class="page-item">
@@ -179,7 +180,7 @@
                     </li>
 
                     <li class="page-item" :class="{'disabled':listVal.isEnd && !$store.getters.night}">
-                        <a class="page-link" v-bind:class="{'pagination-night-disabled': $store.getters.night && listVal.isEnd, 'pagination-night': $store.getters.night && !listVal.isEnd}" @click="reload(nextPage, true)">Siguiente</a>
+                        <a class="page-link" aria-label="Siguiente página" v-bind:class="{'pagination-night-disabled': $store.getters.night && listVal.isEnd, 'pagination-night': $store.getters.night && !listVal.isEnd}" @click="reload(nextPage, true)">Siguiente</a>
                     </li>
                 </ul>
             </nav>

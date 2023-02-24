@@ -1,6 +1,8 @@
-<template lang="">
+<template>
     <main class="container p-4">
-        <div v-html="content"></div>
+        <div class="col-md-8" v-motion-slide-bottom>
+            <div v-html="content"></div>
+        </div>
     </main>
 </template>
 

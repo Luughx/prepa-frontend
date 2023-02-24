@@ -107,8 +107,7 @@ export default defineComponent({
 
             this.loading = true
             await putAvisoPrincipal(this.$route.params.id.toString(), form)
-            this.getAviso()
-            this.loading = false
+            this.$router.push("/dev/avisos")
 
         },
         // eslint-disable-next-line
