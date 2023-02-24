@@ -93,12 +93,12 @@ export default defineComponent({
     methods: {
         async submit() {
             await putAnecdotaDev(this.$route.params.id.toString(), this.anecdota)
+            this.$router.push("/dev/anecdotas")
         }
     },
     async mounted() {
         const res = await getAnecdota(this.$route.params.id.toString())
         this.anecdota = res.data
-        this.$router.push("/dev/anecdotas")
     },
     validations() {
             return {
