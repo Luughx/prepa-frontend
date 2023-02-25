@@ -121,6 +121,7 @@ import { getAvisoPrincipalPrincipal, getAvisosPrincipalesSecundarios } from "@/s
 import { getAvisoshtmlMain } from "@/services/Avisoshtml";
 import { defineComponent } from "vue-demi";
 import { AvisoHtml } from "@/Interfaces/Aviso-html";
+import { mapActions } from "vuex";
 
 interface Buttons {
     num: number

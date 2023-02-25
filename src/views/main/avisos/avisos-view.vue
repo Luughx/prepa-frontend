@@ -59,7 +59,9 @@
                     <div>
                         <div class="row">
                             <div class="col-md-4">
-                                <span class="placeholder col-12 h-100"></span>
+                                <div class="section-div-avisos">
+                                    <span class="placeholder col-12 h-100"></span>
+                                </div>
                             </div>
                             <div class="col-md-8">
                                 <h4>
@@ -79,7 +81,9 @@
                     <div>
                         <div class="row">
                             <div class="col-md-4">
-                                <span class="placeholder col-12 h-100"></span>
+                                <div class="section-div-avisos">
+                                    <span class="placeholder col-12 h-100"></span>
+                                </div>
                             </div>
                             <div class="col-md-8">
                                 <h4>
@@ -99,7 +103,9 @@
                     <div>
                         <div class="row">
                             <div class="col-md-4">
-                                <span class="placeholder col-12 h-100"></span>
+                                <div class="section-div-avisos">
+                                    <span class="placeholder col-12 h-100"></span>
+                                </div>
                             </div>
                             <div class="col-md-8">
                                 <h4>
@@ -119,7 +125,9 @@
                     <div>
                         <div class="row">
                             <div class="col-md-4">
-                                <span class="placeholder col-12 h-100"></span>
+                                <div class="section-div-avisos">
+                                    <span class="placeholder col-12 h-100"></span>
+                                </div>
                             </div>
                             <div class="col-md-8">
                                 <h4>
@@ -139,7 +147,9 @@
                     <div>
                         <div class="row">
                             <div class="col-md-4">
-                                <span class="placeholder col-12 h-100"></span>
+                                <div class="section-div-avisos">
+                                    <span class="placeholder col-12 h-100"></span>
+                                </div>
                             </div>
                             <div class="col-md-8">
                                 <h4>
