@@ -9,10 +9,9 @@
             <div class="carousel-inner" v-if="loading">
                 <div class="carousel-item active">
                     <div class="placeholder-glow">
-                        <img class="placeholder img-slideshow" alt="placeholder loading prepa2030">
+                        <span class="placeholder img-slideshow"> </span>
                     </div>
                 </div>
-    
             </div>
             <div class="carousel-inner" v-else-if="!loading && exist">
                 <div class="carousel-item active">
