@@ -27,6 +27,8 @@
         </div>
     </div>
     <div v-else class="placeholder-glow">
+        <h2 class="h4 placeholder col-7"></h2>
+        <hr v-bind:class="{'hr-night': $store.getters.night}">
         <div class="fs-5">
             <div>
                 <div class="section-div-avisos">

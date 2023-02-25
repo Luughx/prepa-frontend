@@ -1,9 +1,9 @@
 <template>
     <div class="container-fluid">
-        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse" v-bind:class="{'navbar-dark bg-dark': $store.getters.night, 'navbar-light bg-light': !$store.getters.night }">
+        <nav id="sidebarMenu" class="col-lg-2 d-md-block sidebar collapse" v-bind:class="{'navbar-dark bg-dark': $store.getters.night, 'navbar-light bg-light': !$store.getters.night }">
             <div class="position-sticky pt-3 sidebar-sticky">
                 <div class="nav-link" v-once>
-                    <button class="btn btn-success btn-sm ms-3" @click="reloadData()" :disabled="$store.getters.loadingDataDashboard">
+                    <button class="btn btn-success btn-sm ms-3 size-hover" @click="reloadData()" :disabled="$store.getters.loadingDataDashboard">
                         <font-awesome-icon icon="fa-solid fa-rotate-right" />
                     </button>
                     <h1 class="fs-4 ms-3 mt-2" v-bind:class="{'text-white': $store.getters.night}">
