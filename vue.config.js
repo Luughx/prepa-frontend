@@ -2,7 +2,7 @@ const { defineConfig } = require('@vue/cli-service')
 
 const plugins = []
 
-if (process.env.NODE_ENV === 'production') {
+/* if (process.env.NODE_ENV === 'production') {
   
   const PrerendererWebpackPlugin = require('@prerenderer/webpack-plugin')
   
@@ -15,7 +15,7 @@ if (process.env.NODE_ENV === 'production') {
       }
 		})
 	)
-}
+} */
 
 module.exports = defineConfig({
   transpileDependencies: true,
