@@ -28,7 +28,8 @@ export default createStore({
             text: "Este es un mensaje de error",
             color: "alert-danger"
         },
-        loadingDataDashboard: false
+        loadingDataDashboard: false,
+        mainLoaderActive: true
     },
     getters: {
         night(state) {
@@ -39,6 +40,9 @@ export default createStore({
         },
         urlRedirect(state) {
             return state.urlRedirect
+        },
+        loaderActive(state) {
+            return state.mainLoaderActive
         },
         isOwner(state) {
             return state.user.owner
@@ -110,6 +114,9 @@ export default createStore({
         }
     },
     mutations: {
+        ["CHANGE_LOADER"](state, status: boolean) {
+            state.mainLoaderActive = status
+        },
         ["SWITCH_CONNECTED"](state) {
             if (state.connected) {
                 state.connected = false
@@ -129,19 +136,35 @@ export default createStore({
             state.chartDataScores.scoresStudent = []
             state.chartDataScores.scoresGroup = []
             state.chartDataScores.titles = []
-
+            
             for (let i=0; i < 8; i++) {
                 const subject = subjects[i] 
                 state.chartDataScores.titles.push(subject[0])
-
+                
                 let j = 0
                 do {
                     j++
                 } while (subject[j]);
-
+                
                 if (j < 9) {
-                    state.chartDataScores.scoresStudent.push(subject[j-1])
-                    state.chartDataScores.scoresGroup.push(subject[j])
+                    // eslint-disable-next-line
+                    let arrayDestroyableStudent = [] as any
+                    // eslint-disable-next-line
+                    let arrayDestroyableGroup = [] as any
+                    for (let y=0; y < j-2; y++) {
+                        if (y != 0 && y) {
+                            if (y % 2 != 0) {
+                                arrayDestroyableStudent.push(subject[y])
+                            } else {
+                                arrayDestroyableGroup.push(subject[y])
+                            }
+                        }
+                    }
+                    state.chartDataScoresSubject.scoresStudent.push(arrayDestroyableStudent)
+                    state.chartDataScoresSubject.scoresGroup.push(arrayDestroyableGroup)
+                    
+                    state.chartDataScores.scoresStudent.push(subject[j-2])
+                    state.chartDataScores.scoresGroup.push(subject[j-1])
                 } else {
                     // eslint-disable-next-line
                     const arrayDestroyableStudent = [] as any
@@ -158,7 +181,7 @@ export default createStore({
                     }
                     state.chartDataScoresSubject.scoresStudent.push(arrayDestroyableStudent)
                     state.chartDataScoresSubject.scoresGroup.push(arrayDestroyableGroup)
-
+                    
                     state.chartDataScores.scoresStudent.push(subject[9])
                     state.chartDataScores.scoresGroup.push(subject[10])
                 }
@@ -173,7 +196,7 @@ export default createStore({
             state.chartDataScores.totalGroup = parseFloat((totalGroup/8).toFixed(1))
         },
         ["LOGOUT_STUDENT"](state) {
-
+            
             const clear:Student = {
                 fees: "",
                 actualizationStatus: "",
@@ -238,8 +261,11 @@ export default createStore({
         switchNightAction: (context) => {
             context.commit("SWITCH_NIGHT")
         },
-        LoginAction: (context, user:UserComplete) => {
+        LoginAction: (context, user: UserComplete) => {
             context.commit("LOGIN", user)
+        },
+        changeActiverLoader: (context, status: boolean) => {
+            context.commit("CHANGE_LOADER", status)
         },
         LoginStudentAction: (context, student: Student) => {
             context.commit("LOGIN_STUDENT", student)

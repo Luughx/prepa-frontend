@@ -380,7 +380,19 @@
             getStatus() {
                 for (let i=0; i < 8; i++) {
                     const subjectsVuex = this.$store.getters.studentSubjects[i]
-                    this.subjects.push(subjectsVuex)
+                    let j = 0
+                    do {
+                        j++
+                    } while (subjectsVuex[j]);
+
+                    // eslint-disable-next-line
+                    const destroyableArray = [] as any
+                    if (j < 13) {
+                        for (let y=0; y < j-2; y++) {
+                            destroyableArray.push(subjectsVuex[y])
+                        }
+                    }
+                    this.subjects.push(destroyableArray)
                 }
             },
             async download() {
