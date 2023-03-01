@@ -1,7 +1,7 @@
 <template>
     <div class="container p-4">
 
-        <a class="btn btn-danger" href="#" download="">Descargar</a>
+        <a class="btn btn-danger" :href="url.default" download="Acuerdo de convivencia escolar agosto 2022">Descargar</a>
         <br>
         <br>
         <h1 class="h3">ACUERDO ESCOLAR DE CONVIVENCIA DE LOS PLANTELES DEPENDIENTES DE LA PREFECO EN EL ESTADO DE
@@ -30,6 +30,11 @@
 import { defineComponent } from "vue-demi";
 
 export default defineComponent({
+    data() {
+        return {
+            url: require(`@/assets/pdf/reglamento-2022.pdf`)
+        }
+    },
     mounted() {
         document.dispatchEvent(new Event("render-complete"))
     }
