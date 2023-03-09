@@ -6,6 +6,15 @@
                 <Sidebar />
             </div>
             <div class="col-md-10">
+                <button class="btn btn-danger mb-3" id="buttonDownload" @click="download()" :disabled="loadingDownload">
+                    <div v-if="loadingDownload">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        <span> Descargando...</span>
+                    </div>
+                    <div v-else>
+                        <span> Descargar</span>
+                    </div>
+                </button>
                 <div class="col-md-10">
                 <div class="row">
                     <div class="col-md-12" v-motion-slide-top>
@@ -164,7 +173,7 @@
     /* eslint-disable */
     import { defineComponent } from "vue-demi";
     import Sidebar from "@/components/Sidebar-component.vue";
-    import { postDownloadScores } from "@/services/StudentService";
+    import { getDownloadScores, deleteFileScores } from "@/services/StudentService";
     import useVuelidate from '@vuelidate/core';
     import { required, helpers } from "@vuelidate/validators";
 
@@ -179,7 +188,6 @@
         Legend
     } from 'chart.js'
     import { Line } from 'vue-chartjs'
-
     ChartJS.register(
         CategoryScale,
         LinearScale,
@@ -209,6 +217,7 @@
             return {
                 errorMessage: false,
                 subjects: [] as any,
+                loadingDownload: false,
                 currentSubjectData: [] as string[],
                 currentSubject: 0,
                 chartSubjectActive: false,
@@ -373,8 +382,9 @@
                 }
             }
         },
-        mounted() {
+        async mounted() {
             this.getStatus()
+            await deleteFileScores()
         },
         methods: {
             getStatus() {
@@ -398,13 +408,19 @@
             async download() {
                 /* let formData = new FormData()
                 formData.append("nombresss", "200223")
-                formData.append("pass", "rl38y")
+                formData.append("pass", "rl38y")    
                 formData.append("accion", "Buscar")
 
                 const resAxios = await axios.post("http://67.225.220.160/~prepaco1/boletapdf/rep.php/", formData, { responseType: "blob", headers: {"Access-Control-Allow-Origin": "*"} })
-                 */
-                const resAxios = await postDownloadScores({"fees": "200223", "password": "rl38y"})
-                console.log(resAxios.data)
+                */
+
+               this.loadingDownload = true
+               const res = await getDownloadScores()
+               const file = new File([res.data], "boleta", { type: "application/pdf"})
+               
+               window.open(URL.createObjectURL(file))
+               this.loadingDownload = false
+               await deleteFileScores()
             },
             async changeCurrentData() {
                 if (this.currentSubject == 0) {

@@ -11,8 +11,14 @@ export const postLoginScores = async (student: StudentLogin) => {
     return res
 }
 
-export const postDownloadScores = async (student: object) => {
-    const res = await axios.post("/dashboard/scores/download", student)
+export const getDownloadScores = async () => {
+    // { responseType: "blob" }
+    const res = await axios.get("/dashboard/scores/download", { responseType: "blob" })
+    return res
+}
+
+export const deleteFileScores = async () => {
+    const res = await axios.delete("/dashboard/scores/delete")
     return res
 }
 
